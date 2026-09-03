@@ -6,7 +6,7 @@
       xmlns="http://javafx.com/javafx/17.0.12"
       fx:controller="com.abrigo.view.LoginController">
     <Label text="Login" style="-fx-font-size: 20px;"/>
-    <TextField fx:id="txtUsuario" promptText="Usuário" maxWidth="200"/>
+    <ComboBox fx:id="cbUsuario" promptText="Selecione o usuário" maxWidth="200"/>
     <PasswordField fx:id="txtSenha" promptText="Senha" maxWidth="200"/>
     <Button text="Entrar" onAction="#onEntrarClick"/>
 </VBox>

@@ -20,7 +20,7 @@ public class MenuCadastroController {
 
     @FXML
     private void abrirCadastroProdutos() {
-        NavigationManager.getInstance().navegarConteudo("cadastroProdutos");
+        NavigationManager.getInstance().navegarConteudo("cadastroProduto");
     }
 
     @FXML
