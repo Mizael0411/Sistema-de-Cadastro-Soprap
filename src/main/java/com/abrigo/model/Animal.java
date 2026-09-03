@@ -10,6 +10,8 @@ import java.util.Date;
 
 @Entity
 public class Animal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nome;
     private int idade;
     private Date dataNascimento;

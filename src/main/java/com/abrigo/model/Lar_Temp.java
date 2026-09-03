@@ -10,6 +10,8 @@ import java.util.Date;
 
 @Entity
 public class Lar_Temp {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nome;
     private String endereco;
     private int vagas;

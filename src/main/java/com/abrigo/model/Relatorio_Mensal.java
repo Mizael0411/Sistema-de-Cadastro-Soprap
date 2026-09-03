@@ -9,6 +9,8 @@ import java.util.Date;
 
 @Entity
 public class Relatorio_Mensal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_relatorio;
     private Date data_relatorio;
     private float valor_final;

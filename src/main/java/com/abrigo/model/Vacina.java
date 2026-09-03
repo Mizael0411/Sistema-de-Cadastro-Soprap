@@ -9,6 +9,8 @@ import java.util.Date;
 
 @Entity
 public class Vacina {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_vacina;
     private String tipo_vacina;
     private Date data_vacinacao;
