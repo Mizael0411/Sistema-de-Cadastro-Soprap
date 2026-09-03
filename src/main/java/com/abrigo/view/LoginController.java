@@ -1,16 +1,17 @@
 package com.abrigo.view;
 
-import com.abrigo.App;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import com.abrigo.App;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 
 /**
  * Controller responsável pela tela de login.
@@ -36,6 +37,8 @@ public class LoginController implements Initializable {
         cbUsuario.setItems(javafx.collections.FXCollections.observableArrayList(
                 List.copyOf(usuariosFake.keySet())
         ));
+
+        txtSenha.setOnAction(event -> onEntrarClick());
     }
 
     @FXML
