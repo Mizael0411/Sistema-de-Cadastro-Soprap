@@ -7,9 +7,8 @@ public class Vacina {
     private String tipo_vacina;
     private Date data_vacinacao;
     private float dose;
-}
 
-public int getId_vacina() {
+    public int getId_vacina() {
         return id_vacina;
     }
 
