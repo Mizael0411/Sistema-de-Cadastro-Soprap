@@ -11,6 +11,9 @@ public class Animal {
     private String sexo;
     private String statusVacinacao;
     private String statusGravidez;
+    private int id_animal;
+    private Date data_ultima_vacinacao;
+    private String status_vacinacao;
 
 
 
@@ -21,9 +24,24 @@ public class Animal {
     public void setStatusGravidez(String statusGravidez) {
         this.statusGravidez = statusGravidez;
     }
-
-
-
+    public int getId_animal(){
+        return id_animal;
+    }
+    public void setId_animal(int id_animal){
+        this.id_animal = id_animal;
+    }
+    public Date getData_ultima_vacinacao() {
+        return data_ultima_vacinacao;
+    }
+    public void setData_ultima_vacinacao(Date data_ultima_vacinacao) {
+        this.data_ultima_vacinacao = data_ultima_vacinacao;
+    }
+    public String getStatus_vacinacao() {
+        return status_vacinacao;
+    }
+    public void setStatus_vacinacao(String status_vacinacao) {
+        this.status_vacinacao = status_vacinacao;
+    }
 
     public Date getDataNascimento() {
         return dataNascimento;
