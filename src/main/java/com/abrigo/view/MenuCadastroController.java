@@ -28,6 +28,11 @@ public class MenuCadastroController {
         NavigationManager.getInstance().navegarConteudo("cadastroDoacoes");
     }
 
+    @FXML 
+    private void abrirRegistrosDeVacinas(){
+        NavigationManager.getInstance().navegarConteudo("registrarVacinas");
+    }
+
     @FXML
     private void sair() {
         NavigationManager.getInstance().voltarMenu();

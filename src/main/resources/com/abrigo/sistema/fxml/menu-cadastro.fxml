@@ -8,5 +8,7 @@
     <Button maxWidth="Infinity" onAction="#abrirCadastroLarTemporario" text="Cadastro Lar Temporário" />
     <Button maxWidth="Infinity" onAction="#abrirCadastroProdutos" text="Cadastro Produtos" />
     <Button maxWidth="Infinity" onAction="#abrirCadastroDoacoes" text="Cadastro Doações" />
+    <Button maxWidth="Infinity" onAction="#abrirRegistrosDeVacinas" text="Registrar Vacinas" />
     <Button maxWidth="Infinity" onAction="#sair" text="Sair" />
+    
 </VBox>

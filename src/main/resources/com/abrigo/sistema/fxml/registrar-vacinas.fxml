@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="340.0" prefWidth="278.0" spacing="15" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.CadastroProdutoCOntroller">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="20" />
+    </padding>
+
+    <Label text="Cadastro de Produto">
+        <font>
+            <Font size="20" />
+        </font>
+    </Label>
+
+    <GridPane hgap="10" vgap="12">
+        <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="txtNomeProduto" promptText="Nome do produto/insumo" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <Label text="Descrição:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="txtDescricaoProduto" promptText="Descrição do produto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Quantidade:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Spinner fx:id="spQuantidadeProduto" editable="true" initialValue="0" max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Preço:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="txtPrecoProduto" promptText="Preço do produto (ex: 19.99)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <ComboBox fx:id="cbInsumoProduto" prefWidth="150.0" promptText="Selecione" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Insumo" />
+                    <String fx:value="Produto" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Label text="Produto ou insumo" wrapText="true" GridPane.rowIndex="4" />
+
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+    </GridPane>
+    <BorderPane prefHeight="122.0" prefWidth="238.0">
+      <center>
+         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <left>
+               <Button fx:id="saveButton" mnemonicParsing="false" text="Salvar" BorderPane.alignment="CENTER" />
+            </left>
+            <center>
+               <Button fx:id="voltarButton" mnemonicParsing="false" text="Voltar" BorderPane.alignment="CENTER" />
+            </center>
+            <right>
+               <Button fx:id="abrirRegistrosDeVacinas" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Ver Produtos Cadastrados" wrapText="true" BorderPane.alignment="CENTER" />
+            </right>
+         </BorderPane>
+      </center></BorderPane>
+
+</VBox>
