@@ -6,8 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 
-import java.util.Date;
-
 @Entity
 public class Lar_Temp {
     @Id
