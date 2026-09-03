@@ -15,7 +15,7 @@ public class Insumos {
     private Date data_insumos;
     private float valor;
     private String descricao;
-}
+
 
 public int getId_insumo() {
         return id_insumo;

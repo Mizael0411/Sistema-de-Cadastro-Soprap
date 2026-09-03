@@ -14,7 +14,7 @@ public class Relatorio_Mensal {
     private int id_relatorio;
     private Date data_relatorio;
     private float valor_final;
-}
+
 
 public int getId_relatorio() {
         return id_relatorio;

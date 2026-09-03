@@ -17,7 +17,7 @@ public class Doacao {
     private String tipo_doacao;
     private Date data_doacao;
     private String nome_doador;
-}
+
 
 public int getId_doacao() {
         return id_doacao;

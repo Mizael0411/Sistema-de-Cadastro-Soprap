@@ -14,7 +14,7 @@ public class Adocao {
     private int id_adocao;
     private Date data_adocao;
 
-}
+
 
 public int getId_adocao() {
         return id_adocao;

@@ -19,7 +19,7 @@ public class Lar_Temp {
     private int cpf;
     private int telefone;
     private Boolean aceita_doenças;
-}
+
 
 
     public String getNome() {
@@ -75,4 +75,5 @@ public class Lar_Temp {
     }
 
     public void setAceita_doenças(Boolean aceita_doenças) {
-        this.aceita_doenças = aceita_doenças;
+        this.aceita_doenças = aceita_doenças;}
+    }
