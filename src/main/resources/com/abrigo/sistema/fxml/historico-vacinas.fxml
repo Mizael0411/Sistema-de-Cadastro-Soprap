@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="340.0"
+      prefWidth="278.0"
+      spacing="15"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.abrigo.view.HistoricoVacinasController">
+
+    <padding>
+        <Insets bottom="20"
+                left="20"
+                right="20"
+                top="20" />
+    </padding>
+
+    <Label text="Histórico de Vacinas">
+        <font>
+            <Font size="20" />
+        </font>
+    </Label>
+
+    <GridPane hgap="10"
+              vgap="12">
+
+        <Label text="Animal:"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="0" />
+        
+        <ComboBox fx:id="cbAnimal"
+                  prefWidth="150.0"
+                  promptText="Selecione"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="0" />
+    
+    </GridPane>
+
+    <TableView fx:id="tabelaHistorico"
+               prefHeight="150.0"
+               prefWidth="238.0">
+        
+        <columns>
+
+            <TableColumn fx:id="colunaVacina"
+                         prefWidth="115.0"
+                         text="Vacina" />
+            
+            <TableColumn fx:id="colunaData"
+                         prefWidth="115.0"
+                         text="Data" />
+        
+        </columns>
+    
+    </TableView>
+
+    <BorderPane prefHeight="50.0"
+                prefWidth="238.0">
+        
+        <center>
+            <Button fx:id="voltarButton"
+                    mnemonicParsing="false"
+                    text="Voltar"
+                    onAction="#voltar"
+                    BorderPane.alignment="CENTER" />
+        
+        </center>
+
+    </BorderPane>
+
+</VBox>

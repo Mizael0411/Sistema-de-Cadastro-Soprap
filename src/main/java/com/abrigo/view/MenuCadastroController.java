@@ -30,7 +30,7 @@ public class MenuCadastroController {
 
     @FXML 
     private void abrirRegistrosDeVacinas(){
-        NavigationManager.getInstance().navegarConteudo("registrarVacinas");
+        NavigationManager.getInstance().navegarConteudo("registrar-vacinas");
     }
 
     @FXML

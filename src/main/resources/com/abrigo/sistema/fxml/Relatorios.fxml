@@ -8,5 +8,5 @@
     <Button maxWidth="Infinity" onAction="#abrirRelDoacao" text="Relatório de Doação" />
     <Button maxWidth="Infinity" onAction="#abrirRelAdocao" text="Relatório de Adoção" />
     <Button maxWidth="Infinity" onAction="#abrirRelAnimais" text="Relatório Animais (Lar, Doado)" />
-    <Button maxWidth="Infinity" onAction="#sair" text="Sair" />
+    <Button maxWidth="Infinity" onAction="#sair" text="Voltar" />
 </VBox>

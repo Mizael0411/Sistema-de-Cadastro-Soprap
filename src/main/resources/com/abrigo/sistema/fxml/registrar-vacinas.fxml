@@ -7,64 +7,109 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="340.0" prefWidth="278.0" spacing="15" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.CadastroProdutoCOntroller">
+<VBox prefHeight="340.0"
+      prefWidth="278.0"
+      spacing="15"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.abrigo.view.RegistrarVacinasController">
+
     <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
+        <Insets bottom="20"
+                left="20"
+                right="20"
+                top="20" />
     </padding>
 
-    <Label text="Cadastro de Produto">
+    <Label text="Registro de Vacinas">
         <font>
             <Font size="20" />
         </font>
     </Label>
 
-    <GridPane hgap="10" vgap="12">
-        <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="txtNomeProduto" promptText="Nome do produto/insumo" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <GridPane hgap="10"
+              vgap="12">
 
-        <Label text="Descrição:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField fx:id="txtDescricaoProduto" promptText="Descrição do produto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label text="Animal:"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="0" />
 
-        <Label text="Quantidade:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Spinner fx:id="spQuantidadeProduto" editable="true" initialValue="0" max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <ComboBox fx:id="cbAnimal"
+                  prefWidth="150.0"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="0" />
 
-        <Label text="Preço:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField fx:id="txtPrecoProduto" promptText="Preço do produto (ex: 19.99)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <ComboBox fx:id="cbInsumoProduto" prefWidth="150.0" promptText="Selecione" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Label text="Vacina:"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="1" />
+
+        <ComboBox fx:id="cbTipoVacina"
+                  prefWidth="150.0"
+                  GridPane.columnIndex="1"
+                  GridPane.rowIndex="1">
+
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Insumo" />
-                    <String fx:value="Produto" />
+                    <String fx:value="Raiva" />
+                    <String fx:value="Virose" />
                 </FXCollections>
             </items>
+
         </ComboBox>
-        <Label text="Produto ou insumo" wrapText="true" GridPane.rowIndex="4" />
+
+        <Label text="Data de aplicação:"
+               wrapText="true"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="2" />
+
+        <DatePicker fx:id="dpDataAplicacao"
+                    prefWidth="150.0"
+                    GridPane.columnIndex="1"
+                    GridPane.rowIndex="2" />
 
         <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
         </columnConstraints>
+
         <rowConstraints>
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
         </rowConstraints>
+
     </GridPane>
-    <BorderPane prefHeight="122.0" prefWidth="238.0">
-      <center>
-         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <left>
-               <Button fx:id="saveButton" mnemonicParsing="false" text="Salvar" BorderPane.alignment="CENTER" />
-            </left>
-            <center>
-               <Button fx:id="voltarButton" mnemonicParsing="false" text="Voltar" BorderPane.alignment="CENTER" />
-            </center>
-            <right>
-               <Button fx:id="abrirRegistrosDeVacinas" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Ver Produtos Cadastrados" wrapText="true" BorderPane.alignment="CENTER" />
-            </right>
-         </BorderPane>
-      </center></BorderPane>
+
+    <BorderPane prefHeight="122.0"
+                prefWidth="238.0">
+
+        <center>
+            <BorderPane prefHeight="200.0"
+                        prefWidth="200.0"
+                        BorderPane.alignment="CENTER">
+
+                <left>
+                    <Button fx:id="saveButton"
+                            mnemonicParsing="false"
+                            text="Salvar"
+                            onAction="#salvarVacina"
+                            BorderPane.alignment="CENTER" />
+                </left>
+
+                <right>
+                    <Button fx:id="abrirHistoricoVacinas"
+                            mnemonicParsing="false"
+                            prefHeight="27.0"
+                            prefWidth="99.0"
+                            text="Ver Histórico"
+                            wrapText="true"
+                            onAction="#abrirHistorico"
+                            BorderPane.alignment="CENTER" />
+                </right>
+
+            </BorderPane>
+        </center>
+
+    </BorderPane>
 
 </VBox>
