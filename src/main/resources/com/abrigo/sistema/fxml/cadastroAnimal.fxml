@@ -7,7 +7,8 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 
-<VBox spacing="15" xmlns:fx="http://javafx.com/fxml">
+<VBox spacing="15" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.abrigo.view.CadastroAnimalController">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
@@ -32,7 +33,7 @@
 
         <!-- Sexo -->
         <Label text="Sexo:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <ComboBox fx:id="cbSexo" promptText="Selecione"
+        <ComboBox fx:id="cbSexo" promptText="Selecione"  onAction="#atualizarStatusGravidez"
                   GridPane.rowIndex="2" GridPane.columnIndex="1">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -81,8 +82,8 @@
     </GridPane>
 
     <HBox spacing="10">
-        <Button fx:id="btnSalvar" text="Salvar"/>
-        <Button fx:id="btnLimpar" text="Limpar"/>
+        <Button fx:id="btnSalvar" text="Salvar" onAction="#salvar"/>
+        <Button fx:id="btnLimpar" text="Limpar" onAction="#limpar"/>
     </HBox>
 
 </VBox>

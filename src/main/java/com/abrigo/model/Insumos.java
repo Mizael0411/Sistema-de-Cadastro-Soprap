@@ -49,3 +49,6 @@ public int getId_insumo() {
         this.descricao = descricao;
     }
 }
+
+
+

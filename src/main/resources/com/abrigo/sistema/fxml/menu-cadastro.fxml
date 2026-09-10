@@ -3,12 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.MenuCadastroController">
+<VBox prefHeight="294.0" prefWidth="158.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.MenuCadastroController">
     <Button maxWidth="Infinity" onAction="#abrirCadastroAnimal" text="Cadastro Animal" />
     <Button maxWidth="Infinity" onAction="#abrirCadastroLarTemporario" text="Cadastro Lar Temporário" />
     <Button maxWidth="Infinity" onAction="#abrirCadastroProdutos" text="Cadastro Produtos" />
     <Button maxWidth="Infinity" onAction="#abrirCadastroDoacoes" text="Cadastro Doações" />
     <Button maxWidth="Infinity" onAction="#abrirRegistrosDeVacinas" text="Registrar Vacinas" />
+   <Button layoutX="10.0" layoutY="198.0" maxWidth="Infinity" onAction="#abrirAnimaisCadastrados" text="Animais Cadastrados" wrapText="true" />
     <Button maxWidth="Infinity" onAction="#sair" text="Voltar" />
     
 </VBox>

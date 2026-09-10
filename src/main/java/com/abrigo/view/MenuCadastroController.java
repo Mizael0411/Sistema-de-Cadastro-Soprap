@@ -34,8 +34,14 @@ public class MenuCadastroController {
     }
 
     @FXML
+    private void abrirAnimaisCadastrados() {
+        NavigationManager.getInstance().navegarConteudo("animais-cadastrados");
+    }
+
+    @FXML
     private void sair() {
         NavigationManager.getInstance().voltarMenu();
+
     }
 
 

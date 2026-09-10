@@ -1,6 +1,7 @@
 package com.abrigo.view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
@@ -50,6 +51,20 @@ public class CadastroLarTempController {
     }
 
     @FXML
+    private void salvar() {
+        if (txtNome.getText() == null || txtNome.getText().isBlank()
+                || txtEndereco.getText() == null || txtEndereco.getText().isBlank()
+                || txtTelefone.getText() == null || txtTelefone.getText().isBlank()
+                || cbAceitaDoencas.getValue() == null) {
+            mostrarAlerta("Erro", "Preencha todos os campos antes de salvar.");
+            return;
+        }
+
+        mostrarAlerta("Sucesso", "Lar temporário cadastrado com sucesso!");
+        limparCampos();
+    }
+
+    @FXML
     private void limparCampos() {
         txtNome.clear();
         txtEndereco.clear();
@@ -57,5 +72,13 @@ public class CadastroLarTempController {
         spCapacidade.getValueFactory().setValue(0);
         spDisponibilidadeVagas.getValueFactory().setValue(0);
         cbAceitaDoencas.setValue(null);
+    }
+
+    private void mostrarAlerta(String titulo, String mensagem) {
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(mensagem);
+        alerta.showAndWait();
     }
 }

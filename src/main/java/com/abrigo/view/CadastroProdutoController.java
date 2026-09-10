@@ -3,8 +3,9 @@ package com.abrigo.view;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
+
 
 /**
  * Controller responsável pela gestão da interface gráfica.

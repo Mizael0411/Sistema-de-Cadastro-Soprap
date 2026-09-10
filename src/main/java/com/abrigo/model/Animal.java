@@ -12,52 +12,31 @@ import java.util.Date;
 public class Animal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_animal;
+
     private String nome;
-    private int idade;
+    private Integer idade;
     private Date dataNascimento;
     private String sexo;
     private String statusVacinacao;
     private String statusGravidez;
-    private int id_animal;
     private Date data_ultima_vacinacao;
-    private String status_vacinacao;
 
-
-
-    public String getStatusGravidez() {
-        return statusGravidez;
-    }
-
-    public void setStatusGravidez(String statusGravidez) {
-        this.statusGravidez = statusGravidez;
-    }
-    public int getId_animal(){
+    public Integer getId_animal() {
         return id_animal;
     }
-    public void setId_animal(int id_animal){
+
+    public void setId_animal(Integer id_animal) {
         this.id_animal = id_animal;
     }
-    public Date getData_ultima_vacinacao() {
-        return data_ultima_vacinacao;
-    }
-    public void setData_ultima_vacinacao(Date data_ultima_vacinacao) {
-        this.data_ultima_vacinacao = data_ultima_vacinacao;
-    }
-    public String getStatus_vacinacao() {
-        return status_vacinacao;
-    }
-    public void setStatus_vacinacao(String status_vacinacao) {
-        this.status_vacinacao = status_vacinacao;
+
+    public Integer getId() {
+        return id_animal;
     }
 
-    public Date getDataNascimento() {
-        return dataNascimento;
+    public void setId(int id) {
+        this.id_animal = id;
     }
-
-    public void setdataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
 
     public String getNome() {
         return nome;
@@ -67,12 +46,21 @@ public class Animal {
         this.nome = nome;
     }
 
-    public int getIdade() {
+    public Integer getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(Integer idade) {
         this.idade = idade;
+    }
+
+    public Date getDataNascimento() {
+
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getSexo() {
@@ -91,8 +79,19 @@ public class Animal {
         this.statusVacinacao = statusVacinacao;
     }
 
-    public void setId(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getStatusGravidez() {
+        return statusGravidez;
     }
 
+    public void setStatusGravidez(String statusGravidez) {
+        this.statusGravidez = statusGravidez;
+    }
+
+    public Date getData_ultima_vacinacao() {
+        return data_ultima_vacinacao;
+    }
+
+    public void setData_ultima_vacinacao(Date data_ultima_vacinacao) {
+        this.data_ultima_vacinacao = data_ultima_vacinacao;
+    }
 }

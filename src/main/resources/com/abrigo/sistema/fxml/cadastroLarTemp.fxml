@@ -70,7 +70,7 @@
     </GridPane>
 
     <HBox spacing="10">
-        <Button fx:id="btnSalvar" text="Salvar" />
+        <Button fx:id="btnSalvar" text="Salvar" onAction="#salvar" />
         <Button fx:id="btnLimpar" onAction="#limparCampos" text="Limpar" />
     </HBox>
 </VBox>
