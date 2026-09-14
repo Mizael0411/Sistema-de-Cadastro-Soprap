@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="soprap-pu" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Registra apenas as entidades que vamos testar -->
+        <class>com.abrigo.model.Animal</class>
+        <class>com.abrigo.model.Adocao</class>
+
+        <!-- Força o Hibernate a ignorar qualquer outra classe @Entity não listada acima -->
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <!-- Conexão com o Supabase (garanta que o driver e credenciais estejam configurados) -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?user=postgres.rwvyekttejhtrjcgeybp&amp;password=hX5HeNaK.kcu@yE"/>
+            <property name="jakarta.persistence.jdbc.user" value="postgres.rwvyekttejhtrjcgeybp"/>
+            <property name="jakarta.persistence.jdbc.password" value="hX5HeNaK.kcu@yE"/>
+
+            <!-- 'update' atualiza o banco se necessário sem tentar recriar o que já existe -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            
+            <!-- Logs do SQL executado -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
