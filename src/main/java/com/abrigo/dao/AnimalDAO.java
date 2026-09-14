@@ -1,69 +1,79 @@
 package com.abrigo.dao;
 
-import com.abrigo.database.Conexao;
+import com.abrigo.database.JPAUtil;
 import com.abrigo.model.Animal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalDAO {
 
-    public List<Animal> listarTodos() {
-        List<Animal> lista = new ArrayList<>();
-        String sql = "SELECT * FROM animal";
-
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Animal a = new Animal();
-               a.setId_animal(rs.getInt("id_animal"));
-                a.setNome(rs.getString("nome"));
-               a.setIdade(rs.getInt("idade"));
-               a.setDataNascimento(rs.getDate("data_nascimento"));
-               a.setSexo(rs.getString("sexo"));
-               a.setStatusVacinacao(rs.getString("status_vacinacao"));
-                a.setStatusGravidez(rs.getString("status_gravidez"));
-               a.setData_ultima_vacinacao(rs.getDate("data_ultima_vacinacao"));
-                lista.add(a);
+    public boolean salvar(Animal animal) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(animal);
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
             }
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao listar animais do banco: " + e.getMessage());
+            System.err.println("Erro ao salvar animal no banco: " + e.getMessage());
+            return false;
+        } finally {
+            em.close();
         }
-
-        return lista;
     }
 
-    public boolean salvar(Animal animal) {
-        String sql = """
-            INSERT INTO animal
-            (nome, idade, data_nascimento, sexo, status_vacinacao, status_gravidez, data_ultima_vacinacao)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """;
+    public List<Animal> listarTodos() {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT a FROM Animal a", Animal.class).getResultList();
+        } catch (Exception e) {
+            System.err.println("Erro ao listar animais do banco: " + e.getMessage());
+            return new ArrayList<>();
+        } finally {
+            em.close();
+        }
+    }
 
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, animal.getNome());
-            stmt.setInt(2, animal.getIdade());
-            stmt.setDate(3, new java.sql.Date(animal.getDataNascimento().getTime()));
-            stmt.setString(4, animal.getSexo());
-            stmt.setString(5, animal.getStatusVacinacao());
-            stmt.setString(6, animal.getStatusGravidez());
-            stmt.setDate(7, new java.sql.Date(animal.getData_ultima_vacinacao().getTime()));
-
-            stmt.executeUpdate();
-            System.out.println("Animal cadastrado com sucesso!");
+    public boolean atualizar(Animal animal) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(animal);
+            em.getTransaction().commit();
             return true;
-
-        } catch (SQLException e) {
-            System.err.println("Erro ao cadastrar animal: " + e.getMessage());
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Erro ao atualizar animal: " + e.getMessage());
             return false;
+        } finally {
+            em.close();
+        }
+    }
+
+    public boolean deletar(Long id) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Animal animal = em.find(Animal.class, id);
+            if (animal != null) {
+                em.remove(animal);
+            }
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Erro ao remover animal: " + e.getMessage());
+            return false;
+        } finally {
+            em.close();
         }
     }
 }

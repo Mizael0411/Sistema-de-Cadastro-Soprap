@@ -1,20 +1,19 @@
 package com.abrigo.view;
 
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+import com.abrigo.dao.AnimalDAO;
+import com.abrigo.model.Animal;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import java.time.LocalDate;
 
-/**
- * Controller responsável pela tela de cadastro de animais.
- * Camada: Controller
- * Arquivo Relacionado: cadastroAnimal.fxml
- * @author Mizael
- */
-vug
-public class CadastroAnimalController {
+public class CadastroAnimalController implements Initializable {
 
     @FXML private TextField txtNome;
     @FXML private TextField txtIdade;
@@ -23,69 +22,13 @@ public class CadastroAnimalController {
     @FXML private ComboBox<String> cbGravida;
     @FXML private ComboBox<String> cbVacina;
     @FXML private DatePicker dpUltimaConsulta;
-    @FXML private Button btnSalvar;
-    @FXML private Button btnLimpar;
 
-    // --- Métodos para capturar os valores dos campos ---
-
-    public String getNome() {
-        return txtNome.getText();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        cbSexo.getItems().setAll("Macho", "Fêmea");
+        cbVacina.getItems().setAll("Vacinado", "Não Vacinado", "Parcial");
+        cbGravida.getItems().setAll("Não grávida", "Grávida", "Não se aplica");
     }
-
-    public String getIdade() {
-        return txtIdade.getText();
-    }
-
-    public String getSexo() {
-        return cbSexo.getValue();
-    }
-
-    public LocalDate getDataNascimento() {
-        return dpDataNascimento.getValue();
-    }
-
-    public String getStatusGravidez() {
-        return cbGravida.getValue();
-    }
-
-    public String getStatusVacinacao() {
-        return cbVacina.getValue();
-    }
-
-    public LocalDate getDataUltimaConsulta() {
-        return dpUltimaConsulta.getValue();
-import java.time.LocalDate;
-
-import com.abrigo.dao.AnimalDAO;
-import com.abrigo.model.Animal;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-
-public class CadastroAnimalController {
-
-    @FXML
-    private TextField txtNome;
-
-    @FXML
-    private TextField txtIdade;
-
-    @FXML
-    private ComboBox<String> cbSexo;
-
-    @FXML
-    private DatePicker dpDataNascimento;
-
-    @FXML
-    private ComboBox<String> cbGravida;
-
-    @FXML
-    private ComboBox<String> cbVacina;
-
-    @FXML
-    private DatePicker dpUltimaConsulta;
 
     @FXML
     private void salvar() {
@@ -109,32 +52,33 @@ public class CadastroAnimalController {
             int idade = Integer.parseInt(idadeTexto);
 
             if (idade < 0) {
-               mostrarAlerta("Erro", "A idade não pode ser negativa.");
-               return;
+                mostrarAlerta("Erro", "A idade não pode ser negativa.");
+                return;
             }
 
             Animal animal = new Animal();
             animal.setNome(nome);
             animal.setIdade(idade);
-            animal.setDataNascimento(java.sql.Date.valueOf(dataNascimento));
+            animal.setDataNascimento(dataNascimento); // LocalDate direto sem conversão SQL
             animal.setSexo(sexo);
             animal.setStatusVacinacao(statusVacina);
             animal.setStatusGravidez(statusGravidez);
-            animal.setData_ultima_vacinacao(java.sql.Date.valueOf(ultimaConsulta));
+            animal.setDataUltimaVacinacao(ultimaConsulta); // Nome do método atualizado
 
             AnimalDAO animalDAO = new AnimalDAO();
 
             if (animalDAO.salvar(animal)) {
-               mostrarAlerta("Sucesso", "Animal cadastrado com sucesso!");
-               limpar();
+                mostrarAlerta("Sucesso", "Animal cadastrado com sucesso!");
+                limpar();
             } else {
-               mostrarAlerta("Erro", "Não foi possível cadastrar o animal.");
+                mostrarAlerta("Erro", "Não foi possível cadastrar o animal.");
             }
 
         } catch (NumberFormatException e) {
             mostrarAlerta("Erro", "A idade deve ser um número inteiro.");
         }
     }
+
     @FXML
     private void atualizarStatusGravidez() {
         String sexo = cbSexo.getValue();
@@ -142,19 +86,17 @@ public class CadastroAnimalController {
         if ("Macho".equals(sexo)) {
             cbGravida.setValue("Não se aplica");
             cbGravida.setDisable(true);
-
         } else if ("Fêmea".equals(sexo)) {
             cbGravida.setDisable(false);
-
             cbGravida.getItems().setAll(
                     "Não grávida",
                     "Grávida",
                     "Não se aplica"
             );
-
             cbGravida.setValue(null);
         }
     }
+
     @FXML
     private void limpar() {
         txtNome.clear();
@@ -168,7 +110,6 @@ public class CadastroAnimalController {
                 "Não se aplica"
         );
         cbGravida.setValue(null);
-
         cbVacina.setValue(null);
         dpUltimaConsulta.setValue(null);
     }

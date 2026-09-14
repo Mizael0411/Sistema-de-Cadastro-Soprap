@@ -1,34 +1,40 @@
 package com.abrigo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "adocao")
 public class Adocao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_adocao;
-    private Date data_adocao;
+    @Column(name = "id_adocao")
+    private Long id;
 
+    @Column(name = "data_adocao", nullable = false)
+    private LocalDate dataAdocao;
 
-
-public int getId_adocao() {
-        return id_adocao;
+    public Adocao() {
     }
 
-    public void setId_adocao(int id_adocao) {
-        this.id_adocao = id_adocao;
+    public Adocao(LocalDate dataAdocao) {
+        this.dataAdocao = dataAdocao;
     }
 
-    public Date getData_adocao() {
-        return data_adocao;
+    public Long getId() {
+        return id;
     }
 
-    public void setData_adocao(Date data_adocao) {
-        this.data_adocao = data_adocao;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getDataAdocao() {
+        return dataAdocao;
+    }
+
+    public void setDataAdocao(LocalDate dataAdocao) {
+        this.dataAdocao = dataAdocao;
     }
 }

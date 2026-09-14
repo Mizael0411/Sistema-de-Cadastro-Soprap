@@ -1,41 +1,47 @@
-
 package com.abrigo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "animal")
 public class Animal {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_animal;
+    @Column(name = "id_animal")
+    private Long id;
 
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private Integer idade;
-    private Date dataNascimento;
+
+    @Column(name = "data_nascimento", nullable = false)
+    private LocalDate dataNascimento;
+
+    @Column(nullable = false)
     private String sexo;
+
+    @Column(name = "status_vacinacao", nullable = false)
     private String statusVacinacao;
+
+    @Column(name = "status_gravidez", nullable = false)
     private String statusGravidez;
-    private Date data_ultima_vacinacao;
 
-    public Integer getId_animal() {
-        return id_animal;
+    @Column(name = "data_ultima_vacinacao", nullable = false)
+    private LocalDate dataUltimaVacinacao;
+
+    public Animal() {
     }
 
-    public void setId_animal(Integer id_animal) {
-        this.id_animal = id_animal;
+    public Long getId() {
+        return id;
     }
 
-    public Integer getId() {
-        return id_animal;
-    }
-
-    public void setId(int id) {
-        this.id_animal = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -54,12 +60,11 @@ public class Animal {
         this.idade = idade;
     }
 
-    public Date getDataNascimento() {
-
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
@@ -87,11 +92,11 @@ public class Animal {
         this.statusGravidez = statusGravidez;
     }
 
-    public Date getData_ultima_vacinacao() {
-        return data_ultima_vacinacao;
+    public LocalDate getDataUltimaVacinacao() {
+        return dataUltimaVacinacao;
     }
 
-    public void setData_ultima_vacinacao(Date data_ultima_vacinacao) {
-        this.data_ultima_vacinacao = data_ultima_vacinacao;
+    public void setDataUltimaVacinacao(LocalDate dataUltimaVacinacao) {
+        this.dataUltimaVacinacao = dataUltimaVacinacao;
     }
 }
