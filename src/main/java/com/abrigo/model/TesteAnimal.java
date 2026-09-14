@@ -1,8 +1,10 @@
 package com.abrigo.model;
 
-import com.abrigo.database.JPAUtil;
-import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
+
+import com.abrigo.database.JPAUtil;
+
+import jakarta.persistence.EntityManager;
 
 public class TesteAnimal {
     public static void main(String[] args) {

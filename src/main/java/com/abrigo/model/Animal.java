@@ -1,7 +1,13 @@
 package com.abrigo.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "animal")
@@ -32,6 +38,11 @@ public class Animal {
 
     @Column(name = "data_ultima_vacinacao", nullable = false)
     private LocalDate dataUltimaVacinacao;
+
+    @Override
+    public String toString() {
+        return (nome != null & !nome.isBlank()) ? nome : "Animal #" + id;
+    }
 
     public Animal() {
     }

@@ -13,8 +13,8 @@ public class MenuPrincipalController {
 
     @FXML
     private void abrirCadastro() {
-       NavigationManager.getInstance().navegarMenu("menu-cadastro");
-       NavigationManager.getInstance().navegarConteudo("boas-vindas");
+        // Carrega apenas o menu lateral de cadastros sem abrir telas centrais automaticamente
+        NavigationManager.getInstance().navegarMenu("menu-cadastro");
     }
 
     @FXML
@@ -24,7 +24,6 @@ public class MenuPrincipalController {
 
     @FXML
     private void abrirMovimentacoes() {
-        // Aqui é o pulo do gato: troca o MENU inteiro pro submenu de Movimentações
         NavigationManager.getInstance().navegarMenu("Movimentacao");
         NavigationManager.getInstance().navegarConteudo("boas-vindas");
     }

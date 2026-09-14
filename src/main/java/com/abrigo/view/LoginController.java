@@ -8,8 +8,10 @@ import java.util.ResourceBundle;
 
 import com.abrigo.App;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 
@@ -17,8 +19,6 @@ import javafx.scene.control.PasswordField;
  * Controller responsável pela tela de login.
  * Camada: Controller
  * Arquivo Relacionado: login.fxml
- *
- * @author Mizael
  */
 public class LoginController implements Initializable {
 
@@ -26,18 +26,21 @@ public class LoginController implements Initializable {
     @FXML private PasswordField txtSenha;
 
     // Simula os usuários que viriam do banco de dados (RF08.12)
-    // Quando o banco estiver pronto, essa lista/mapa sai daqui e
-    // passa a vir de um UsuarioService (Fake -> Impl)
     private final Map<String, String> usuariosFake = Map.of(
             "admin", "1234"
     );
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        cbUsuario.setItems(javafx.collections.FXCollections.observableArrayList(
-                List.copyOf(usuariosFake.keySet())
-        ));
+        List<String> listaUsuarios = List.copyOf(usuariosFake.keySet());
+        cbUsuario.setItems(FXCollections.observableArrayList(listaUsuarios));
 
+        // Seleciona automaticamente o primeiro usuário para agilizar o login
+        if (!listaUsuarios.isEmpty()) {
+            cbUsuario.setValue(listaUsuarios.get(0));
+        }
+
+        // Permite pressionar ENTER no campo de senha para entrar
         txtSenha.setOnAction(event -> onEntrarClick());
     }
 
@@ -46,8 +49,8 @@ public class LoginController implements Initializable {
         String usuario = cbUsuario.getValue();
         String senha = txtSenha.getText();
 
-        if (usuario == null) {
-            System.out.println("Selecione um usuário");
+        if (usuario == null || usuario.isBlank()) {
+            mostrarAlerta("Aviso", "Por favor, selecione um usuário para acessar o sistema.");
             return;
         }
 
@@ -58,9 +61,20 @@ public class LoginController implements Initializable {
                 App.trocarCena("main-layout");
             } catch (IOException e) {
                 e.printStackTrace();
+                mostrarAlerta("Erro de Carregamento", "Não foi possível carregar o layout principal.");
             }
         } else {
-            System.out.println("Usuário ou senha inválidos");
+            mostrarAlerta("Acesso Negado", "Senha incorreta. Tente novamente.");
+            txtSenha.clear();
+            txtSenha.requestFocus();
         }
+    }
+
+    private void mostrarAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
     }
 }

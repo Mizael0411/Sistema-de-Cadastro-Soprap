@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 
 
 @Entity
-public class Lar_Temp {
+public class LarTemp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String nome;

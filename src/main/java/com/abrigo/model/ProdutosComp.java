@@ -1,14 +1,14 @@
 package com.abrigo.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.util.Date;
-
 @Entity
-public class Produtos_Comp {
+public class ProdutosComp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_produto;

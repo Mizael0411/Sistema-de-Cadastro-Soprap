@@ -1,19 +1,18 @@
 package com.abrigo.view;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 
 /**
  * Controller responsável pelo cadastro de lar temporário.
- * Esta classe controla o formulário definido no arquivo FXML cadastroLarTemp.fxml,
- * permitindo capturar e manipular os dados do lar temporário antes de salvar.
  * Camada: Controller
  * Arquivo Relacionado: cadastroLarTemp.fxml
- * @author Mizael
  */
 public class CadastroLarTempController {
 
@@ -25,6 +24,20 @@ public class CadastroLarTempController {
     @FXML private ComboBox<String> cbAceitaDoencas;
     @FXML private Button btnSalvar;
     @FXML private Button btnLimpar;
+
+    @FXML
+    public void initialize() {
+        if (cbAceitaDoencas != null) {
+            cbAceitaDoencas.setItems(FXCollections.observableArrayList("Sim", "Não"));
+        }
+
+        if (spCapacidade != null) {
+            spCapacidade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0));
+        }
+        if (spDisponibilidadeVagas != null) {
+            spDisponibilidadeVagas.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0));
+        }
+    }
 
     public String getNome() {
         return txtNome.getText();
@@ -39,15 +52,20 @@ public class CadastroLarTempController {
     }
 
     public Integer getCapacidade() {
-        return spCapacidade.getValue();
+        return spCapacidade != null ? spCapacidade.getValue() : 0;
     }
 
     public Integer getDisponibilidadeVagas() {
-        return spDisponibilidadeVagas.getValue();
+        return spDisponibilidadeVagas != null ? spDisponibilidadeVagas.getValue() : 0;
     }
 
     public String getAceitaDoencas() {
-        return cbAceitaDoencas.getValue();
+        return cbAceitaDoencas != null ? cbAceitaDoencas.getValue() : null;
+    }
+
+    @FXML
+    private void salvarLarTemporario() {
+        salvar();
     }
 
     @FXML
@@ -65,13 +83,27 @@ public class CadastroLarTempController {
     }
 
     @FXML
+    private void limpar() {
+        limparCampos();
+    }
+
+    @FXML
     private void limparCampos() {
-        txtNome.clear();
-        txtEndereco.clear();
-        txtTelefone.clear();
-        spCapacidade.getValueFactory().setValue(0);
-        spDisponibilidadeVagas.getValueFactory().setValue(0);
-        cbAceitaDoencas.setValue(null);
+        if (txtNome != null) txtNome.clear();
+        if (txtEndereco != null) txtEndereco.clear();
+        if (txtTelefone != null) txtTelefone.clear();
+        if (spCapacidade != null && spCapacidade.getValueFactory() != null) {
+            spCapacidade.getValueFactory().setValue(0);
+        }
+        if (spDisponibilidadeVagas != null && spDisponibilidadeVagas.getValueFactory() != null) {
+            spDisponibilidadeVagas.getValueFactory().setValue(0);
+        }
+        if (cbAceitaDoencas != null) cbAceitaDoencas.setValue(null);
+    }
+
+    @FXML
+    private void verHistorico() {
+        NavigationManager.getInstance().navegarConteudo("lares-cadastrados");
     }
 
     private void mostrarAlerta(String titulo, String mensagem) {
