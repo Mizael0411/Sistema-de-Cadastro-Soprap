@@ -19,12 +19,12 @@ public class MenuPrincipalController {
 
     @FXML
     private void abrirRelatorios() {
-        NavigationManager.getInstance().navegarMenu("Relatorios");
+        NavigationManager.getInstance().navegarMenu("relatorios");
     }
 
     @FXML
     private void abrirMovimentacoes() {
-        NavigationManager.getInstance().navegarMenu("Movimentacao");
+        NavigationManager.getInstance().navegarMenu("movimentacao");
         NavigationManager.getInstance().navegarConteudo("boas-vindas");
     }
 

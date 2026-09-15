@@ -5,8 +5,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
-
-
 /**
  * Controller responsável pela gestão da interface gráfica.
  * 
@@ -24,6 +22,8 @@ public class CadastroProdutoController {
     @FXML private Spinner<Integer> spQuantidadeProduto;
     @FXML private ComboBox<String> cbInsumoProduto;
 
+
+    
 
     public  String getNomeProduto() {
         // TODO: Implementar lógica para obter o nome do produto

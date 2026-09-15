@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.HistoricoAnimaisCadastradosController">
+    
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+            <padding>
+                <Insets bottom="40" left="20" right="20" top="30" />
+            </padding>
+
+            <VBox maxWidth="900" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+                <padding>
+                    <Insets bottom="35" left="35" right="35" top="35" />
+                </padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+                        <Label style="-fx-font-size: 24px;" text="📋" />
+                    </StackPane>
+
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Animais Cadastrados" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Gerencie o registro de todos os animais abrigados." />
+                    </VBox>
+                </HBox>
+
+                <Separator style="-fx-opacity: 0.3;" />
+
+                <TableView fx:id="tabelaAnimais" minHeight="300" style="-fx-background-radius: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 10;" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colunaIdAnimal" prefWidth="60.0" text="ID" />
+                        <TableColumn fx:id="colunaNomeAnimal" prefWidth="150.0" text="Nome" />
+                        <TableColumn fx:id="colunaIdadeAnimal" prefWidth="90.0" text="Idade" />
+                        <TableColumn fx:id="colunaSexo" prefWidth="90.0" text="Sexo" />
+                        <TableColumn fx:id="colunaStsVacinacao" prefWidth="130.0" text="Vacinação" />
+                        <TableColumn fx:id="colunaDataUltimaVacinacao" prefWidth="140.0" text="Última Vacina" />
+                        <TableColumn fx:id="colunaStsGravidez" prefWidth="120.0" text="Gravidez" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+
+                <Separator style="-fx-opacity: 0.3;" />
+
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <padding>
+                        <Insets top="10" />
+                    </padding>
+
+                    <Button onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
+                    <Button onAction="#excluir" styleClass="btn-acao, btn-excluir" text="Excluir" />
+                    <Button onAction="#editar" styleClass="btn-acao, btn-editar" text="Editar" />
+                    <Button onAction="#inserir" styleClass="btn-acao, btn-novo" text="+ Novo Animal" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="294.0" prefWidth="158.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.MenuCadastroController">
-    <Button maxWidth="Infinity" onAction="#abrirCadastroAnimal" text="Cadastro Animal" />
-    <Button maxWidth="Infinity" onAction="#abrirCadastroLarTemporario" text="Cadastro Lar Temporário" />
-    <Button maxWidth="Infinity" onAction="#abrirCadastroProdutos" text="Cadastro Produtos" />
-    <Button maxWidth="Infinity" onAction="#abrirCadastroDoacoes" text="Cadastro Doações" />
-    <Button maxWidth="Infinity" onAction="#abrirRegistrosDeVacinas" text="Registrar Vacinas" />
-   <Button layoutX="10.0" layoutY="198.0" maxWidth="Infinity" onAction="#abrirAnimaisCadastrados" text="Animais Cadastrados" wrapText="true" />
-    <Button maxWidth="Infinity" onAction="#sair" text="Voltar" />
-    
+<VBox spacing="4" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.MenuCadastroController">
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets bottom="15" left="8" right="8" top="15" />
+    </padding>
+
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCadastroAnimal" styleClass="menu-btn" text="Cadastro Animal" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCadastroLarTemporario" styleClass="menu-btn" text="Cadastro Lar Temporário" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCadastroProdutos" styleClass="menu-btn" text="Cadastro Produtos" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCadastroDoacoes" styleClass="menu-btn" text="Cadastro Doações" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRegistrosDeVacinas" styleClass="menu-btn" text="Registrar Vacinas" />
+
+    <VBox prefHeight="16" />
+
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#voltar" styleClass="menu-btn" style="-fx-text-fill: #E74C3C;" text="Voltar" />
 </VBox>

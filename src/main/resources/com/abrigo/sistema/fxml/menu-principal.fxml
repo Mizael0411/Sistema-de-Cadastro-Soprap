@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<VBox spacing="10" xmlns:fx="http://javafx.com/fxml/1"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      fx:controller="com.abrigo.view.MenuPrincipalController">
-    <Button maxWidth="Infinity" text="Cadastro" onAction="#abrirCadastro"/>
-    <Button maxWidth="Infinity" text="Relatórios" onAction="#abrirRelatorios"/>
-    <Button maxWidth="Infinity" text="Movimentações" onAction="#abrirMovimentacoes"/>
-    <Button maxWidth="Infinity" text="Sair" onAction="#sair"/>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="4" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.MenuPrincipalController">
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets bottom="15" left="8" right="8" top="15" />
+    </padding>
+
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCadastro" styleClass="menu-btn" text="Cadastro" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelatorios" styleClass="menu-btn" text="Relatórios" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirMovimentacoes" styleClass="menu-btn" text="Movimentações" />
+
+    <VBox prefHeight="16" />
+
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#sair" styleClass="menu-btn" style="-fx-text-fill: #E74C3C;" text="Sair" />
 </VBox>

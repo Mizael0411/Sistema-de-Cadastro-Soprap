@@ -34,8 +34,9 @@ public class CadastroLarTempController {
         if (spCapacidade != null) {
             spCapacidade.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0));
         }
+
         if (spDisponibilidadeVagas != null) {
-            spDisponibilidadeVagas.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0));
+            spDisponibilidadeVagas.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0));
         }
     }
 

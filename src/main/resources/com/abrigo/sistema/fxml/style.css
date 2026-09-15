@@ -1,0 +1,117 @@
+/* ==========================================================================
+   1. MENU LATERAL (Corrigido)
+   ========================================================================== */
+
+/* Estado Base */
+.menu-btn {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #2C3E50;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-background-radius: 8px;
+    -fx-border-color: #F1E5D1;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 14px;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER-LEFT;
+}
+
+/* Transição de Hover (ao passar o mouse) */
+.menu-btn:hover {
+    -fx-background-color: #FFF9F0;
+    -fx-border-color: #E2D3BC;
+    -fx-text-fill: #1E293B;
+}
+
+/* Estado Ativo (Botão Selecionado no Menu) */
+.menu-btn.active {
+    -fx-background-color: #FFF3E0;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: bold;
+    -fx-border-color: #E91E63;
+    -fx-border-width: 0 0 0 4px; /* Mantém o destaque lateral apenas quando ativo */
+}
+
+
+/* ==========================================================================
+   2. BOTÕES DE AÇÃO DAS TABELAS E FORMULÁRIOS
+   ========================================================================== */
+
+/* Regra Geral para Botões de Ação */
+.btn-acao {
+    -fx-min-height: 44px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-cursor: hand;
+}
+
+/* Botão Voltar (Neutro) */
+.btn-voltar {
+    -fx-background-color: #F8FAFC;
+    -fx-text-fill: #475569;
+    -fx-border-color: #E2E8F0;
+    -fx-padding: 8px 20px;
+}
+.btn-voltar:hover {
+    -fx-background-color: #E2E8F0;
+    -fx-text-fill: #1E293B;
+    -fx-border-color: #CBD5E1;
+}
+
+/* Botão Excluir (Alerta) */
+.btn-excluir {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+    -fx-border-color: #FFCDD2;
+    -fx-padding: 8px 20px;
+}
+.btn-excluir:hover {
+    -fx-background-color: #FFCDD2;
+    -fx-text-fill: #B71C1C;
+    -fx-border-color: #EF9A9A;
+}
+
+/* Botão Editar (Ação Secundária) */
+.btn-editar {
+    -fx-background-color: #EEF2FF;
+    -fx-text-fill: #4F46E5;
+    -fx-border-color: #C7D2FE;
+    -fx-padding: 8px 20px;
+}
+.btn-editar:hover {
+    -fx-background-color: #C7D2FE;
+    -fx-text-fill: #3730A3;
+    -fx-border-color: #A5B4FC;
+}
+
+/* Botão + Novo Animal (Destaque/CTA) */
+.btn-novo {
+    -fx-background-color: #FCE4EC;
+    -fx-text-fill: #C2185B;
+    -fx-border-color: #F8BBD0;
+    -fx-padding: 8px 24px;
+    -fx-effect: dropshadow(three-pass-box, rgba(233, 30, 99, 0.15), 6, 0, 0, 2);
+}
+.btn-novo:hover {
+    -fx-background-color: #F8BBD0;
+    -fx-text-fill: #880E4F;
+    -fx-border-color: #F48FB1;
+    -fx-effect: dropshadow(three-pass-box, rgba(233, 30, 99, 0.3), 8, 0, 0, 3);
+}
+
+/* Botão Ver Histórico (Azul do estilo original com efeito Hover) */
+.btn-historico {
+    -fx-background-color: #E0F2FE;
+    -fx-text-fill: #0369A1;
+    -fx-border-color: #BAE6FD;
+    -fx-padding: 8px 20px;
+}
+.btn-historico:hover {
+    -fx-background-color: #BAE6FD;
+    -fx-text-fill: #0284C7;
+    -fx-border-color: #7DD3FC;
+}

@@ -1,10 +1,12 @@
 package com.abrigo.dao;
 
-import com.abrigo.database.JPAUtil;
-import com.abrigo.model.Animal;
-import jakarta.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.abrigo.database.JPAUtil;
+import com.abrigo.model.Animal;
+
+import jakarta.persistence.EntityManager;
 
 public class AnimalDAO {
 
@@ -38,6 +40,18 @@ public class AnimalDAO {
         }
     }
 
+    public Animal buscarPorId(Long id) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.find(Animal.class, id);
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar animal por ID: " + e.getMessage());
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
     public boolean atualizar(Animal animal) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -56,7 +70,7 @@ public class AnimalDAO {
         }
     }
 
-    public boolean deletar(Long id) {
+    public boolean excluir(Long id) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
             em.getTransaction().begin();
