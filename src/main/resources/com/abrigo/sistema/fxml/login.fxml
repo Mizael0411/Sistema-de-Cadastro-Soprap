@@ -2,9 +2,11 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.LoginController">
+<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.LoginController">
     <content>
         <VBox alignment="CENTER" style="-fx-background-color: #FAF8F5;">
             <padding>
@@ -16,9 +18,11 @@
                     <Insets bottom="30" left="30" right="30" top="30" />
                 </padding>
 
-                <StackPane prefHeight="55" prefWidth="55" style="-fx-background-color: #FFF3E0; -fx-background-radius: 28;">
-                    <Label style="-fx-font-size: 24px;" text="🐾" />
-                </StackPane>
+                <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/soprap-logo.png" />
+                    </image>
+                </ImageView>
 
                 <VBox alignment="CENTER" spacing="4">
                     <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="Acesso ao Sistema" />
@@ -46,5 +50,5 @@
                 </Button>
             </VBox>
         </VBox>
-    </content>
+    </content> 
 </ScrollPane>

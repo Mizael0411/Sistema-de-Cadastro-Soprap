@@ -2,12 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane style="-fx-background-color: #FAF8F5;" 
             xmlns="http://javafx.com/javafx/17.0.12" 
             xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="com.abrigo.view.MainLayoutController">
+            fx:controller="com.abrigo.controller.MainLayoutController">
     
     <left>
         <VBox prefWidth="240" style="-fx-background-color: #FFFFFF; -fx-border-color: #F1E5D1; -fx-border-width: 0 1.5 0 0;">
@@ -15,7 +17,11 @@
             <VBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: #FFFFFF; -fx-padding: 20 20 15 20; -fx-border-color: #F1E5D1; -fx-border-width: 0 0 1 0;">
                 <HBox alignment="CENTER_LEFT" spacing="10">
                     <StackPane prefHeight="36" prefWidth="36" style="-fx-background-color: #FFF3E0; -fx-background-radius: 18;">
-                        <Label style="-fx-font-size: 18px;" text="🐾" />
+                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/soprap-logo.png" />
+                            </image>
+                        </ImageView>
                     </StackPane>
                     <VBox spacing="2">
                         <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="SOPRAP" />

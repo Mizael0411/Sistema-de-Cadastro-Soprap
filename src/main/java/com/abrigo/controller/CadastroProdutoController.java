@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;

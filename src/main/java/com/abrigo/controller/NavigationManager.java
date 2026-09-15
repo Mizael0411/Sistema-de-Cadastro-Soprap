@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import java.io.IOException;
 

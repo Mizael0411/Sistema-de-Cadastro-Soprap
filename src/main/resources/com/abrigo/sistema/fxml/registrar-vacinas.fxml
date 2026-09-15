@@ -15,11 +15,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.view.RegistrarVacinasController">
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.RegistrarVacinasController">
     
-    <!-- Importação do arquivo de estilo CSS -->
     <stylesheets>
-        <URL value="@style.css" />
+        <URL value="@../../css/style.css" />
     </stylesheets>
 
     <content>

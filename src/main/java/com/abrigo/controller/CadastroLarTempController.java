@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;

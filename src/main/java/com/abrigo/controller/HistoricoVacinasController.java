@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
