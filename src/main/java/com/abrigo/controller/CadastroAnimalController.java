@@ -1,5 +1,8 @@
 package com.abrigo.controller;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.model.Animal;
 
@@ -14,6 +17,7 @@ public class CadastroAnimalController {
 
     @FXML private TextField txtNome;
     @FXML private TextField txtIdade;
+    @FXML private DatePicker dpDataNascimento;
     @FXML private ComboBox<String> cbSexo;
     @FXML private ComboBox<String> cbGravida;
     @FXML private ComboBox<String> cbVacina;
@@ -28,6 +32,20 @@ public class CadastroAnimalController {
         cbGravida.setItems(FXCollections.observableArrayList("Grávida", "Não grávida", "Não se aplica"));
 
         cbSexo.valueProperty().addListener((obs, oldVal, newVal) -> atualizarStatusGravidez());
+        
+        dpDataNascimento.valueProperty().addListener((obs, oldDate, newDate) -> calcularIdade(newDate));
+    }
+
+    private void calcularIdade(LocalDate dataNascimento) {
+        if (dataNascimento != null) {
+            LocalDate hoje = LocalDate.now();
+            if (!dataNascimento.isAfter(hoje)) {
+                int anos = Period.between(dataNascimento, hoje).getYears();
+                txtIdade.setText(String.valueOf(anos));
+            } else {
+                txtIdade.clear();
+            }
+        }
     }
 
     public void carregarDadosParaEdicao(Animal animal) {
@@ -35,6 +53,7 @@ public class CadastroAnimalController {
 
         txtNome.setText(animal.getNome());
         txtIdade.setText(String.valueOf(animal.getIdade()));
+        dpDataNascimento.setValue(animal.getDataNascimento());
         cbSexo.setValue(animal.getSexo());
         cbVacina.setValue(animal.getStatusVacinacao());
         cbGravida.setValue(animal.getStatusGravidez());
@@ -70,6 +89,7 @@ public class CadastroAnimalController {
             
             animal.setNome(nome);
             animal.setIdade(idade);
+            animal.setDataNascimento(dpDataNascimento.getValue());
             animal.setSexo(sexo);
             animal.setStatusVacinacao(statusVacina);
             animal.setStatusGravidez(statusGravidaTexto);
@@ -122,6 +142,7 @@ public class CadastroAnimalController {
         this.animalEmEdicao = null;
         txtNome.clear();
         txtIdade.clear();
+        dpDataNascimento.setValue(null);
         cbSexo.setValue(null);
         cbGravida.setValue(null);
         cbGravida.setDisable(false);
