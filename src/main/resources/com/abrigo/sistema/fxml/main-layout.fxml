@@ -1,14 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            fx:controller="com.abrigo.view.MainLayoutController">
+<BorderPane style="-fx-background-color: #FAF8F5;" 
+            xmlns="http://javafx.com/javafx/17.0.12" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.abrigo.controller.MainLayoutController">
+    
     <left>
-        <StackPane fx:id="areaMenu" prefWidth="220"
-                   style="-fx-background-color: #2b2b2b; -fx-padding: 10;"/>
+        <VBox prefWidth="240" style="-fx-background-color: #FFFFFF; -fx-border-color: #F1E5D1; -fx-border-width: 0 1.5 0 0;">
+
+            <VBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: #FFFFFF; -fx-padding: 20 20 15 20; -fx-border-color: #F1E5D1; -fx-border-width: 0 0 1 0;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <StackPane prefHeight="36" prefWidth="36" style="-fx-background-color: #FFF3E0; -fx-background-radius: 18;">
+                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/soprap-logo.png" />
+                            </image>
+                        </ImageView>
+                    </StackPane>
+                    <VBox spacing="2">
+                        <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="SOPRAP" />
+                        <Label style="-fx-font-size: 11px; -fx-text-fill: #E91E63; -fx-font-weight: bold;" text="Painel do Abrigo" />
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <StackPane fx:id="areaMenu" VBox.vgrow="ALWAYS">
+                <padding>
+                    <Insets bottom="15" left="10" right="10" top="15" />
+                </padding>
+            </StackPane>
+        </VBox>
     </left>
+
     <center>
-        <StackPane fx:id="areaConteudo" style="-fx-padding: 20;"/>
+        <StackPane fx:id="areaConteudo" style="-fx-background-color: #FAF8F5;">
+            <padding>
+                <Insets bottom="20" left="20" right="20" top="20" />
+            </padding>
+        </StackPane>
     </center>
 </BorderPane>

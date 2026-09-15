@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -19,31 +20,31 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(carregarFXML("login"), 700, 520);
+        primaryStage = stage;
+
+        var iconUrl = App.class.getResource("/com/abrigo/images/soprap-logo.png");
+        if (iconUrl != null) {
+            stage.getIcons().add(new Image(iconUrl.toExternalForm()));
+        } else {
+            System.err.println("Ícone não encontrado em /com/abrigo/images/soprap-logo.png");
+        }
+        
+        scene = new Scene(carregarFXML("login"), 1200, 750);
         stage.setScene(scene);
         stage.setTitle("Sistema de Cadastro SOPRAP");
-        stage.setMinWidth(700);
-        stage.setMinHeight(520);
+        
+        stage.setMinWidth(1100);
+        stage.setMinHeight(700);
+        stage.setWidth(1200);
+        stage.setHeight(750);
+        
+        stage.centerOnScreen();
         stage.show();
     }
 
-    // Troca TODA a tela (usado só na transição Login -> Menu principal)
     public static void trocarCena(String nomeFxml) throws IOException {
         scene.setRoot(carregarFXML(nomeFxml));
-
-        if(!nomeFxml.equalsIgnoreCase("login")){
-            primaryStage.setMinWidth(900);
-            primaryStage.setMinHeight(550);
-            primaryStage.setWidth(980);
-            primaryStage.setHeight(620);
-            primaryStage.centerOnScreen();
-        } else {
-            primaryStage.setMinWidth(700);
-            primaryStage.setMinHeight(520);
-            primaryStage.setWidth(700);
-            primaryStage.setHeight(520);
-            primaryStage.centerOnScreen();
-        }
+        primaryStage.centerOnScreen();
     }
 
     private static Parent carregarFXML(String nome) throws IOException {

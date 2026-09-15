@@ -1,24 +1,54 @@
 package com.abrigo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "lar_temporario")
 public class LarTemp {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_lar")
+    private Long id;
+
+    @Column(name = "nome_tutor", nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String endereco;
-    private int vagas;
-    private int id_lar;
-    private int cpf;
-    private int telefone;
-    private Boolean aceita_doenças;
 
+    @Column(nullable = false)
+    private String telefone; // RF02.3 - Armazenado como String para suportar DDD e caracteres especiais
 
+    @Column(name = "capacidade_maxima", nullable = false)
+    private Integer capacidadeMaxima; // RF02.4 - Exigido pelo requisito
+
+    @Column(name = "vagas_disponiveis", nullable = false)
+    private Integer vagasDisponiveis; // RF02.5
+
+    @Column(name = "aceita_doencas_transmissiveis", nullable = false)
+    private Boolean aceitaDoencasTransmissiveis; // RF02.6
+
+    public LarTemp() {
+    }
+
+    public LarTemp(String nome, String endereco, String telefone, Integer capacidadeMaxima, Integer vagasDisponiveis, Boolean aceitaDoencasTransmissiveis) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.capacidadeMaxima = capacidadeMaxima;
+        this.vagasDisponiveis = vagasDisponiveis;
+        this.aceitaDoencasTransmissiveis = aceitaDoencasTransmissiveis;
+    }
+
+    // Getters e Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -36,42 +66,35 @@ public class LarTemp {
         this.endereco = endereco;
     }
 
-    public int getVagas() {
-        return vagas;
-    }
-
-    public void setVagas(int vagas) {
-        this.vagas = vagas;
-    }
-
-    public int getId_lar() {
-        return id_lar;
-    }
-
-    public void setId_lar(int id_lar) {
-        this.id_lar = id_lar;
-    }
-
-    public int getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
-    }
-
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    public Boolean getAceita_doenças() {
-        return aceita_doenças;
+    public Integer getCapacidadeMaxima() {
+        return capacidadeMaxima;
     }
 
-    public void setAceita_doenças(Boolean aceita_doenças) {
-        this.aceita_doenças = aceita_doenças;}
+    public void setCapacidadeMaxima(Integer capacidadeMaxima) {
+        this.capacidadeMaxima = capacidadeMaxima;
     }
+
+    public Integer getVagasDisponiveis() {
+        return vagasDisponiveis;
+    }
+
+    public void setVagasDisponiveis(Integer vagasDisponiveis) {
+        this.vagasDisponiveis = vagasDisponiveis;
+    }
+
+    public Boolean getAceitaDoencasTransmissiveis() {
+        return aceitaDoencasTransmissiveis;
+    }
+
+    public void setAceitaDoencasTransmissiveis(Boolean aceitaDoencasTransmissiveis) {
+        this.aceitaDoencasTransmissiveis = aceitaDoencasTransmissiveis;
+    }
+}

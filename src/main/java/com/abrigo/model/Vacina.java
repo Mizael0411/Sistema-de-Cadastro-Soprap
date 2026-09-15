@@ -1,50 +1,77 @@
 package com.abrigo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "vacina")
 public class Vacina {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_vacina;
-    private String tipo_vacina;
-    private Date data_vacinacao;
-    private float dose;
+    @Column(name = "id_vacina")
+    private Long id; 
 
-    public int getId_vacina() {
-        return id_vacina;
+    @Column(name = "tipo_vacina", nullable = false)
+    private String tipoVacina; 
+
+    @Column(name = "data_vacinacao", nullable = false)
+    private LocalDate dataVacinacao; 
+
+    @Column(nullable = false)
+    private String dose; 
+
+    @ManyToOne
+    @JoinColumn(name = "id_animal", nullable = false)
+    private Animal animal; 
+
+    public Vacina() {
     }
 
-    public void setId_vacina(int id_vacina) {
-        this.id_vacina = id_vacina;
+    public Vacina(String tipoVacina, LocalDate dataVacinacao, String dose, Animal animal) {
+        this.tipoVacina = tipoVacina;
+        this.dataVacinacao = dataVacinacao;
+        this.dose = dose;
+        this.animal = animal;
     }
 
-    public String getTipo_vacina() {
-        return tipo_vacina;
+    public Long getId() {
+        return id;
     }
 
-    public void setTipo_vacina(String tipo_vacina) {
-        this.tipo_vacina = tipo_vacina;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Date getData_vacinacao() {
-        return data_vacinacao;
+    public String getTipoVacina() {
+        return tipoVacina;
     }
 
-    public void setData_vacinacao(Date data_vacinacao) {
-        this.data_vacinacao = data_vacinacao;
+    public void setTipoVacina(String tipoVacina) {
+        this.tipoVacina = tipoVacina;
     }
 
-    public float getDose() {
+    public LocalDate getDataVacinacao() {
+        return dataVacinacao;
+    }
+
+    public void setDataVacinacao(LocalDate dataVacinacao) {
+        this.dataVacinacao = dataVacinacao;
+    }
+
+    public String getDose() {
         return dose;
     }
 
-    public void setDose(float dose) {
+    public void setDose(String dose) {
         this.dose = dose;
+    }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
     }
 }

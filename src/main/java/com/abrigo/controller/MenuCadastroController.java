@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import javafx.fxml.FXML;
 
@@ -11,21 +11,21 @@ public class MenuCadastroController {
      */
     @FXML
     private void abrirCadastroAnimal() {
-        NavigationManager.getInstance().navegarConteudo("cadastroAnimal");
+        NavigationManager.getInstance().navegarConteudo("cadastro-animal");
     }
     @FXML
     private void abrirCadastroLarTemporario() {
-        NavigationManager.getInstance().navegarConteudo("cadastroLarTemp");
+        NavigationManager.getInstance().navegarConteudo("cadastro-lar-temp");
     }
 
     @FXML
     private void abrirCadastroProdutos() {
-        NavigationManager.getInstance().navegarConteudo("cadastroProduto");
+        NavigationManager.getInstance().navegarConteudo("cadastro-produto");
     }
 
     @FXML
     private void abrirCadastroDoacoes() {
-        NavigationManager.getInstance().navegarConteudo("cadastroDoacoes");
+        NavigationManager.getInstance().navegarConteudo("cadastro-doacoes");
     }
 
     @FXML 
@@ -34,18 +34,14 @@ public class MenuCadastroController {
     }
 
     @FXML
-    private void abrirAnimaisCadastrados() {
-        NavigationManager.getInstance().navegarConteudo("animais-cadastrados");
-    }
-
-    @FXML
-    private void sair() {
+    private void voltar() {
         NavigationManager.getInstance().voltarMenu();
 
     }
 
-
-
-
+    @FXML
+    private void abrirAnimaisCadastrados() {
+        NavigationManager.getInstance().navegarConteudo("animais-cadastrados");
+    }
 
 }

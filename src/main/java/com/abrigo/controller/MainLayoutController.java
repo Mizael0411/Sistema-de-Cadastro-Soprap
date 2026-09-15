@@ -1,11 +1,11 @@
-package com.abrigo.view;
+package com.abrigo.controller;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 /**
  * Classe java que divide a tela em duas areas, uma para o menu e outra para o conteúdo. O menu é carregado na área de menu e o conteúdo é carregado na área de conteúdo.
  * Camada: Controller

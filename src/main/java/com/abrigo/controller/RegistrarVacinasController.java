@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.model.Animal;

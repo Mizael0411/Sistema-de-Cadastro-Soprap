@@ -1,30 +1,73 @@
 package com.abrigo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.util.Date;
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "doacao")
 public class Doacao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_doacao;
-    private String descricao;
-    private float valor;
-    private String tipo_doacao;
-    private Date data_doacao;
-    private String nome_doador;
+    @Column(name = "id_doacao")
+    private Long id;
 
+    @Column(name = "nome_doador", nullable = false)
+    private String nomeDoador;
 
-public int getId_doacao() {
-        return id_doacao;
+    @Column(name = "tipo_doacao", nullable = false)
+    private String tipoDoacao; 
+
+    @Column(name = "valor")
+    private Double valor; 
+
+    @Column(name = "descricao")
+    private String descricao; 
+
+    @Column(name = "data_doacao", nullable = false)
+    private LocalDate dataDoacao; 
+
+    public Doacao() {
     }
 
-    public void setId_doacao(int id_doacao) {
-        this.id_doacao = id_doacao;
+    public Doacao(String nomeDoador, String tipoDoacao, Double valor, String descricao, LocalDate dataDoacao) {
+        this.nomeDoador = nomeDoador;
+        this.tipoDoacao = tipoDoacao;
+        this.valor = valor;
+        this.descricao = descricao;
+        this.dataDoacao = dataDoacao;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNomeDoador() {
+        return nomeDoador;
+    }
+
+    public void setNomeDoador(String nomeDoador) {
+        this.nomeDoador = nomeDoador;
+    }
+
+    public String getTipoDoacao() {
+        return tipoDoacao;
+    }
+
+    public void setTipoDoacao(String tipoDoacao) {
+        this.tipoDoacao = tipoDoacao;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
     public String getDescricao() {
@@ -35,35 +78,11 @@ public int getId_doacao() {
         this.descricao = descricao;
     }
 
-    public float getValor() {
-        return valor;
+    public LocalDate getDataDoacao() {
+        return dataDoacao;
     }
 
-    public void setValor(float valor) {
-        this.valor = valor;
-    }
-
-    public String getTipo_doacao() {
-        return tipo_doacao;
-    }
-
-    public void setTipo_doacao(String tipo_doacao) {
-        this.tipo_doacao = tipo_doacao;
-    }
-
-    public Date getData_doacao() {
-        return data_doacao;
-    }
-
-    public void setData_doacao(Date data_doacao) {
-        this.data_doacao = data_doacao;
-    }
-
-    public String getNome_doador() {
-        return nome_doador;
-    }
-
-    public void setNome_doador(String nome_doador) {
-        this.nome_doador = nome_doador;
+    public void setDataDoacao(LocalDate dataDoacao) {
+        this.dataDoacao = dataDoacao;
     }
 }

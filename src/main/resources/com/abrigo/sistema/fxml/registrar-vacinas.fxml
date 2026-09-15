@@ -1,115 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="340.0"
-      prefWidth="278.0"
-      spacing="15"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.abrigo.view.RegistrarVacinasController">
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.RegistrarVacinasController">
+    
+    <stylesheets>
+        <URL value="@../../css/style.css" />
+    </stylesheets>
 
-    <padding>
-        <Insets bottom="20"
-                left="20"
-                right="20"
-                top="20" />
-    </padding>
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+            <padding>
+                <Insets bottom="40" left="20" right="20" top="30" />
+            </padding>
 
-    <Label text="Registro de Vacinas">
-        <font>
-            <Font size="20" />
-        </font>
-    </Label>
+            <VBox maxWidth="780" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+                <padding>
+                    <Insets bottom="35" left="35" right="35" top="35" />
+                </padding>
 
-    <GridPane hgap="10"
-              vgap="12">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #E0F2FE; -fx-background-radius: 12;">
+                        <Label style="-fx-font-size: 24px;" text="💉" />
+                    </StackPane>
 
-        <Label text="Animal:"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="0" />
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Registro de Vacinação" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Aplique e controle o histórico sanitário dos pets resgatados." />
+                    </VBox>
+                </HBox>
 
-        <ComboBox fx:id="cbAnimal"
-                  prefWidth="150.0"
-                  GridPane.columnIndex="1"
-                  GridPane.rowIndex="0" />
+                <Separator style="-fx-opacity: 0.3;" />
 
-        <Label text="Vacina:"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="1" />
+                <GridPane hgap="20" vgap="18">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
 
-        <ComboBox fx:id="cbTipoVacina"
-                  prefWidth="150.0"
-                  GridPane.columnIndex="1"
-                  GridPane.rowIndex="1">
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="SELECIONE O PET *" />
+                        <ComboBox fx:id="cbAnimal" maxWidth="1.7976931348623157E308" promptText="Selecione o animal..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
+                    </VBox>
 
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Raiva" />
-                    <String fx:value="Virose" />
-                </FXCollections>
-            </items>
+                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="TIPO DE VACINA *" />
+                        <ComboBox fx:id="cbTipoVacina" maxWidth="1.7976931348623157E308" promptText="Selecione a vacina..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
+                    </VBox>
 
-        </ComboBox>
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="DATA DA APLICAÇÃO *" />
+                        <DatePicker fx:id="dpDataAplicacao" maxWidth="1.7976931348623157E308" promptText="Selecione a data..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
+                    </VBox>
 
-        <Label text="Data de aplicação:"
-               wrapText="true"
-               GridPane.columnIndex="0"
-               GridPane.rowIndex="2" />
+                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="DOSE (ML) *" />
+                        <TextField fx:id="txtDose" promptText="Ex: 1.0" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
+                    </VBox>
+                </GridPane>
 
-        <DatePicker fx:id="dpDataAplicacao"
-                    prefWidth="150.0"
-                    GridPane.columnIndex="1"
-                    GridPane.rowIndex="2" />
+                <Separator style="-fx-opacity: 0.3;" />
 
-        <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-        </columnConstraints>
-
-        <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-        </rowConstraints>
-
-    </GridPane>
-
-    <BorderPane prefHeight="122.0"
-                prefWidth="238.0">
-
-        <center>
-            <BorderPane prefHeight="200.0"
-                        prefWidth="200.0"
-                        BorderPane.alignment="CENTER">
-
-                <left>
-                    <Button fx:id="saveButton"
-                            mnemonicParsing="false"
-                            text="Salvar"
-                            onAction="#salvarVacina"
-                            BorderPane.alignment="CENTER" />
-                </left>
-
-                <right>
-                    <Button fx:id="abrirHistoricoVacinas"
-                            mnemonicParsing="false"
-                            prefHeight="27.0"
-                            prefWidth="99.0"
-                            text="Ver Histórico"
-                            wrapText="true"
-                            onAction="#abrirHistorico"
-                            BorderPane.alignment="CENTER" />
-                </right>
-
-            </BorderPane>
-        </center>
-
-    </BorderPane>
-
-</VBox>
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <padding>
+                        <Insets top="10" />
+                    </padding>
+                    <Button onAction="#abrirHistorico" styleClass="btn-acao, btn-historico" text="Ver Histórico" />
+                    <Button onAction="#salvarVacina" styleClass="btn-acao, btn-novo" text="Salvar Vacina" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

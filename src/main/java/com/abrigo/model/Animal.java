@@ -24,27 +24,28 @@ public class Animal {
     @Column(nullable = false)
     private Integer idade;
 
-    @Column(name = "data_nascimento", nullable = false)
-    private LocalDate dataNascimento;
-
     @Column(nullable = false)
     private String sexo;
 
     @Column(name = "status_vacinacao", nullable = false)
     private String statusVacinacao;
 
-    @Column(name = "status_gravidez", nullable = false)
+    @Column(name = "status_gravidez", nullable = true)
     private String statusGravidez;
+
+    @Column(name = "data_nascimento", nullable = false)
+    private LocalDate dataNascimento;
 
     @Column(name = "data_ultima_vacinacao", nullable = false)
     private LocalDate dataUltimaVacinacao;
 
+     public Animal() {
+        
+    }
+
     @Override
     public String toString() {
         return (nome != null & !nome.isBlank()) ? nome : "Animal #" + id;
-    }
-
-    public Animal() {
     }
 
     public Long getId() {

@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import javafx.fxml.FXML;
 /**
@@ -11,22 +11,22 @@ public class RelatorioMenuController {
 
     @FXML
     private void abrirRelFinanceiro() {
-        NavigationManager.getInstance().navegarConteudo("relatorioFinanceiro");
+        NavigationManager.getInstance().navegarConteudo("relatorio-financeiro");
     }
 
     @FXML
     private void abrirRelDoacao() {
-        NavigationManager.getInstance().navegarConteudo("relatorioDoacao");
+        NavigationManager.getInstance().navegarConteudo("relatorio-doacao");
     }
 
     @FXML
     private void abrirRelAdocao() {
-        NavigationManager.getInstance().navegarConteudo("relatorioAdocao");
+        NavigationManager.getInstance().navegarConteudo("relatorio-adocao");
     }
 
     @FXML
     private void abrirRelAnimais() {
-        NavigationManager.getInstance().navegarConteudo("relatorioAnimais");
+        NavigationManager.getInstance().navegarConteudo("relatorio-animais");
     }
 
     @FXML

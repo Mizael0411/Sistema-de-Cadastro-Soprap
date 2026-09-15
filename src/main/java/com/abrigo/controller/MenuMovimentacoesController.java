@@ -1,4 +1,4 @@
-package com.abrigo.view;
+package com.abrigo.controller;
 
 import javafx.fxml.FXML;
 /**
@@ -27,12 +27,12 @@ public class MenuMovimentacoesController {
 
     @FXML
     private void abrirCAnimal() {
-        NavigationManager.getInstance().navegarConteudo("Cadastro animal");
+        NavigationManager.getInstance().navegarConteudo("cadastro-animal");
     }
 
     @FXML
     private void abrirRGLartemporario() {
-        NavigationManager.getInstance().navegarConteudo("Registro animal lar temporário");
+        NavigationManager.getInstance().navegarConteudo("registro-animal-lar-temporário");
     }
 
 

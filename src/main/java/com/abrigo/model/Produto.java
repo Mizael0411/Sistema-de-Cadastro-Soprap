@@ -5,15 +5,15 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "produto")
-public class ProdutosComp {
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_produto")
-    private Long id; 
+    private Long id;
 
     @Column(name = "nome_produto", nullable = false)
-    private String nome; 
+    private String nome;
 
     @Column(name = "preco_compra", nullable = false)
     private Double precoCompra; 
@@ -21,15 +21,16 @@ public class ProdutosComp {
     @Column(name = "data_compra", nullable = false)
     private LocalDate dataCompra; 
 
-    public ProdutosComp() {
+    public Produto() {
     }
 
-    public ProdutosComp(String nome, Double precoCompra, LocalDate dataCompra) {
+    public Produto(String nome, Double precoCompra, LocalDate dataCompra) {
         this.nome = nome;
         this.precoCompra = precoCompra;
         this.dataCompra = dataCompra;
     }
 
+    // Getters e Setters
     public Long getId() {
         return id;
     }
