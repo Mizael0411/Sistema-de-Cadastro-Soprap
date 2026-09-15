@@ -19,6 +19,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        primaryStage = stage; // Inicialização que evita o NullPointerException
+        
         scene = new Scene(carregarFXML("login"), 700, 520);
         stage.setScene(scene);
         stage.setTitle("Sistema de Cadastro SOPRAP");
@@ -31,11 +33,12 @@ public class App extends Application {
     public static void trocarCena(String nomeFxml) throws IOException {
         scene.setRoot(carregarFXML(nomeFxml));
 
-        if(!nomeFxml.equalsIgnoreCase("login")){
-            primaryStage.setMinWidth(900);
-            primaryStage.setMinHeight(550);
-            primaryStage.setWidth(980);
-            primaryStage.setHeight(620);
+        if (!nomeFxml.equalsIgnoreCase("login")) {
+            // Dimensões expandidas para acomodar os formulários e o menu lateral
+            primaryStage.setMinWidth(1100);
+            primaryStage.setMinHeight(700);
+            primaryStage.setWidth(1200);
+            primaryStage.setHeight(750);
             primaryStage.centerOnScreen();
         } else {
             primaryStage.setMinWidth(700);
