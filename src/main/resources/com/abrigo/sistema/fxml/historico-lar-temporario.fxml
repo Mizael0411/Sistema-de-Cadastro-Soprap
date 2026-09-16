@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoLarTempController">
+    
+    <stylesheets>
+        <URL value="@../../css/style.css" />
+    </stylesheets>
+
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: transparent;">
+            <padding>
+                <Insets bottom="40" left="20" right="20" top="30" />
+            </padding>
+
+            <VBox maxWidth="900" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+                <padding>
+                    <Insets bottom="35" left="35" right="35" top="35" />
+                </padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B;" text="📋" />
+                    </StackPane>
+
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Histórico de Lares Temporários" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Consulte, filtre e gerencie os lares temporários cadastrados." />
+                    </VBox>
+                </HBox>
+
+                <Separator style="-fx-opacity: 0.3;" />
+
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <TextField fx:id="txtFiltroNome" onKeyTyped="#filtrar" promptText="Buscar por nome do responsável..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+                    <Button onAction="#filtrar" styleClass="btn-acao" text="Pesquisar" />
+                </HBox>
+
+                <TableView fx:id="tblLares" minHeight="300" style="-fx-background-radius: 10; -fx-border-color: #E0E0E0; -fx-border-radius: 10;" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="60.0" text="ID" />
+                        <TableColumn fx:id="colNome" prefWidth="170.0" text="Responsável" />
+                        <TableColumn fx:id="colEndereco" prefWidth="190.0" text="Endereço" />
+                        <TableColumn fx:id="colTelefone" prefWidth="120.0" text="Telefone" />
+                        <TableColumn fx:id="colCapacidade" prefWidth="90.0" text="Capacidade" />
+                        <TableColumn fx:id="colVagas" prefWidth="90.0" text="Vagas" />
+                        <TableColumn fx:id="colAceitaDoencas" prefWidth="120.0" text="Aceita Doenças?" />
+                        <TableColumn fx:id="colAceitaDeficiencia" text="Aceita Deficiência?" prefWidth="120" />
+                        
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+
+                <Separator style="-fx-opacity: 0.3;" />
+
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <padding>
+                        <Insets top="10" />
+                    </padding>
+
+                    <Button onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
+                    <Button onAction="#excluirLar" styleClass="btn-acao, btn-excluir" text="Excluir" />
+                    <Button onAction="#editarLar" styleClass="btn-acao, btn-editar" text="Editar" />
+                    <Button onAction="#novoLar" styleClass="btn-acao, btn-novo" text="+ Novo Lar" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

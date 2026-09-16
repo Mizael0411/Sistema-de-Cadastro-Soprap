@@ -16,14 +16,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroAnimalController">
+<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroAnimalController">
     
     <stylesheets>
         <URL value="@../../css/style.css" />
     </stylesheets>
 
     <content>
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: transparent;">
             <padding>
                 <Insets bottom="40" left="20" right="20" top="30" />
             </padding>
@@ -35,7 +36,7 @@
 
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-                        <Label style="-fx-font-size: 24px;" text="🐾" />
+                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B;" text="🐾" />
                     </StackPane>
 
                     <VBox spacing="3" HBox.hgrow="ALWAYS">

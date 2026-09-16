@@ -6,49 +6,74 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.LoginController">
+<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.LoginController">
     <content>
-        <VBox alignment="CENTER" style="-fx-background-color: #FAF8F5;">
-            <padding>
-                <Insets bottom="30" left="20" right="20" top="30" />
-            </padding>
+        <StackPane style="-fx-background-color: #FAF8F5;">
+            
+            <!-- CAMADA DAS PATINHAS FIXAS NO FUNDO -->
+            <AnchorPane mouseTransparent="true" style="-fx-background-color: transparent;">
+                <Label style="-fx-font-size: 32px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -20;" text="🐾" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0" />
+                <Label style="-fx-font-size: 22px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: 15;" text="🐾" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="110.0" />
+                <Label style="-fx-font-size: 28px; -fx-text-fill: #8D6E63; -fx-opacity: 0.22; -fx-rotate: -35;" text="🐾" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="220.0" />
 
-            <VBox alignment="CENTER" maxWidth="380" spacing="18" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 12, 0, 0, 4);">
+                <Label style="-fx-font-size: 36px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 30;" text="🐾" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="50.0" />
+                <Label style="-fx-font-size: 24px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: -15;" text="🐾" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="130.0" />
+                <Label style="-fx-font-size: 30px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 45;" text="🐾" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="210.0" />
+
+                <Label style="-fx-font-size: 26px; -fx-text-fill: #8D6E63; -fx-opacity: 0.22; -fx-rotate: 25;" text="🐾" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="380.0" />
+                <Label style="-fx-font-size: 28px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -25;" text="🐾" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="380.0" />
+
+                <Label style="-fx-font-size: 34px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -40;" text="🐾" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="70.0" />
+                <Label style="-fx-font-size: 24px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: 18;" text="🐾" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="180.0" />
+
+                <Label style="-fx-font-size: 30px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 20;" text="🐾" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="80.0" />
+                <Label style="-fx-font-size: 26px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: -30;" text="🐾" AnchorPane.bottomAnchor="140.0" AnchorPane.rightAnchor="190.0" />
+            </AnchorPane>
+
+            <!-- CARD DE LOGIN (SOBREPOSTO E CENTRALIZADO) -->
+            <VBox alignment="CENTER" style="-fx-background-color: transparent;">
                 <padding>
-                    <Insets bottom="30" left="30" right="30" top="30" />
+                    <Insets bottom="30" left="20" right="20" top="30" />
                 </padding>
 
-                <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
-                    <image>
-                        <Image url="@../../images/soprap-logo.png" />
-                    </image>
-                </ImageView>
+                <VBox alignment="CENTER" maxWidth="380" spacing="18" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+                    <padding>
+                        <Insets bottom="30" left="30" right="30" top="30" />
+                    </padding>
 
-                <VBox alignment="CENTER" spacing="4">
-                    <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="Acesso ao Sistema" />
-                    <Label style="-fx-font-size: 12px; -fx-text-fill: #64748B;" text="Sistema de Cadastro - SOPRAP" />
-                </VBox>
+                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+                        <image>
+                            <Image url="@../../images/soprap-logo.png" />
+                        </image>
+                    </ImageView>
 
-                <Separator maxWidth="220" style="-fx-opacity: 0.3;" />
-
-                <VBox fillWidth="true" spacing="12">
-                    <VBox spacing="4">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;" text="USUÁRIO *" />
-                        <ComboBox fx:id="cbUsuario" maxWidth="1.7976931348623157E308" promptText="Selecione o usuário..." style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 4; -fx-font-size: 13px;" />
+                    <VBox alignment="CENTER" spacing="4">
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="Acesso ao Sistema" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748B;" text="Sistema de Cadastro - SOPRAP" />
                     </VBox>
 
-                    <VBox spacing="4">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;" text="SENHA *" />
-                        <PasswordField fx:id="txtSenha" promptText="Digite sua senha..." style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8; -fx-font-size: 13px;" />
-                    </VBox>
-                </VBox>
+                    <Separator maxWidth="220" style="-fx-opacity: 0.3;" />
 
-                <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#onEntrarClick" style="-fx-background-color: #E91E63; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand;" text="Entrar">
-                    <VBox.margin>
-                        <Insets top="6" />
-                    </VBox.margin>
-                </Button>
+                    <VBox fillWidth="true" spacing="12">
+                        <VBox spacing="4">
+                            <Label style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;" text="USUÁRIO *" />
+                            <ComboBox fx:id="cbUsuario" maxWidth="1.7976931348623157E308" promptText="Selecione o usuário..." style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 4; -fx-font-size: 13px;" />
+                        </VBox>
+
+                        <VBox spacing="4">
+                            <Label style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;" text="SENHA *" />
+                            <PasswordField fx:id="txtSenha" promptText="Digite sua senha..." style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8; -fx-font-size: 13px;" />
+                        </VBox>
+                    </VBox>
+
+                    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#onEntrarClick" style="-fx-background-color: #E91E63; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand;" text="Entrar">
+                        <VBox.margin>
+                            <Insets top="6" />
+                        </VBox.margin>
+                    </Button>
+                </VBox>
             </VBox>
-        </VBox>
+
+        </StackPane>
     </content> 
 </ScrollPane>

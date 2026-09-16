@@ -7,21 +7,22 @@
     <persistence-unit name="soprap-pu" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- Registra apenas as entidades que vamos testar -->
+        <!-- Entidades registradas no projeto -->
         <class>com.abrigo.model.Animal</class>
         <class>com.abrigo.model.Adocao</class>
+        <class>com.abrigo.model.LarTemp</class>
 
-        <!-- Força o Hibernate a ignorar qualquer outra classe @Entity não listada acima -->
+        <!-- Força o Hibernate a carregar apenas as classes listadas acima -->
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
-            <!-- Conexão com o Supabase (garanta que o driver e credenciais estejam configurados) -->
+            <!-- Conexão com o Supabase -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://aws-0-sa-east-1.pooler.supabase.com:6543/postgres?user=postgres.rwvyekttejhtrjcgeybp&amp;password=hX5HeNaK.kcu@yE"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres.rwvyekttejhtrjcgeybp"/>
             <property name="jakarta.persistence.jdbc.password" value="hX5HeNaK.kcu@yE"/>
 
-            <!-- 'update' atualiza o banco se necessário sem tentar recriar o que já existe -->
+            <!-- 'update' atualiza a estrutura da tabela automaticamente se necessário -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             
             <!-- Logs do SQL executado -->

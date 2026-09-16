@@ -40,13 +40,15 @@
 
 /* Regra Geral para Botões de Ação */
 .btn-acao {
-    -fx-min-height: 44px;
+    -fx-min-height: 38px;
+    -fx-pref-height: 38px;
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-background-radius: 10px;
     -fx-border-radius: 10px;
     -fx-border-width: 1px;
     -fx-cursor: hand;
+    -fx-alignment: CENTER;
 }
 
 /* Botão Voltar (Neutro) */
@@ -54,7 +56,7 @@
     -fx-background-color: #F8FAFC;
     -fx-text-fill: #475569;
     -fx-border-color: #E2E8F0;
-    -fx-padding: 8px 20px;
+    -fx-padding: 0 18px;
 }
 .btn-voltar:hover {
     -fx-background-color: #E2E8F0;
@@ -67,7 +69,7 @@
     -fx-background-color: #FFEBEE;
     -fx-text-fill: #C62828;
     -fx-border-color: #FFCDD2;
-    -fx-padding: 8px 20px;
+    -fx-padding: 0 18px;
 }
 .btn-excluir:hover {
     -fx-background-color: #FFCDD2;
@@ -80,7 +82,7 @@
     -fx-background-color: #EEF2FF;
     -fx-text-fill: #4F46E5;
     -fx-border-color: #C7D2FE;
-    -fx-padding: 8px 20px;
+    -fx-padding: 0 18px;
 }
 .btn-editar:hover {
     -fx-background-color: #C7D2FE;
@@ -88,27 +90,27 @@
     -fx-border-color: #A5B4FC;
 }
 
-/* Botão + Novo Animal (Destaque/CTA) */
-.btn-novo {
+/* Botão + Novo (Destaque/CTA) */
+.btn-novo, .btn-salvar {
     -fx-background-color: #FCE4EC;
     -fx-text-fill: #C2185B;
     -fx-border-color: #F8BBD0;
-    -fx-padding: 8px 24px;
+    -fx-padding: 0 22px;
     -fx-effect: dropshadow(three-pass-box, rgba(233, 30, 99, 0.15), 6, 0, 0, 2);
 }
-.btn-novo:hover {
+.btn-novo:hover, .btn-salvar:hover {
     -fx-background-color: #F8BBD0;
     -fx-text-fill: #880E4F;
     -fx-border-color: #F48FB1;
     -fx-effect: dropshadow(three-pass-box, rgba(233, 30, 99, 0.3), 8, 0, 0, 3);
 }
 
-/* Botão Ver Histórico (Azul do estilo original com efeito Hover) */
+/* Botão Ver Histórico / Pesquisar */
 .btn-historico {
     -fx-background-color: #E0F2FE;
     -fx-text-fill: #0369A1;
     -fx-border-color: #BAE6FD;
-    -fx-padding: 8px 20px;
+    -fx-padding: 0 18px;
 }
 .btn-historico:hover {
     -fx-background-color: #BAE6FD;

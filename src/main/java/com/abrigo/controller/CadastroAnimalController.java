@@ -33,6 +33,7 @@ public class CadastroAnimalController {
 
         cbSexo.valueProperty().addListener((obs, oldVal, newVal) -> atualizarStatusGravidez());
         
+
         dpDataNascimento.valueProperty().addListener((obs, oldDate, newDate) -> calcularIdade(newDate));
     }
 

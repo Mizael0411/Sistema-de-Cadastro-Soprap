@@ -22,7 +22,7 @@
     </stylesheets>
 
     <content>
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: transparent;">
             <padding>
                 <Insets bottom="40" left="20" right="20" top="30" />
             </padding>
@@ -34,7 +34,7 @@
 
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #E0F2FE; -fx-background-radius: 12;">
-                        <Label style="-fx-font-size: 24px;" text="💉" />
+                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B" text="💉" />
                     </StackPane>
 
                     <VBox spacing="3" HBox.hgrow="ALWAYS">
