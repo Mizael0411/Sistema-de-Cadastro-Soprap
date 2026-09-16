@@ -18,7 +18,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroLarTempController">
+<ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroLarTempController">
     
     <stylesheets>
         <URL value="@../../css/style.css" />
@@ -26,7 +26,7 @@
 
     <content>
 
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: transparent;">
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
             <padding>
                 <Insets bottom="40" left="20" right="20" top="30" />
             </padding>

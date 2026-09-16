@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
@@ -32,9 +33,39 @@ public class CadastroAnimalController {
         cbGravida.setItems(FXCollections.observableArrayList("Grávida", "Não grávida", "Não se aplica"));
 
         cbSexo.valueProperty().addListener((obs, oldVal, newVal) -> atualizarStatusGravidez());
-        
-
         dpDataNascimento.valueProperty().addListener((obs, oldDate, newDate) -> calcularIdade(newDate));
+
+        dpDataNascimento.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date != null && date.isAfter(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc4c4;");
+                }
+            }
+        });
+
+        dpUltimaConsulta.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date != null && date.isAfter(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #ffc4c4;");
+                }
+            }
+        });
+
+        dpDataNascimento.getEditor().textProperty().addListener((obs, oldText, newText) -> {
+            try {
+                if (newText != null && !newText.isBlank()) {
+                    LocalDate dataDigitada = dpDataNascimento.getConverter().fromString(newText);
+                    calcularIdade(dataDigitada);
+                }
+            } catch (Exception e) {
+            }
+        });
     }
 
     private void calcularIdade(LocalDate dataNascimento) {
@@ -66,8 +97,12 @@ public class CadastroAnimalController {
         String nome = txtNome.getText().trim();
         String idadeTexto = txtIdade.getText().trim();
         String sexo = cbSexo.getValue();
-        String statusGravidaTexto = cbGravida.getValue();
         String statusVacina = cbVacina.getValue();
+        String statusGravidaTexto = cbGravida.getValue();
+
+        if ("Macho".equalsIgnoreCase(sexo) && statusGravidaTexto == null) {
+            statusGravidaTexto = "Não se aplica";
+        }
 
         if (nome.isEmpty() || idadeTexto.isEmpty() || sexo == null || statusVacina == null || statusGravidaTexto == null) {
             mostrarAlerta("Erro", "Preencha todos os campos obrigatórios.");
@@ -76,6 +111,18 @@ public class CadastroAnimalController {
 
         if ("Fêmea".equalsIgnoreCase(sexo) && "Não se aplica".equalsIgnoreCase(statusGravidaTexto)) {
             mostrarAlerta("Erro", "Selecione se a fêmea está grávida ou não grávida.");
+            return;
+        }
+
+        LocalDate dataNasc = dpDataNascimento.getValue();
+        if (dataNasc != null && dataNasc.isAfter(LocalDate.now())) {
+            mostrarAlerta("Erro", "A data de nascimento não pode ser uma data futura.");
+            return;
+        }
+
+        LocalDate dataConsulta = dpUltimaConsulta.getValue();
+        if (dataConsulta != null && dataConsulta.isAfter(LocalDate.now())) {
+            mostrarAlerta("Erro", "A data da última consulta/vacina não pode ser uma data futura.");
             return;
         }
 
@@ -90,11 +137,11 @@ public class CadastroAnimalController {
             
             animal.setNome(nome);
             animal.setIdade(idade);
-            animal.setDataNascimento(dpDataNascimento.getValue());
+            animal.setDataNascimento(dataNasc);
             animal.setSexo(sexo);
             animal.setStatusVacinacao(statusVacina);
             animal.setStatusGravidez(statusGravidaTexto);
-            animal.setDataUltimaVacinacao(dpUltimaConsulta.getValue());
+            animal.setDataUltimaVacinacao(dataConsulta);
 
             AnimalDAO animalDAO = new AnimalDAO();
             boolean sucesso;

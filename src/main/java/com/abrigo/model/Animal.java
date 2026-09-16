@@ -33,10 +33,10 @@ public class Animal {
     @Column(name = "status_gravidez", nullable = true)
     private String statusGravidez;
 
-    @Column(name = "data_nascimento", nullable = false)
+    @Column(name = "data_nascimento", nullable = true)
     private LocalDate dataNascimento;
 
-    @Column(name = "data_ultima_vacinacao", nullable = false)
+    @Column(name = "data_ultima_vacinacao", nullable = true)
     private LocalDate dataUltimaVacinacao;
 
      public Animal() {
