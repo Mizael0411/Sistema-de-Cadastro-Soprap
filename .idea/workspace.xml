@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="30e1fbe5-f517-4ca4-9867-e23f7dd1f935" name="Changes" comment="novas telas, relaçao com o banco, e estruturação do bakc-end">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/Windows 10/Downloads/sistema" value="3IO0QmiAGowLSgdZObP8VRGwfpf" />
+    </persistenceIdMap>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="JavaFXApplication" />
+        <option value="FxmlFile" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Mizael0411&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Mizael0411/sistema.git&quot;,
+    &quot;accountId&quot;: &quot;dab8b785-3d2c-407b-a077-a45c2a0663bb&quot;
+  }
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="3IN85xRu2XLeGfjPxr8l72wXfTi" />
+  <component name="ProjectSessionTemplates">
+    <option name="inlineTemplate">
+      <template>
+        <option name="modeId" value="Ask" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Agent" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="BACKGROUND" />
+        <option name="worktreeMode" value="WORKSPACE" />
+      </template>
+    </option>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Windows 10\Downloads\sistema\src\main\resources\com\abrigo\sistema\fxml" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.abrigo.App" />
+      <module name="sistema" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.abrigo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.27812.49" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.27812.49" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="30e1fbe5-f517-4ca4-9867-e23f7dd1f935" name="Changes" comment="" />
+      <created>1787593487554</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1787593487554</updated>
+      <workItem from="1787593490131" duration="1475000" />
+      <workItem from="1787598693973" duration="6113000" />
+      <workItem from="1787657887870" duration="9686000" />
+      <workItem from="1787701234011" duration="16122000" />
+      <workItem from="1787784639960" duration="2438000" />
+      <workItem from="1787789583777" duration="217000" />
+      <workItem from="1787789839708" duration="1000" />
+      <workItem from="1787828275949" duration="13482000" />
+      <workItem from="1788020863220" duration="3529000" />
+      <workItem from="1788311476321" duration="6000" />
+      <workItem from="1788393762718" duration="10367000" />
+      <workItem from="1788482058368" duration="972000" />
+      <workItem from="1788894569658" duration="18756000" />
+      <workItem from="1788980252870" duration="3171000" />
+      <workItem from="1788999909266" duration="3272000" />
+      <workItem from="1789045632973" duration="2708000" />
+      <workItem from="1789073607022" duration="1703000" />
+      <workItem from="1789422462609" duration="8122000" />
+      <workItem from="1789562997843" duration="1125000" />
+      <workItem from="1789581358827" duration="1568000" />
+      <workItem from="1789601717954" duration="8100000" />
+    </task>
+    <task id="LOCAL-00001" summary="atualizado">
+      <option name="closed" value="true" />
+      <created>1787831365865</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1787831365865</updated>
+    </task>
+    <task id="LOCAL-00002" summary="atualizado">
+      <option name="closed" value="true" />
+      <created>1787831476908</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1787831476908</updated>
+    </task>
+    <task id="LOCAL-00003" summary="cadastroLarTemp.fxml front pronto">
+      <option name="closed" value="true" />
+      <created>1787836913236</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1787836913236</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cadstro do produto tela">
+      <option name="closed" value="true" />
+      <created>1788435153151</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1788435153152</updated>
+    </task>
+    <task id="LOCAL-00005" summary="novas telas, relaçao com o banco, e estruturação do bakc-end">
+      <option name="closed" value="true" />
+      <created>1789046364418</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1789046364418</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="atualizado" />
+    <MESSAGE value="cadastroLarTemp.fxml front pronto" />
+    <MESSAGE value="rolas" />
+    <MESSAGE value="cadstro do produto tela" />
+    <MESSAGE value="novas telas, relaçao com o banco, e estruturação do bakc-end" />
+    <option name="LAST_COMMIT_MESSAGE" value="novas telas, relaçao com o banco, e estruturação do bakc-end" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
