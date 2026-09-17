@@ -1,5 +1,7 @@
 package com.abrigo.controller;
 
+import java.time.LocalDate;
+
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.dao.VacinaDAO;
 import com.abrigo.model.Animal;
@@ -9,12 +11,13 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 
 public class RegistrarVacinasController {
 
     @FXML private ComboBox<Animal> cbAnimal;
-    @FXML private ComboBox<String> cbTipoVacina; // Alterado de TextField para ComboBox
+    @FXML private ComboBox<String> cbTipoVacina; 
     @FXML private ComboBox<String> cbDose;
     @FXML private DatePicker dpDataVacinacao;
 
@@ -24,6 +27,17 @@ public class RegistrarVacinasController {
 
     @FXML
     public void initialize() {
+
+        dpDataVacinacao.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date != null && date.isAfter(LocalDate.now())) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #f8d7da; -fx-text-fill: #721c24;");
+                }
+            }
+        });
 
         cbDose.setItems(FXCollections.observableArrayList(
             "1ª Dose", "2ª Dose", "3ª Dose", "Reforço Anual", "Dose Única"
@@ -84,6 +98,11 @@ public class RegistrarVacinasController {
         }
         if (dpDataVacinacao.getValue() == null) {
             mostrarAlerta("Validação", "Selecione a data de vacinação.");
+            return;
+        }
+
+        if (dpDataVacinacao.getValue().isAfter(LocalDate.now())) {
+            mostrarAlerta("Validação", "A data da vacinação não pode ser uma data futura.");
             return;
         }
 
