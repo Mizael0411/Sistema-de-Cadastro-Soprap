@@ -27,6 +27,12 @@ public class Animal {
     @Column(nullable = false)
     private String sexo;
 
+    @Column(name = "especie")
+    private String especie;
+
+    @Column(name = "porte")
+    private String porte;
+
     @Column(name = "status_vacinacao", nullable = false)
     private String statusVacinacao;
 
@@ -86,6 +92,22 @@ public class Animal {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    public String getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
+    }
+
+    public String getPorte() { 
+        return porte; 
+    }
+
+    public void setPorte(String porte) {
+        this.porte = porte;
     }
 
     public String getStatusVacinacao() {

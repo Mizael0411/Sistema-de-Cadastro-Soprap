@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import com.abrigo.dao.AnimalDAO;
+import com.abrigo.database.JPAUtil;
 import com.abrigo.model.Animal;
+import com.abrigo.model.Vacina;
 
+import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -23,6 +26,8 @@ public class CadastroAnimalController {
     @FXML private ComboBox<String> cbGravida;
     @FXML private ComboBox<String> cbVacina;
     @FXML private DatePicker dpUltimaConsulta;
+    @FXML private ComboBox<String> cbEspecie;
+    @FXML private ComboBox<String> cbPorte;
 
     private Animal animalEmEdicao = null;
 
@@ -31,6 +36,9 @@ public class CadastroAnimalController {
         cbSexo.setItems(FXCollections.observableArrayList("Macho", "Fêmea"));
         cbVacina.setItems(FXCollections.observableArrayList("Vacinado", "Não Vacinado", "Incompleto"));
         cbGravida.setItems(FXCollections.observableArrayList("Grávida", "Não grávida", "Não se aplica"));
+        
+        cbEspecie.setItems(FXCollections.observableArrayList("Cachorro", "Gato"));
+        cbPorte.setItems(FXCollections.observableArrayList("Mini", "Pequeno", "Médio", "Grande", "Gigante"));
 
         cbSexo.valueProperty().addListener((obs, oldVal, newVal) -> atualizarStatusGravidez());
         dpDataNascimento.valueProperty().addListener((obs, oldDate, newDate) -> calcularIdade(newDate));
@@ -63,8 +71,7 @@ public class CadastroAnimalController {
                     LocalDate dataDigitada = dpDataNascimento.getConverter().fromString(newText);
                     calcularIdade(dataDigitada);
                 }
-            } catch (Exception e) {
-            }
+            } catch (Exception e) {}
         });
     }
 
@@ -90,6 +97,9 @@ public class CadastroAnimalController {
         cbVacina.setValue(animal.getStatusVacinacao());
         cbGravida.setValue(animal.getStatusGravidez());
         dpUltimaConsulta.setValue(animal.getDataUltimaVacinacao());
+        
+        cbEspecie.setValue(animal.getEspecie());
+        cbPorte.setValue(animal.getPorte());
     }
 
     @FXML
@@ -99,12 +109,15 @@ public class CadastroAnimalController {
         String sexo = cbSexo.getValue();
         String statusVacina = cbVacina.getValue();
         String statusGravidaTexto = cbGravida.getValue();
+        String especie = cbEspecie.getValue();
+        String porte = cbPorte.getValue();
 
         if ("Macho".equalsIgnoreCase(sexo) && statusGravidaTexto == null) {
             statusGravidaTexto = "Não se aplica";
         }
 
-        if (nome.isEmpty() || idadeTexto.isEmpty() || sexo == null || statusVacina == null || statusGravidaTexto == null) {
+        if (nome.isEmpty() || idadeTexto.isEmpty() || sexo == null || statusVacina == null || 
+            statusGravidaTexto == null || especie == null || porte == null) {
             mostrarAlerta("Erro", "Preencha todos os campos obrigatórios.");
             return;
         }
@@ -142,17 +155,17 @@ public class CadastroAnimalController {
             animal.setStatusVacinacao(statusVacina);
             animal.setStatusGravidez(statusGravidaTexto);
             animal.setDataUltimaVacinacao(dataConsulta);
+            animal.setEspecie(especie);
+            animal.setPorte(porte);
 
             AnimalDAO animalDAO = new AnimalDAO();
-            boolean sucesso;
-
-            if (this.animalEmEdicao != null) {
-                sucesso = animalDAO.atualizar(animal);
-            } else {
-                sucesso = animalDAO.salvar(animal);
-            }
+            boolean sucesso = (this.animalEmEdicao != null) ? animalDAO.atualizar(animal) : animalDAO.salvar(animal);
 
             if (sucesso) {
+                if (dataConsulta != null) {
+                    salvarRegistroVacina(animal, statusVacina, dataConsulta);
+                }
+
                 String msg = (animalEmEdicao != null) ? "Animal atualizado com sucesso!" : "Animal cadastrado com sucesso!";
                 mostrarAlerta("Sucesso", msg);
                 
@@ -168,6 +181,29 @@ public class CadastroAnimalController {
 
         } catch (NumberFormatException e) {
             mostrarAlerta("Erro", "A idade deve ser um número inteiro válido.");
+        }
+    }
+
+    private void salvarRegistroVacina(Animal animal, String tipoVacina, LocalDate dataAplicacao) {
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Vacina vacina = new Vacina();
+            vacina.setAnimal(animal);
+            vacina.setTipoVacina(tipoVacina != null ? tipoVacina : "Vacina Inicial");
+            vacina.setDataVacinacao(dataAplicacao);
+            vacina.setDose("1ª Dose / Registro Inicial");
+
+            em.persist(vacina);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            System.err.println("Erro ao registrar histórico de vacina: " + e.getMessage());
+        } finally {
+            em.close();
         }
     }
 
@@ -196,6 +232,8 @@ public class CadastroAnimalController {
         cbGravida.setDisable(false);
         cbVacina.setValue(null);
         dpUltimaConsulta.setValue(null);
+        cbEspecie.setValue(null);
+        cbPorte.setValue(null);
     }
 
     private void mostrarAlerta(String titulo, String mensagem) {
