@@ -11,9 +11,8 @@
         <class>com.abrigo.model.Animal</class>
         <class>com.abrigo.model.Adocao</class>
         <class>com.abrigo.model.LarTemp</class>
-        <class>com.abrigo.model.LarTemp</class>
+        <class>com.abrigo.model.Produto</class>
 
-        <!-- Força o Hibernate a carregar apenas as classes listadas acima -->
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

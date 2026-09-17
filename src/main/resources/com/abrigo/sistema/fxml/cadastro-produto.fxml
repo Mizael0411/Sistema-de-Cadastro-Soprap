@@ -1,70 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="340.0" prefWidth="278.0" spacing="15" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroProdutoController">
-    <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
-    </padding>
+<ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroProdutoController">
+    
+    <stylesheets>
+        <URL value="@../../css/style.css" />
+    </stylesheets>
 
-    <Label text="Cadastro de Produto">
-        <font>
-            <Font size="20" />
-        </font>
-    </Label>
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+            <padding>
+                <Insets bottom="40" left="20" right="20" top="30" />
+            </padding>
 
-    <GridPane hgap="10" vgap="12">
-        <Label text="Nome:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="txtNomeProduto" promptText="Nome do produto/insumo" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <VBox maxWidth="780" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+                <padding>
+                    <Insets bottom="35" left="35" right="35" top="35" />
+                </padding>
 
-        <Label text="Descrição:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <TextField fx:id="txtDescricaoProduto" promptText="Descrição do produto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B;" text="📦" />
+                    </StackPane>
 
-        <Label text="Quantidade:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Spinner fx:id="spQuantidadeProduto" editable="true" initialValue="0" max="1000" min="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Cadastro de Produto" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Preencha as informações do produto ou insumo adquirido pelo abrigo." />
+                    </VBox>
+                </HBox>
 
-        <Label text="Preço:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-        <TextField fx:id="txtPrecoProduto" promptText="Preço do produto (ex: 19.99)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <ComboBox fx:id="cbInsumoProduto" prefWidth="150.0" promptText="Selecione" GridPane.columnIndex="1" GridPane.rowIndex="4">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Insumo" />
-                    <String fx:value="Produto" />
-                </FXCollections>
-            </items>
-        </ComboBox>
-        <Label text="Produto ou insumo" wrapText="true" GridPane.rowIndex="4" />
+                <Separator style="-fx-opacity: 0.3;" />
 
-        <columnConstraints>
-            <ColumnConstraints />
-            <ColumnConstraints />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-            <RowConstraints />
-        </rowConstraints>
-    </GridPane>
-    <BorderPane prefHeight="122.0" prefWidth="238.0">
-      <center>
-         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <left>
-               <Button fx:id="saveButton" mnemonicParsing="false" text="Salvar" BorderPane.alignment="CENTER" />
-            </left>
-            <center>
-               <Button fx:id="voltarButton" mnemonicParsing="false" text="Voltar" BorderPane.alignment="CENTER" />
-            </center>
-            <right>
-               <Button fx:id="produtosCadastrado" mnemonicParsing="false" prefHeight="27.0" prefWidth="99.0" text="Ver Produtos Cadastrados" wrapText="true" BorderPane.alignment="CENTER" />
-            </right>
-         </BorderPane>
-      </center></BorderPane>
+                <GridPane hgap="20" vgap="18">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
 
-</VBox>
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="NOME DO PRODUTO *" />
+                        <TextField fx:id="txtNome" promptText="Ex: Ração Golden Adultos 15kg..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="PREÇO DE COMPRA (R$) *" />
+                        <TextField fx:id="txtPrecoCompra" promptText="Ex: 149.90" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="DATA DA COMPRA *" />
+                        <DatePicker fx:id="dpDataCompra" maxWidth="1.7976931348623157E308" promptText="Selecione a data..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+
+                <Separator style="-fx-opacity: 0.3;" />
+
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <padding>
+                        <Insets top="10" />
+                    </padding>
+                    
+                    <Button fx:id="btnLimpar" onAction="#btnLimparOnAction" styleClass="btn-acao, btn-voltar" text="Limpar Campos" />
+                    <Button fx:id="btnVerHistorico" onAction="#verHistorico" styleClass="btn-acao, btn-historico" text="Ver Histórico" />
+                    <Button fx:id="btnSalvar" onAction="#btnSalvarOnAction" styleClass="btn-acao, btn-novo" text="Salvar Produto" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>
