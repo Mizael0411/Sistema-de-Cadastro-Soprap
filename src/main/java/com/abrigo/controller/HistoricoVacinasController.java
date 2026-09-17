@@ -1,7 +1,7 @@
 package com.abrigo.controller;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
 
 import com.abrigo.dao.AnimalDAO;
@@ -9,15 +9,16 @@ import com.abrigo.dao.VacinaDAO;
 import com.abrigo.model.Animal;
 import com.abrigo.model.Vacina;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class HistoricoVacinasController {
 
@@ -25,101 +26,67 @@ public class HistoricoVacinasController {
     @FXML private TableView<Vacina> tabelaHistorico;
     @FXML private TableColumn<Vacina, String> colunaVacina;
     @FXML private TableColumn<Vacina, String> colunaDose;
-    @FXML private TableColumn<Vacina, String> colunaData;
+    @FXML private TableColumn<Vacina, LocalDate> colunaData;
 
-    private final AnimalDAO animalDAO = new AnimalDAO();
     private final VacinaDAO vacinaDAO = new VacinaDAO();
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final AnimalDAO animalDAO = new AnimalDAO();
 
-    @FXML 
-    void initialize() {
-        if (colunaVacina != null) {
-            colunaVacina.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(cellData.getValue().getTipoVacina())
-            );
-        }
+    @FXML
+    public void initialize() {
+        // Mapeamento das colunas conforme IDs do FXML
+        colunaVacina.setCellValueFactory(new PropertyValueFactory<>("tipoVacina"));
+        colunaDose.setCellValueFactory(new PropertyValueFactory<>("dose"));
+        colunaData.setCellValueFactory(new PropertyValueFactory<>("dataVacinacao"));
 
-        if (colunaDose != null) {
-            colunaDose.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(
-                    cellData.getValue().getDose() != null && !cellData.getValue().getDose().isEmpty() 
-                        ? cellData.getValue().getDose() 
-                        : "Dose Única"
-                )
-            );
-        }
+        // Formatação da Data (dd/MM/yyyy)
+        colunaData.setCellFactory(tc -> new TableCell<>() {
+            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            @Override
+            protected void updateItem(LocalDate value, boolean empty) {
+                super.updateItem(value, empty);
+                setText(empty || value == null ? null : formatter.format(value));
+            }
+        });
 
-        if (colunaData != null) {
-            colunaData.setCellValueFactory(cellData -> 
-                new SimpleStringProperty(
-                    cellData.getValue().getDataVacinacao() != null 
-                        ? cellData.getValue().getDataVacinacao().format(formatter) 
-                        : ""
-                )
-            );
-        }
+        carregarAnimais();
 
-        if (cbAnimal != null) {
-            carregarAnimais();
-            cbAnimal.valueProperty().addListener((obs, antigo, selecionado) -> {
-                if (selecionado != null) {
-                    carregarHistoricoDoAnimal(selecionado);
-                } else if (tabelaHistorico != null) {
-                    tabelaHistorico.getItems().clear();
-                }
-            });
-        }
+        // Evento de seleção no ComboBox para filtrar a tabela por animal
+        cbAnimal.getSelectionModel().selectedItemProperty().addListener((obs, antigo, selecionado) -> {
+            if (selecionado != null) {
+                carregarVacinasDoAnimal(selecionado.getId());
+            } else {
+                tabelaHistorico.getItems().clear();
+            }
+        });
     }
 
     private void carregarAnimais() {
-        List<Animal> animais = animalDAO.listarTodos();
-        cbAnimal.setItems(FXCollections.observableArrayList(animais));
+        try {
+            cbAnimal.setItems(FXCollections.observableArrayList(animalDAO.listarTodos()));
+        } catch (Exception e) {
+            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão", "Falha ao carregar lista de animais: " + e.getMessage());
+        }
     }
 
-    private void carregarHistoricoDoAnimal(Animal animal) {
-        List<Vacina> vacinas = vacinaDAO.buscarPorAnimalId(animal.getId());
-
-        if (vacinas.isEmpty() && animal.getDataUltimaVacinacao() != null) {
-            Vacina vacinaOriginal = new Vacina();
-            vacinaOriginal.setAnimal(animal);
-            vacinaOriginal.setTipoVacina(
-                animal.getStatusVacinacao() != null ? animal.getStatusVacinacao() : "Não informada"
-            );
-            vacinaOriginal.setDataVacinacao(animal.getDataUltimaVacinacao());
-            vacinaOriginal.setDose("Cadastro Inicial");
-            vacinas.add(vacinaOriginal);
-        }
-
-        if (tabelaHistorico != null) {
-            tabelaHistorico.setItems(FXCollections.observableArrayList(vacinas));
+    private void carregarVacinasDoAnimal(Object animalId) {
+        try {
+            ObservableList<Vacina> lista = FXCollections.observableArrayList(vacinaDAO.buscarPorAnimalId(animalId));
+            tabelaHistorico.setItems(lista);
+        } catch (Exception e) {
+            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão", "Não foi possível carregar o histórico: " + e.getMessage());
         }
     }
 
     @FXML
-    private void abrirNovoRegistro() {
-        novaVacina();
-    }
-
-    @FXML
-    private void novaVacina() {
-        if (cbAnimal != null && cbAnimal.getValue() != null) {
-            NavigationManager.getInstance().setAnimalParaVacinar(cbAnimal.getValue());
-        }
+    public void abrirNovoRegistro() {
         NavigationManager.getInstance().navegarConteudo("registrar-vacinas");
     }
 
     @FXML
-    private void editarVacina() {
-        if (tabelaHistorico == null) return;
+    public void editarVacina() {
         Vacina selecionada = tabelaHistorico.getSelectionModel().getSelectedItem();
-        
         if (selecionada == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Seleção necessária", "Selecione um registro na tabela para editar.");
-            return;
-        }
-
-        if (selecionada.getId() == null) {
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Registro Inicial", "Edite este registro na tela de 'Animais Cadastrados'.");
+            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente", "Selecione uma vacina na tabela para editar.");
             return;
         }
 
@@ -128,39 +95,39 @@ public class HistoricoVacinasController {
     }
 
     @FXML
-    private void excluirVacina() {
-        if (tabelaHistorico == null) return;
+    public void excluirVacina() {
         Vacina selecionada = tabelaHistorico.getSelectionModel().getSelectedItem();
-        
         if (selecionada == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Seleção necessária", "Selecione um registro para excluir.");
+            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente", "Selecione uma vacina na tabela para excluir.");
             return;
         }
 
-        if (selecionada.getId() == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Registro Inicial", "Não é possível excluir o registro inicial por aqui.");
-            return;
-        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmar Exclusão");
+        alert.setHeaderText(null);
+        alert.setContentText("Deseja realmente excluir a vacina selecionada?");
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Deseja realmente excluir este registro?");
-        Optional<ButtonType> resultado = alert.showAndWait();
-        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             if (vacinaDAO.excluir(selecionada.getId())) {
-                carregarHistoricoDoAnimal(cbAnimal.getValue());
+                carregarVacinasDoAnimal(cbAnimal.getValue().getId());
+                exibirAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Registro de vacina excluído com sucesso.");
+            } else {
+                exibirAlerta(Alert.AlertType.ERROR, "Erro", "Falha ao excluir o registro de vacina.");
             }
         }
     }
 
-    @FXML 
-    void voltar() {
+    @FXML
+    public void voltar() {
         NavigationManager.getInstance().navegarConteudo("registrar-vacinas");
     }
 
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
+    private void exibirAlerta(Alert.AlertType tipo, String titulo, String msg) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
-        alert.setContentText(mensagem);
+        alert.setContentText(msg);
         alert.showAndWait();
     }
 }

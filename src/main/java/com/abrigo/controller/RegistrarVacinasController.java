@@ -1,6 +1,5 @@
 package com.abrigo.controller;
 
-import java.time.LocalDate;
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.dao.VacinaDAO;
 import com.abrigo.model.Animal;
@@ -11,12 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
 
 public class RegistrarVacinasController {
 
     @FXML private ComboBox<Animal> cbAnimal;
-    @FXML private TextField txtTipoVacina;
+    @FXML private ComboBox<String> cbTipoVacina; // Alterado de TextField para ComboBox
     @FXML private ComboBox<String> cbDose;
     @FXML private DatePicker dpDataVacinacao;
 
@@ -26,8 +24,13 @@ public class RegistrarVacinasController {
 
     @FXML
     public void initialize() {
+
         cbDose.setItems(FXCollections.observableArrayList(
             "1ª Dose", "2ª Dose", "3ª Dose", "Reforço Anual", "Dose Única"
+        ));
+
+        cbTipoVacina.setItems(FXCollections.observableArrayList(
+            "Raiva", "Virose", "Raiva e Virose"
         ));
 
         cbAnimal.setItems(FXCollections.observableArrayList(animalDAO.listarTodos()));
@@ -48,7 +51,8 @@ public class RegistrarVacinasController {
         if (vacina.getAnimal() != null) {
             cbAnimal.setValue(vacina.getAnimal());
         }
-        txtTipoVacina.setText(vacina.getTipoVacina());
+        
+        cbTipoVacina.setValue(vacina.getTipoVacina());
         dpDataVacinacao.setValue(vacina.getDataVacinacao());
 
         if (vacina.getDose() != null && !vacina.getDose().isEmpty()) {
@@ -65,10 +69,15 @@ public class RegistrarVacinasController {
             mostrarAlerta("Validação", "Selecione um animal.");
             return;
         }
-        if (txtTipoVacina.getText() == null || txtTipoVacina.getText().trim().isEmpty()) {
-            mostrarAlerta("Validação", "Informe o tipo da vacina.");
+        
+        String tipoVacina = cbTipoVacina.getValue();
+        if (tipoVacina == null || (!tipoVacina.equalsIgnoreCase("Raiva") &&
+                !tipoVacina.equalsIgnoreCase("Virose") &&
+                !tipoVacina.equalsIgnoreCase("Raiva e Virose"))) {
+            mostrarAlerta("Validação", "Selecione um tipo válido de vacina (Raiva, Virose ou Raiva e Virose).");
             return;
         }
+
         if (cbDose.getValue() == null || cbDose.getValue().trim().isEmpty()) {
             mostrarAlerta("Validação", "Selecione a dose da vacina.");
             return;
@@ -79,8 +88,10 @@ public class RegistrarVacinasController {
         }
 
         Vacina vacina = (vacinaEmEdicao != null) ? vacinaEmEdicao : new Vacina();
-        vacina.setAnimal(cbAnimal.getValue());
-        vacina.setTipoVacina(txtTipoVacina.getText().trim());
+        Animal animalSelecionado = cbAnimal.getValue();
+
+        vacina.setAnimal(animalSelecionado);
+        vacina.setTipoVacina(tipoVacina);
         vacina.setDose(cbDose.getValue());
         vacina.setDataVacinacao(dpDataVacinacao.getValue());
 
@@ -92,7 +103,11 @@ public class RegistrarVacinasController {
         }
 
         if (sucesso) {
-            mostrarAlerta("Sucesso", "Registro de vacina salvo com sucesso!");
+
+            animalSelecionado.setStatusVacinacao("Vacinado (" + tipoVacina + ")");
+            animalDAO.atualizar(animalSelecionado);
+
+            mostrarAlerta("Sucesso", "Registro de vacina salvo e status do animal atualizado!");
             abrirHistorico();
         } else {
             mostrarAlerta("Erro", "Não foi possível salvar o registro da vacina.");
