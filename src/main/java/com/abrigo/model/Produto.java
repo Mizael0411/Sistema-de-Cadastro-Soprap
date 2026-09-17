@@ -1,28 +1,26 @@
 package com.abrigo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
-@Table(name = "produto")
+@Table(name = "produtos")
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_produto")
     private Long id;
 
-    @Column(name = "nome_produto", nullable = false)
     private String nome;
+    private Double precoCompra;
+    private LocalDate dataCompra;
 
-    @Column(name = "preco_compra", nullable = false)
-    private Double precoCompra; 
-
-    @Column(name = "data_compra", nullable = false)
-    private LocalDate dataCompra; 
-
-    public Produto() {
-    }
+    public Produto() {}
 
     public Produto(String nome, Double precoCompra, LocalDate dataCompra) {
         this.nome = nome;
@@ -30,7 +28,6 @@ public class Produto {
         this.dataCompra = dataCompra;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -61,5 +58,18 @@ public class Produto {
 
     public void setDataCompra(LocalDate dataCompra) {
         this.dataCompra = dataCompra;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Produto produto = (Produto) o;
+        return Objects.equals(id, produto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -3,6 +3,7 @@ package com.abrigo.controller;
 import java.io.IOException;
 
 import com.abrigo.model.Animal;
+import com.abrigo.model.Produto;
 import com.abrigo.model.Vacina;
 
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ public class NavigationManager {
 
     private Vacina vacinaParaEdicao;
     private Animal animalParaVacinar;
+    private Produto produtoParaEdicao;
 
     private NavigationManager() {}
 
@@ -55,6 +57,16 @@ public class NavigationManager {
     public void setAnimalParaVacinar(Animal animalParaVacinar) {
         this.animalParaVacinar = animalParaVacinar;
     }
+
+    public Produto getProdutoParaEdicao() {
+        Produto temp = this.produtoParaEdicao;
+        this.produtoParaEdicao = null; 
+        return temp;
+    }
+
+    public void setProdutoParaEdicao(Produto produtoParaEdicao) {
+        this.produtoParaEdicao = produtoParaEdicao;
+    }
     
     public void navegarMenu(String nomeFxml) {
         carregarNoContainer(menuContainer, nomeFxml);
@@ -62,6 +74,10 @@ public class NavigationManager {
 
     public void navegarConteudo(String nomeFxml) {
         carregarNoContainer(contentContainer, nomeFxml);
+    }
+
+    public Object navegarConteudoComController(String nomeFxml) {
+        return navegarConteudoEObterController(nomeFxml);
     }
 
     public Object navegarConteudoEObterController(String nomeFxml) {
