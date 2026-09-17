@@ -1,67 +1,102 @@
 package com.abrigo.controller;
 
+import java.time.LocalDate;
 import com.abrigo.dao.AnimalDAO;
+import com.abrigo.dao.VacinaDAO;
 import com.abrigo.model.Animal;
+import com.abrigo.model.Vacina;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 public class RegistrarVacinasController {
-    
-    @FXML private ComboBox<Animal> cbAnimal;
-    @FXML private ComboBox<String> cbTipoVacina;
-    @FXML private DatePicker dpDataAplicacao;
-    @FXML private Button saveButton;
-    @FXML private Button abrirHistoricoVacinas;
 
-    private AnimalDAO animalDAO = new AnimalDAO();
+    @FXML private ComboBox<Animal> cbAnimal;
+    @FXML private TextField txtTipoVacina;
+    @FXML private ComboBox<String> cbDose;
+    @FXML private DatePicker dpDataVacinacao;
+
+    private final VacinaDAO vacinaDAO = new VacinaDAO();
+    private final AnimalDAO animalDAO = new AnimalDAO();
+    private Vacina vacinaEmEdicao;
 
     @FXML
     public void initialize() {
-        // 1. Popula os tipos de vacinas disponíveis
-        cbTipoVacina.setItems(FXCollections.observableArrayList(
-            "Raiva", 
-            "Virose",
-            "Raiva e Virose"
+        cbDose.setItems(FXCollections.observableArrayList(
+            "1ª Dose", "2ª Dose", "3ª Dose", "Reforço Anual", "Dose Única"
         ));
 
-        // 2. Busca e carrega os animais cadastrados no banco de dados
-        if (animalDAO != null) {
-            cbAnimal.setItems(FXCollections.observableArrayList(animalDAO.listarTodos()));
+        cbAnimal.setItems(FXCollections.observableArrayList(animalDAO.listarTodos()));
+
+        Animal animalParaVacinar = NavigationManager.getInstance().getAnimalParaVacinar();
+        if (animalParaVacinar != null) {
+            cbAnimal.setValue(animalParaVacinar);
+        }
+
+        Vacina edicao = NavigationManager.getInstance().getVacinaParaEdicao();
+        if (edicao != null) {
+            preencherCamposEdicao(edicao);
         }
     }
 
-    @FXML 
-    private void salvarVacina() {
-        if(cbAnimal.getValue() == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campo obrigatório", "Selecione um animal.");
-            cbAnimal.requestFocus();
+    private void preencherCamposEdicao(Vacina vacina) {
+        this.vacinaEmEdicao = vacina;
+        if (vacina.getAnimal() != null) {
+            cbAnimal.setValue(vacina.getAnimal());
+        }
+        txtTipoVacina.setText(vacina.getTipoVacina());
+        dpDataVacinacao.setValue(vacina.getDataVacinacao());
+
+        if (vacina.getDose() != null && !vacina.getDose().isEmpty()) {
+            if (!cbDose.getItems().contains(vacina.getDose())) {
+                cbDose.getItems().add(vacina.getDose());
+            }
+            cbDose.setValue(vacina.getDose());
+        }
+    }
+
+    @FXML
+    private void salvar() {
+        if (cbAnimal.getValue() == null) {
+            mostrarAlerta("Validação", "Selecione um animal.");
+            return;
+        }
+        if (txtTipoVacina.getText() == null || txtTipoVacina.getText().trim().isEmpty()) {
+            mostrarAlerta("Validação", "Informe o tipo da vacina.");
+            return;
+        }
+        if (cbDose.getValue() == null || cbDose.getValue().trim().isEmpty()) {
+            mostrarAlerta("Validação", "Selecione a dose da vacina.");
+            return;
+        }
+        if (dpDataVacinacao.getValue() == null) {
+            mostrarAlerta("Validação", "Selecione a data de vacinação.");
             return;
         }
 
-        if(cbTipoVacina.getValue() == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campo obrigatório", "Selecione o tipo de vacina.");
-            cbTipoVacina.requestFocus();
-            return;
+        Vacina vacina = (vacinaEmEdicao != null) ? vacinaEmEdicao : new Vacina();
+        vacina.setAnimal(cbAnimal.getValue());
+        vacina.setTipoVacina(txtTipoVacina.getText().trim());
+        vacina.setDose(cbDose.getValue());
+        vacina.setDataVacinacao(dpDataVacinacao.getValue());
+
+        boolean sucesso;
+        if (vacina.getId() == null) {
+            sucesso = vacinaDAO.salvar(vacina);
+        } else {
+            sucesso = vacinaDAO.atualizar(vacina);
         }
 
-        if(dpDataAplicacao.getValue() == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campo obrigatório", "Informe a data de aplicação.");
-            dpDataAplicacao.requestFocus();
-            return;
+        if (sucesso) {
+            mostrarAlerta("Sucesso", "Registro de vacina salvo com sucesso!");
+            abrirHistorico();
+        } else {
+            mostrarAlerta("Erro", "Não foi possível salvar o registro da vacina.");
         }
-
-        if(dpDataAplicacao.getValue().isAfter(java.time.LocalDate.now())) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Data inválida", "A data de aplicação não pode ser futura.");
-            dpDataAplicacao.requestFocus();
-            return;
-        }
-
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Dados da vacinação preenchidos corretamente.");
     }
 
     @FXML
@@ -69,8 +104,8 @@ public class RegistrarVacinasController {
         NavigationManager.getInstance().navegarConteudo("historico-vacinas");
     }
 
-    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensagem) {
-        Alert alert = new Alert(tipo);
+    private void mostrarAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensagem);

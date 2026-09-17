@@ -39,10 +39,33 @@
     </left>
 
     <center>
-        <StackPane fx:id="areaConteudo" style="-fx-background-color: #FAF8F5;">
-            <padding>
-                <Insets bottom="20" left="20" right="20" top="20" />
-            </padding>
+        <StackPane style="-fx-background-color: #FAF8F5;">
+            
+            <AnchorPane mouseTransparent="true" style="-fx-background-color: transparent;">
+                <Label style="-fx-font-size: 32px; -fx-opacity: 0.14; -fx-rotate: -20;" text="🐾" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0" />
+                <Label style="-fx-font-size: 22px; -fx-opacity: 0.10; -fx-rotate: 15;" text="🐾" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="110.0" />
+                <Label style="-fx-font-size: 28px; -fx-opacity: 0.12; -fx-rotate: -35;" text="🐾" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="220.0" />
+
+                <Label style="-fx-font-size: 36px; -fx-opacity: 0.13; -fx-rotate: 30;" text="🐾" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="50.0" />
+                <Label style="-fx-font-size: 24px; -fx-opacity: 0.11; -fx-rotate: -15;" text="🐾" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="130.0" />
+                <Label style="-fx-font-size: 30px; -fx-opacity: 0.15; -fx-rotate: 45;" text="🐾" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="210.0" />
+
+                <Label style="-fx-font-size: 26px; -fx-opacity: 0.12; -fx-rotate: 25;" text="🐾" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="380.0" />
+                <Label style="-fx-font-size: 28px; -fx-opacity: 0.14; -fx-rotate: -25;" text="🐾" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="380.0" />
+
+                <Label style="-fx-font-size: 34px; -fx-opacity: 0.13; -fx-rotate: -40;" text="🐾" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="70.0" />
+                <Label style="-fx-font-size: 24px; -fx-opacity: 0.11; -fx-rotate: 18;" text="🐾" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="180.0" />
+
+                <Label style="-fx-font-size: 30px; -fx-opacity: 0.15; -fx-rotate: 20;" text="🐾" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="80.0" />
+                <Label style="-fx-font-size: 26px; -fx-opacity: 0.10; -fx-rotate: -30;" text="🐾" AnchorPane.bottomAnchor="140.0" AnchorPane.rightAnchor="190.0" />
+            </AnchorPane>
+
+            <StackPane fx:id="areaConteudo" style="-fx-background-color: transparent;">
+                <padding>
+                    <Insets bottom="20" left="20" right="20" top="20" />
+                </padding>
+            </StackPane>
+            
         </StackPane>
     </center>
 </BorderPane>

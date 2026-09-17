@@ -1,6 +1,11 @@
 package com.abrigo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "lar_temporario")
@@ -18,27 +23,31 @@ public class LarTemp {
     private String endereco;
 
     @Column(nullable = false)
-    private String telefone; // RF02.3 - Armazenado como String para suportar DDD e caracteres especiais
+    private String telefone;
 
     @Column(name = "capacidade_maxima", nullable = false)
-    private Integer capacidadeMaxima; // RF02.4 - Exigido pelo requisito
+    private Integer capacidadeMaxima;
 
     @Column(name = "vagas_disponiveis", nullable = false)
-    private Integer vagasDisponiveis; // RF02.5
+    private Integer vagasDisponiveis;
 
     @Column(name = "aceita_doencas_transmissiveis", nullable = false)
-    private Boolean aceitaDoencasTransmissiveis; // RF02.6
+    private Boolean aceitaDoencasTransmissiveis;
+
+    @Column(name = "aceita_deficiencia", nullable = false)
+    private Boolean aceitaDeficiencia;
 
     public LarTemp() {
     }
 
-    public LarTemp(String nome, String endereco, String telefone, Integer capacidadeMaxima, Integer vagasDisponiveis, Boolean aceitaDoencasTransmissiveis) {
+    public LarTemp(String nome, String endereco, String telefone, Integer capacidadeMaxima, Integer vagasDisponiveis, Boolean aceitaDoencasTransmissiveis, Boolean aceitaDeficiencia) {
         this.nome = nome;
         this.endereco = endereco;
         this.telefone = telefone;
         this.capacidadeMaxima = capacidadeMaxima;
         this.vagasDisponiveis = vagasDisponiveis;
         this.aceitaDoencasTransmissiveis = aceitaDoencasTransmissiveis;
+        this.aceitaDeficiencia = aceitaDeficiencia;
     }
 
     // Getters e Setters
@@ -96,5 +105,13 @@ public class LarTemp {
 
     public void setAceitaDoencasTransmissiveis(Boolean aceitaDoencasTransmissiveis) {
         this.aceitaDoencasTransmissiveis = aceitaDoencasTransmissiveis;
+    }
+
+    public Boolean getAceitaDeficiencia() {
+        return aceitaDeficiencia;
+    }
+
+    public void setAceitaDeficiencia(Boolean aceitaDeficiencia) {
+        this.aceitaDeficiencia = aceitaDeficiencia;
     }
 }

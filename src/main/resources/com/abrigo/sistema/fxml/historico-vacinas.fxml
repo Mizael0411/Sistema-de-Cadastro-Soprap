@@ -9,15 +9,12 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoVacinasController">
-    
+<ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoVacinasController">
+
     <stylesheets>
         <URL value="@../../css/style.css" />
     </stylesheets>
@@ -28,50 +25,39 @@
                 <Insets bottom="40" left="20" right="20" top="30" />
             </padding>
 
-            <VBox maxWidth="780" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+            <VBox maxWidth="900" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
                 <padding>
                     <Insets bottom="35" left="35" right="35" top="35" />
                 </padding>
 
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-                        <Label style="-fx-font-size: 24px;" text="💉" />
+                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B" text="📋" />
                     </StackPane>
 
                     <VBox HBox.hgrow="ALWAYS" spacing="3">
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Histórico de Vacinas" />
-                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Consulte as vacinas aplicadas nos animais cadastrados no abrigo." />
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Histórico de Vacinação" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Selecione um animal para visualizar as vacinas registradas." />
                     </VBox>
                 </HBox>
 
                 <Separator style="-fx-opacity: 0.3;" />
 
-                <GridPane hgap="20" vgap="18">
-                    <columnConstraints>
-                        <ColumnConstraints percentWidth="100" />
-                    </columnConstraints>
-                    
-                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="SELECIONE O ANIMAL *" />
-                        <ComboBox fx:id="cbAnimal" maxWidth="1.7976931348623157E308" promptText="Selecione o animal para visualizar o histórico..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
-                    <rowConstraints>
-                        <RowConstraints />
-                    </rowConstraints>
-                </GridPane>
-
-                <VBox spacing="8">
-                    <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="VACINAS REGISTRADAS" />
-                    <TableView fx:id="tabelaHistorico" minHeight="220.0" prefHeight="260.0" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 4;">
-                        <columns>
-                            <TableColumn fx:id="colunaVacina" prefWidth="350.0" text="Vacina" />
-                            <TableColumn fx:id="colunaData" prefWidth="330.0" text="Data de Aplicação" />
-                        </columns>
-                        <columnResizePolicy>
-                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                        </columnResizePolicy>
-                    </TableView>
+                <VBox spacing="6">
+                    <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Selecione o Animal" />
+                    <ComboBox fx:id="cbAnimal" maxWidth="Infinity" promptText="Escolha um animal da lista" styleClass="input-campo" />
                 </VBox>
+
+                <TableView fx:id="tabelaHistorico" prefHeight="350" style="-fx-background-color: transparent; -fx-border-color: #E0E0E0; -fx-border-radius: 10;">
+                    <columns>
+                        <TableColumn fx:id="colunaVacina" prefWidth="250" text="Vacina / Tipo" />
+                        <TableColumn fx:id="colunaDose" prefWidth="180" text="Dose" />
+                        <TableColumn fx:id="colunaData" prefWidth="180" text="Data de Aplicação" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
 
                 <Separator style="-fx-opacity: 0.3;" />
 
@@ -79,8 +65,14 @@
                     <padding>
                         <Insets top="10" />
                     </padding>
+
                     <Button fx:id="voltarButton" onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
+                    <Button fx:id="excluirButton" onAction="#excluirVacina" styleClass="btn-acao, btn-excluir" text="Excluir" />
+                    <Button fx:id="editarButton" onAction="#editarVacina" styleClass="btn-acao, btn-editar" text="Editar" />
+                    <Button fx:id="novaVacinaButton" onAction="#abrirNovoRegistro" styleClass="btn-acao, btn-novo" text="+ Nova Vacina" />
+
                 </HBox>
+
             </VBox>
         </VBox>
     </content>

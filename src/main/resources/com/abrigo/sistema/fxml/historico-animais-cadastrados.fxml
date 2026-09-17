@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoAnimaisCadastradosController">
+<ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoAnimaisCadastradosController">
     
     <stylesheets>
         <URL value="@../../css/style.css" />
@@ -39,6 +39,8 @@
                     <columns>
                         <TableColumn fx:id="colunaIdAnimal" prefWidth="60.0" text="ID" />
                         <TableColumn fx:id="colunaNomeAnimal" prefWidth="150.0" text="Nome" />
+                        <TableColumn fx:id="colunaEspecie" prefWidth="100.0" text="Espécie" />
+                        <TableColumn fx:id="colunaPorte" prefWidth="100.0" text="Porte" />
                         <TableColumn fx:id="colunaIdadeAnimal" prefWidth="90.0" text="Idade" />
                         <TableColumn fx:id="colunaSexo" prefWidth="90.0" text="Sexo" />
                         <TableColumn fx:id="colunaStsVacinacao" prefWidth="130.0" text="Vacinação" />

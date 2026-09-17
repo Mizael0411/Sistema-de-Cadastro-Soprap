@@ -4,16 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 
-<StackPane style="-fx-background-color: #FAF8F5;" 
-           xmlns="http://javafx.com/javafx/17.0.12" 
-           xmlns:fx="http://javafx.com/fxml/1">
-
-    <Pane mouseTransparent="true">
-        <Label style="-fx-font-size: 30px; -fx-opacity: 0.15; -fx-rotate: -20;" text="🐾" layoutX="120" layoutY="80" />
-        <Label style="-fx-font-size: 24px; -fx-opacity: 0.12; -fx-rotate: 15;" text="🐾" layoutX="200" layoutY="450" />
-        <Label style="-fx-font-size: 35px; -fx-opacity: 0.10; -fx-rotate: 35;" text="🐾" layoutX="800" layoutY="100" />
-        <Label style="-fx-font-size: 28px; -fx-opacity: 0.15; -fx-rotate: -10;" text="🐾" layoutX="750" layoutY="480" />
-    </Pane>
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 
     <VBox alignment="CENTER" maxWidth="580" maxHeight="480" spacing="22" 
           style="-fx-background-color: #FFFFFF; 
@@ -47,7 +38,7 @@
 
         <VBox alignment="CENTER" spacing="8">
             <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #2D3748;" text="Bem-Vinda(o) ao Sistema de Cadastro" />
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #E91E63;" text="SOPRAP • Sociedade Protetora dos Animais" />
+            <Label style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #E91E63;" text="SOPRAP • Sociedade Protetora dos Animais" />
         </VBox>
 
         <HBox alignment="CENTER" spacing="12">
@@ -65,9 +56,9 @@
         </HBox>
 
         <Label alignment="CENTER" textAlignment="CENTER" wrapText="true" 
-            style="-fx-font-size: 13px; -fx-text-fill: #718096; -fx-line-spacing: 3;" 
-            text="Todo animal é uma vida: cuide com amor e respeito." />
+               style="-fx-font-size: 13px; -fx-text-fill: #718096; -fx-line-spacing: 3;" 
+               text="Todo animal é uma vida: cuide com amor e respeito." />
 
     </VBox>
 
-</StackPane>
+</VBox>

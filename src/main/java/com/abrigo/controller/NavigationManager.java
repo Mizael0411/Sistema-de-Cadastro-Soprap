@@ -2,6 +2,9 @@ package com.abrigo.controller;
 
 import java.io.IOException;
 
+import com.abrigo.model.Animal;
+import com.abrigo.model.Vacina;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
@@ -12,6 +15,9 @@ public class NavigationManager {
     
     private StackPane menuContainer;
     private StackPane contentContainer;
+
+    private Vacina vacinaParaEdicao;
+    private Animal animalParaVacinar;
 
     private NavigationManager() {}
 
@@ -28,6 +34,26 @@ public class NavigationManager {
 
     public void setContentContainer(StackPane contentContainer) {
         this.contentContainer = contentContainer;
+    }
+
+    public Vacina getVacinaParaEdicao() {
+        Vacina temp = this.vacinaParaEdicao;
+        this.vacinaParaEdicao = null; 
+        return temp;
+    }
+
+    public void setVacinaParaEdicao(Vacina vacinaParaEdicao) {
+        this.vacinaParaEdicao = vacinaParaEdicao;
+    }
+
+    public Animal getAnimalParaVacinar() {
+        Animal temp = this.animalParaVacinar;
+        this.animalParaVacinar = null; 
+        return temp;
+    }
+
+    public void setAnimalParaVacinar(Animal animalParaVacinar) {
+        this.animalParaVacinar = animalParaVacinar;
     }
     
     public void navegarMenu(String nomeFxml) {
@@ -87,6 +113,6 @@ public class NavigationManager {
         
         } catch (IOException e) {
              e.printStackTrace();
-            }
         }
+    }
 }

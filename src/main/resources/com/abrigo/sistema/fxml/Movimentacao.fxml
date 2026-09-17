@@ -17,7 +17,6 @@
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRegistroDoacao" styleClass="menu-btn" text="Registro Doação" />
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRegistroAdocao" styleClass="menu-btn" text="Registro Adoção" />
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCompras" styleClass="menu-btn" text="Comprar" />
-    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCAnimal" styleClass="menu-btn" text="Cadastro de Animal" />
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRGLartemporario" styleClass="menu-btn" text="Registro Animal Lar temporário" />
 
     <VBox prefHeight="16" />

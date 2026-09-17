@@ -1,9 +1,10 @@
 package com.abrigo.controller;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.model.Animal;
+import com.abrigo.controller.NavigationManager;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,10 +20,12 @@ public class HistoricoAnimaisCadastradosController {
     @FXML private TableView<Animal> tabelaAnimais;
     @FXML private TableColumn<Animal, Integer> colunaIdAnimal;
     @FXML private TableColumn<Animal, String> colunaNomeAnimal;
+    @FXML private TableColumn<Animal, String> colunaEspecie;
+    @FXML private TableColumn<Animal, String> colunaPorte;
     @FXML private TableColumn<Animal, Integer> colunaIdadeAnimal;
     @FXML private TableColumn<Animal, String> colunaSexo;
     @FXML private TableColumn<Animal, String> colunaStsVacinacao;
-    @FXML private TableColumn<Animal, Date> colunaDataUltimaVacinacao;
+    @FXML private TableColumn<Animal, LocalDate> colunaDataUltimaVacinacao;
     @FXML private TableColumn<Animal, String> colunaStsGravidez;
 
     private AnimalDAO animalDAO = new AnimalDAO();
@@ -32,6 +35,8 @@ public class HistoricoAnimaisCadastradosController {
         // Mapeamento das propriedades correspondentes à entidade Animal.java
         colunaIdAnimal.setCellValueFactory(new PropertyValueFactory<>("id"));
         colunaNomeAnimal.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colunaEspecie.setCellValueFactory(new PropertyValueFactory<>("especie"));
+        colunaPorte.setCellValueFactory(new PropertyValueFactory<>("porte"));
         colunaIdadeAnimal.setCellValueFactory(new PropertyValueFactory<>("idade"));
         colunaSexo.setCellValueFactory(new PropertyValueFactory<>("sexo"));
         colunaStsVacinacao.setCellValueFactory(new PropertyValueFactory<>("statusVacinacao"));
@@ -58,7 +63,6 @@ public class HistoricoAnimaisCadastradosController {
         Animal selecionado = tabelaAnimais.getSelectionModel().getSelectedItem();
         
         if (selecionado != null) {
-            // Abre a tela de cadastro e injeta o animal selecionado para alteração
             CadastroAnimalController controller = (CadastroAnimalController) 
                 NavigationManager.getInstance().navegarConteudoEObterController("cadastro-animal");
             
@@ -96,17 +100,16 @@ public class HistoricoAnimaisCadastradosController {
                         mostrarAlerta(Alert.AlertType.ERROR, "Erro", "Não foi possível excluir o animal.");
                     }
                 } catch (Exception e) {
-                    mostrarAlerta(Alert.AlertType.ERROR, "Erro de Integridade", "Este animal possui vínculos com vacinas ou doações e não pode ser excluído diretamente.");
+                    mostrarAlerta(Alert.AlertType.ERROR, "Erro de Integridade", "Este animal possui vínculos no sistema e não pode ser excluído diretamente.");
                 }
             }
         });
     }
 
     @FXML
-private void voltar() {
-    // Redireciona para a rota do formulário de cadastro de animais
-    NavigationManager.getInstance().navegarConteudo("cadastro-animal"); 
-}
+    private void voltar() {
+        NavigationManager.getInstance().navegarConteudo("cadastro-animal"); 
+    }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String msg) {
         Alert alert = new Alert(tipo);
