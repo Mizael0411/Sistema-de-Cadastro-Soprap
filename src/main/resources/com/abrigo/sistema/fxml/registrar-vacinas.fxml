@@ -30,7 +30,6 @@
                     <Insets bottom="35" left="35" right="35" top="35" />
                 </padding>
 
-                <!-- Cabeçalho -->
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
                         <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B" text="💉" />
@@ -45,27 +44,23 @@
 
                 <Separator style="-fx-opacity: 0.3;" />
 
-                <!-- Formulário -->
                 <VBox spacing="18">
-                    <!-- Seleção do Animal -->
+
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Animal *" />
                         <ComboBox fx:id="cbAnimal" maxWidth="Infinity" promptText="Selecione o animal" styleClass="input-campo" />
                     </VBox>
 
-                    <!-- Nome da Vacina -->
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Nome/Tipo da Vacina *" />
-                        <TextField fx:id="txtTipoVacina" promptText="Ex: V10, Antirrábica, Giárdia" styleClass="input-campo" />
+                        <TextField fx:id="txtTipoVacina" promptText="Ex: Raiva, Virose, Raiva e Virose" styleClass="input-campo" />
                     </VBox>
 
-                    <!-- Dose da Vacina -->
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Dose *" />
                         <ComboBox fx:id="cbDose" maxWidth="Infinity" promptText="Selecione a dose" styleClass="input-campo" />
                     </VBox>
 
-                    <!-- Data da Vacinação -->
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Data da Aplicação *" />
                         <DatePicker fx:id="dpDataVacinacao" maxWidth="Infinity" promptText="dd/mm/aaaa" styleClass="input-campo" />
@@ -74,7 +69,6 @@
 
                 <Separator style="-fx-opacity: 0.3;" />
 
-                <!-- Ações do Formulário -->
                 <HBox alignment="CENTER_RIGHT" spacing="12">
                     <padding>
                         <Insets top="10" />
