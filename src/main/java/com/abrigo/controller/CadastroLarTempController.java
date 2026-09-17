@@ -26,7 +26,6 @@ public class CadastroLarTempController {
     private final LarTemporarioDAO larDAO = new LarTemporarioDAO();
     private Long idEmEdicao = null;
 
-    // Variável estática para receber os dados de outros controllers
     private static LarTemp larParaEdicao = null;
 
     public static void setLarParaEdicao(LarTemp lar) {
@@ -51,10 +50,9 @@ public class CadastroLarTempController {
             spDisponibilidadeVagas.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0));
         }
 
-        // Se houver um lar selecionado, preenche os campos automaticamente
         if (larParaEdicao != null) {
             preencherParaEdicao(larParaEdicao);
-            larParaEdicao = null; // Limpa a variável estática após consumir
+            larParaEdicao = null; 
         }
     }
 
@@ -139,6 +137,15 @@ public class CadastroLarTempController {
             mostrarAlerta("Aviso", "O campo Nome do responsável é obrigatório.", Alert.AlertType.WARNING);
             return false;
         }
+
+        int capacidade = (spCapacidade != null && spCapacidade.getValue() != null) ? spCapacidade.getValue() : 0;
+        int vagas = (spDisponibilidadeVagas != null && spDisponibilidadeVagas.getValue() != null) ?spDisponibilidadeVagas.getValue() : 0;
+
+        if (vagas > capacidade) {
+            mostrarAlerta("Erro de Validação", "A quantidade de vagas disponíveis (" + vagas + ") não pode ser maior do que a capacidade máxima (" + capacidade + ").", Alert.AlertType.WARNING);
+            return false;
+        }
+
         return true;
     }
 
