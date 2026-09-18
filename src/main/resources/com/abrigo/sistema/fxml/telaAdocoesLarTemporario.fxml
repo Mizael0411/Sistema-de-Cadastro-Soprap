@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox spacing="20" style="-fx-background-color: #FAF8F5;"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.abrigo.controller.AdocoesLarTemporarioController">
+<VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.AdocoesLarTemporarioController">
 
     <stylesheets>
         <URL value="@../../css/style.css" />
@@ -26,50 +17,39 @@
 
     <!-- Cabeçalho -->
     <HBox alignment="CENTER_LEFT" spacing="15">
-        <StackPane prefHeight="50" prefWidth="50"
-                   style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
             <Label style="-fx-font-size: 24px;" text="🏡" />
         </StackPane>
         <VBox spacing="3">
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"
-                   text="Adoções em Lar Temporário" />
-            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;"
-                   text="Animais em cuidado temporário." />
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Adoções em Lar Temporário" />
+            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Animais em cuidado temporário." />
         </VBox>
     </HBox>
 
     <HBox alignment="CENTER_LEFT" spacing="12">
-        <TextField fx:id="txtBusca"
-                   promptText="  Buscar por nome, ID ou tutor..."
-                   HBox.hgrow="ALWAYS"
-                   style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;
-                          -fx-border-radius: 10; -fx-background-radius: 10;
-                          -fx-padding: 10 14; -fx-font-size: 13px;" />
+        <TextField fx:id="txtBusca" promptText="  Buscar por nome, ID ou tutor..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;                           -fx-border-radius: 10; -fx-background-radius: 10;                           -fx-padding: 10 14; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
 
         <Button onAction="#cancelarAdocao" styleClass="btn-acao, btn-excluir" text="Encerrar Lar Temporário" />
     </HBox>
 
-    <VBox VBox.vgrow="ALWAYS"
-          style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;
-                 -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;">
+    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;                  -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
         <padding>
             <Insets bottom="15" left="15" right="15" top="15" />
         </padding>
 
-        <TableView fx:id="tabelaAdocoes" VBox.vgrow="ALWAYS"
-                   style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <TableView fx:id="tabelaAdocoes" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colunaIdAnimal"   prefWidth="80"  text="ID Animal" />
-                <TableColumn fx:id="colunaNome"        prefWidth="160" text="Nome" />
-                <TableColumn fx:id="colunaStatus"      prefWidth="170" text="Status" />
-                <TableColumn fx:id="colunaIdLarTemp"   prefWidth="110" text="ID Lar Temp." />
-                <TableColumn fx:id="colunaTutor"       prefWidth="150" text="Tutor" />
-                <TableColumn fx:id="colunaIdAdocao"    prefWidth="90"  text="ID Adoção" />
+                <TableColumn fx:id="colunaIdAnimal" prefWidth="80" text="ID Animal" />
+                <TableColumn fx:id="colunaNome" prefWidth="160" text="Nome" />
+                <TableColumn fx:id="colunaStatus" prefWidth="170" text="Status" />
+                <TableColumn fx:id="colunaIdLarTemp" prefWidth="110" text="ID Lar Temp." />
+                <TableColumn fx:id="colunaTutor" prefWidth="150" text="Tutor" />
+                <TableColumn fx:id="colunaIdAdocao" prefWidth="90" text="ID Adoção" />
             </columns>
         </TableView>
     </VBox>
 
     <HBox alignment="CENTER_RIGHT">
-        <Button onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
+        <Button fx:id="voltar" onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
     </HBox>
 </VBox>
