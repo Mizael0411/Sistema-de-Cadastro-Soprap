@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.AnimaisSemAdocaoController">
+
+    <stylesheets>
+        <URL value="@../../css/style.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets bottom="30" left="30" right="30" top="30" />
+    </padding>
+
+    <!-- Cabeçalho -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+            <Label style="-fx-font-size: 24px;" text="🐾" />
+        </StackPane>
+        <VBox spacing="3">
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Animais Sem Adoção" />
+            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Animais aguardando um lar." />
+        </VBox>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="12">
+        <TextField fx:id="txtBusca" promptText="  Buscar por nome ou ID..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;                           -fx-border-radius: 10; -fx-background-radius: 10;                           -fx-padding: 10 14; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+
+        <Button onAction="#adotarDefinitivo" styleClass="btn-acao, btn-novo" text="Adotar Definitivo" />
+        <Button onAction="#adotarLarTemporario" styleClass="btn-acao, btn-editar" text="Adotar Lar Temporário" />
+    </HBox>
+
+    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;                  -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets bottom="15" left="15" right="15" top="15" />
+        </padding>
+
+        <TableView fx:id="tabelaAnimais" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colunaIdAnimal" prefWidth="80" text="ID" />
+                <TableColumn fx:id="colunaNome" prefWidth="220" text="Nome" />
+                <TableColumn fx:id="colunaStatus" prefWidth="160" text="Status" />
+            </columns>
+        </TableView>
+    </VBox>
+
+    <HBox alignment="CENTER_RIGHT">
+        <Button fx:id="voltar" onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
+    </HBox>
+</VBox>

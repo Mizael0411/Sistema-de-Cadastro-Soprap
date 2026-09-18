@@ -117,3 +117,34 @@
     -fx-text-fill: #0284C7;
     -fx-border-color: #7DD3FC;
 }
+
+
+.menu-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+    -fx-border-color: #F1E5D1;
+    -fx-border-radius: 16;
+    -fx-border-width: 1.5;
+    -fx-padding: 22 28 22 28;
+    -fx-pref-width: 520;
+    -fx-min-width: 380;
+    -fx-cursor: hand;
+}
+
+
+.menu-card:hover {
+    -fx-border-color: #F8BBD0;
+    -fx-background-color: #FFFDFB;
+}
+
+.menu-card-titulo {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+    -fx-letter-spacing: 0.5px;
+}
+
+.menu-card-sub {
+    -fx-font-size: 12px;
+    -fx-text-fill: #7F8C8D;
+}

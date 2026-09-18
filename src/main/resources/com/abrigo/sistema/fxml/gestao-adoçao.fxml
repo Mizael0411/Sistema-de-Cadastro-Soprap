@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="28" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.GestaoAdocaoController">
+
+    <stylesheets>
+        <URL value="@../../css/style.css" />
+    </stylesheets>
+
+    <padding>
+        <Insets bottom="40" left="40" right="40" top="40" />
+    </padding>
+
+    <!-- Cabeçalho -->
+    <VBox alignment="CENTER" spacing="8">
+        <StackPane prefHeight="70" prefWidth="70" style="-fx-background-color: #FFF3E0; -fx-background-radius: 18;">
+            <Label style="-fx-font-size: 34px;" text="🐾" />
+        </StackPane>
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Gestão de Animais" />
+        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Escolha uma categoria para visualizar." />
+    </VBox>
+
+    <!-- Botões -->
+    <VBox alignment="CENTER" spacing="20">
+        <fx:define>
+            <Insets fx:id="semMargem" />
+        </fx:define>
+
+        <StackPane fx:id="cardAdotados" onMouseClicked="#abrirAdotados" prefHeight="93.0" prefWidth="448.0" styleClass="menu-card">
+            <VBox alignment="CENTER" prefHeight="47.0" prefWidth="313.0" spacing="6">
+                <Label styleClass="menu-card-titulo" text="ANIMAIS ADOTADOS" />
+                <Label styleClass="menu-card-sub" text="Veja quem já encontrou um lar." />
+            </VBox>
+        </StackPane>
+
+        <StackPane fx:id="cardLarTemporario" onMouseClicked="#abrirLarTemporario" prefWidth="339.0" styleClass="menu-card">
+            <VBox alignment="CENTER" spacing="6">
+                <Label styleClass="menu-card-titulo" text="ANIMAIS EM LAR TEMPORÁRIO" />
+                <Label styleClass="menu-card-sub" text="Acompanhe os pets em acolhimento." />
+            </VBox>
+        </StackPane>
+
+        <StackPane fx:id="cardSemAdocao" onMouseClicked="#abrirSemAdocao" styleClass="menu-card">
+            <VBox alignment="CENTER" spacing="6">
+                <Label styleClass="menu-card-titulo" text="ANIMAIS SEM ADOÇÃO" />
+                <Label styleClass="menu-card-sub" text="Resgatados aguardando uma família." />
+            </VBox>
+        </StackPane>
+    </VBox>
+</VBox>

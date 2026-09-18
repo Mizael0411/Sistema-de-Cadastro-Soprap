@@ -1,23 +1,18 @@
 package com.abrigo.controller;
 
+import com.abrigo.dao.ProdutoDAO;
+import com.abrigo.model.Produto;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
-
-import com.abrigo.dao.ProdutoDAO;
-import com.abrigo.model.Produto;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class HistoricoCadastroProdutoController {
 
@@ -81,10 +76,10 @@ public class HistoricoCadastroProdutoController {
             return;
         }
 
-        // Armazena no manager para garantia total (Fallback)
+
         NavigationManager.getInstance().setProdutoParaEdicao(selecionado);
 
-        // Abre a tela e recupera a instância do controller
+
         CadastroProdutoController controller = (CadastroProdutoController) NavigationManager.getInstance()
                 .navegarConteudoComController("cadastro-produto");
 

@@ -29,21 +29,32 @@ public class Adocao {
     @Column(name = "adocao_especial", nullable = false)
     private Boolean adocaoEspecial;
 
+    @Column(name = "status_adocao", nullable = false)
+    private String statusAdocao;
+
     @OneToOne
     @JoinColumn(name = "id_animal", nullable = false)
     private Animal animal;
 
+
+    @OneToOne
+    @JoinColumn(name = "id_lar_temp", nullable = true)
+    private LarTemp larTemp;
+
+
     public Adocao() {
     }
 
-    public Adocao(LocalDate dataAdocao, String nomeTutor, Boolean adocaoEspecial, Animal animal) {
+    public Adocao(LocalDate dataAdocao, String nomeTutor, Boolean adocaoEspecial, Animal animal, String statusAdocao, LarTemp larTemp) {
         this.dataAdocao = dataAdocao;
         this.nomeTutor = nomeTutor;
         this.adocaoEspecial = adocaoEspecial;
         this.animal = animal;
+        this.statusAdocao = statusAdocao;
+        this.larTemp = larTemp;
     }
 
-    // Getters e Setters
+
     public Long getId() {
         return id;
     }
@@ -82,5 +93,21 @@ public class Adocao {
 
     public void setAnimal(Animal animal) {
         this.animal = animal;
+    }
+
+    public String getStatusAdocao() {
+        return statusAdocao;
+    }
+
+    public void setStatusAdocao(String statusAdocao) {
+        this.statusAdocao = statusAdocao;
+    }
+
+    public LarTemp getLarTemp() {
+        return larTemp;
+    }
+
+    public void setLarTemp(LarTemp larTemp) {
+        this.larTemp = larTemp;
     }
 }

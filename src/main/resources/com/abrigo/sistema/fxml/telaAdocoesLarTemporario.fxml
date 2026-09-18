@@ -8,14 +8,13 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox spacing="20" style="-fx-background-color: #FAF8F5;"
       xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.abrigo.controller.HistoricoAnimaisCadastradosController">
+      fx:controller="com.abrigo.controller.AdocoesLarTemporarioController">
 
     <stylesheets>
         <URL value="@../../css/style.css" />
@@ -29,30 +28,26 @@
     <HBox alignment="CENTER_LEFT" spacing="15">
         <StackPane prefHeight="50" prefWidth="50"
                    style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <Label style="-fx-font-size: 24px;" text="📋" />
+            <Label style="-fx-font-size: 24px;" text="🏡" />
         </StackPane>
         <VBox spacing="3">
             <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"
-                   text="Animais Cadastrados" />
+                   text="Adoções em Lar Temporário" />
             <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;"
-                   text="Gerencie os resgatados do abrigo." />
+                   text="Animais em cuidado temporário." />
         </VBox>
     </HBox>
 
-
     <HBox alignment="CENTER_LEFT" spacing="12">
         <TextField fx:id="txtBusca"
-                   promptText="  Buscar por nome ou ID..."
+                   promptText="  Buscar por nome, ID ou tutor..."
                    HBox.hgrow="ALWAYS"
                    style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;
                           -fx-border-radius: 10; -fx-background-radius: 10;
                           -fx-padding: 10 14; -fx-font-size: 13px;" />
 
-        <Button onAction="#inserir" styleClass="btn-acao, btn-novo" text="+ Novo Animal" />
-        <Button onAction="#editar" styleClass="btn-acao, btn-editar" text="Editar" />
-        <Button onAction="#excluir" styleClass="btn-acao, btn-excluir" text="Excluir" />
+        <Button onAction="#cancelarAdocao" styleClass="btn-acao, btn-excluir" text="Encerrar Lar Temporário" />
     </HBox>
-
 
     <VBox VBox.vgrow="ALWAYS"
           style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;
@@ -61,18 +56,15 @@
             <Insets bottom="15" left="15" right="15" top="15" />
         </padding>
 
-        <TableView fx:id="tabelaAnimais" VBox.vgrow="ALWAYS"
+        <TableView fx:id="tabelaAdocoes" VBox.vgrow="ALWAYS"
                    style="-fx-background-color: transparent; -fx-border-color: transparent;">
             <columns>
-                <TableColumn fx:id="colunaIdAnimal"           prefWidth="60"  text="ID" />
-                <TableColumn fx:id="colunaNomeAnimal"         prefWidth="160" text="Nome" />
-                <TableColumn fx:id="colunaEspecie"            prefWidth="100" text="Espécie" />
-                <TableColumn fx:id="colunaPorte"              prefWidth="100" text="Porte" />
-                <TableColumn fx:id="colunaIdadeAnimal"        prefWidth="70"  text="Idade" />
-                <TableColumn fx:id="colunaSexo"               prefWidth="90"  text="Sexo" />
-                <TableColumn fx:id="colunaStsVacinacao"       prefWidth="130" text="Vacinação" />
-                <TableColumn fx:id="colunaDataUltimaVacinacao" prefWidth="150" text="Última Vacina" />
-                <TableColumn fx:id="colunaStsGravidez"        prefWidth="140" text="Gestação" />
+                <TableColumn fx:id="colunaIdAnimal"   prefWidth="80"  text="ID Animal" />
+                <TableColumn fx:id="colunaNome"        prefWidth="160" text="Nome" />
+                <TableColumn fx:id="colunaStatus"      prefWidth="170" text="Status" />
+                <TableColumn fx:id="colunaIdLarTemp"   prefWidth="110" text="ID Lar Temp." />
+                <TableColumn fx:id="colunaTutor"       prefWidth="150" text="Tutor" />
+                <TableColumn fx:id="colunaIdAdocao"    prefWidth="90"  text="ID Adoção" />
             </columns>
         </TableView>
     </VBox>

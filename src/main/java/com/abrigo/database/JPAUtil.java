@@ -26,10 +26,10 @@ public class JPAUtil {
             System.err.println("Arquivo config.properties não encontrado na raiz do projeto!");
         }
 
-        // Configurações do Hibernate para forçar a detecção automática de classes anotadas com @Entity
+
         properties.put("hibernate.archive.autodetection", "class");
         
-        // Habilita a varredura automática do classpath para encontrar todas as entidades
+
         properties.put("hibernate.scanner", "org.hibernate.boot.archive.scan.internal.StandardScanner");
 
         FACTORY = Persistence.createEntityManagerFactory("soprap-pu", properties);

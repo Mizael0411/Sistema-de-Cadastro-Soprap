@@ -20,6 +20,7 @@ module com.abrigo {
     // LIBERA O ACESSO DO HIBERNATE ÀS SUAS ENTIDADES (Essencial!)
     opens com.abrigo.model to jakarta.persistence, org.hibernate.orm.core;
     opens com.abrigo.database to jakarta.persistence;
+    opens com.abrigo.dto to org.hibernate.orm.core;
 
     // Exporta os pacotes para o projeto
     exports com.abrigo;
@@ -27,6 +28,6 @@ module com.abrigo {
     exports com.abrigo.controller;
     exports com.abrigo.model;
     exports com.abrigo.database;
-
+    exports com.abrigo.dto;
     
 }

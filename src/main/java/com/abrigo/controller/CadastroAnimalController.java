@@ -34,7 +34,7 @@ public class CadastroAnimalController {
 
     private Animal animalEmEdicao = null;
 
-    // Estilo aplicado quando o campo é inválido
+
     private static final String ESTILO_INVALIDO =
             " -fx-border-color: #E53935 !important; -fx-border-width: 2px; -fx-border-radius: 10;";
 
@@ -375,4 +375,10 @@ public class CadastroAnimalController {
     private void verHistorico() {
         NavigationManager.getInstance().navegarConteudo("historico-animais-cadastrados");
     }
+
+    @FXML
+    private void voltar() {
+        NavigationManager.getInstance().navegarConteudo("historico-animais-cadastrados");
+    }
 }
+

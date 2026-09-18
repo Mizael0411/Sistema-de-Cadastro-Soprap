@@ -1,14 +1,9 @@
 package com.abrigo.controller;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.database.JPAUtil;
 import com.abrigo.model.Animal;
-
 import jakarta.persistence.EntityManager;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,11 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class HistoricoAnimaisCadastradosController {
 
@@ -49,10 +43,6 @@ public class HistoricoAnimaisCadastradosController {
         carregarTabelaAssincrono();
     }
 
-    // ==========================================================
-    // 1) COLUNAS — usando lambdas em vez de PropertyValueFactory
-    //    (evita reflexão, deixa a tabela bem mais rápida)
-    // ==========================================================
     private void configurarColunas() {
         colunaIdAnimal.setCellValueFactory(c ->
                 new SimpleObjectProperty<>(c.getValue().getId()));
@@ -74,9 +64,7 @@ public class HistoricoAnimaisCadastradosController {
                 new SimpleStringProperty(c.getValue().getStatusGravidez()));
     }
 
-    // ==========================================================
-    // 2) BUSCA — filtra por nome OU id em tempo real
-    // ==========================================================
+
     private void configurarBusca() {
         animaisFiltrados = new FilteredList<>(todosAnimais, p -> true);
         tabelaAnimais.setItems(animaisFiltrados);
@@ -93,19 +81,17 @@ public class HistoricoAnimaisCadastradosController {
         }
         String t = termo.trim().toLowerCase();
         animaisFiltrados.setPredicate(a -> {
-            // ID bate?
+
             if (a.getId() != null && String.valueOf(a.getId()).equals(t)) return true;
-            // Nome contém?
+
             if (a.getNome() != null && a.getNome().toLowerCase().contains(t)) return true;
-            // ID como substring (ex: digitar "1" e aparecer 1, 10, 11...)
+
             if (a.getId() != null && String.valueOf(a.getId()).contains(t)) return true;
             return false;
         });
     }
 
-    // ==========================================================
-    // 3) CARREGAMENTO ASSÍNCRONO — não trava a UI
-    // ==========================================================
+
     private void carregarTabelaAssincrono() {
         Task<List<Animal>> task = new Task<>() {
             @Override
@@ -132,14 +118,12 @@ public class HistoricoAnimaisCadastradosController {
         t.start();
     }
 
-    // Atalho para recarregar após operações
+
     private void carregarTabela() {
         carregarTabelaAssincrono();
     }
 
-    // ==========================================================
-    // AÇÕES
-    // ==========================================================
+
     @FXML
     private void inserir() {
         NavigationManager.getInstance().navegarConteudo("cadastro-animal");
@@ -194,10 +178,7 @@ public class HistoricoAnimaisCadastradosController {
         });
     }
 
-    /**
-     * Exclusão em cascata: remove primeiro os registros de Vacina
-     * vinculados (FK) e depois o próprio Animal, tudo numa única transação.
-     */
+
     private boolean excluirAnimalComDependencias(Long animalId) {
         EntityManager em = JPAUtil.getEntityManager();
         try {

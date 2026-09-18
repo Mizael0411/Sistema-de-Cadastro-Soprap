@@ -31,7 +31,7 @@ public class AnimalDAO {
     public List<Animal> listarTodos() {
         EntityManager em = JPAUtil.getEntityManager();
         try {
-            return em.createQuery("SELECT a FROM Animal a", Animal.class).getResultList();
+            return em.createQuery("SELECT a FROM Animal a ORDER BY a.id ASC", Animal.class).getResultList();
         } catch (Exception e) {
             System.err.println("Erro ao listar animais do banco: " + e.getMessage());
             return new ArrayList<>();
