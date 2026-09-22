@@ -3,12 +3,7 @@ package com.abrigo.controller;
 import javafx.fxml.FXML;
 
 public class MenuCadastroController {
-    /**
-     * Controller responsável pela tela de cadastros. Contendo as telas para cadstro de animais, lar temporário, produtos e doações.
-     * Camada: Controller
-     * Arquivo Relacionado: menu-cadastro.fxml
-     * @author Mizael
-     */
+ 
     @FXML
     private void abrirCadastroAnimal() {
         NavigationManager.getInstance().navegarConteudo("cadastro-animal");

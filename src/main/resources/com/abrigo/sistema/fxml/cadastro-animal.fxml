@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -33,7 +32,6 @@
                     <Insets bottom="35" left="35" right="35" top="35" />
                 </padding>
 
-                <!-- Cabeçalho -->
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
                         <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B;" text="🐾" />
@@ -47,20 +45,17 @@
 
                 <Separator style="-fx-opacity: 0.3;" />
 
-                <!-- Formulário com posições ordenadas -->
                 <GridPane hgap="20" vgap="18">
                     <columnConstraints>
                         <ColumnConstraints percentWidth="50" />
                         <ColumnConstraints percentWidth="50" />
                     </columnConstraints>
 
-                    <!-- Linha 0: Nome do Animal (ocupando 2 colunas) -->
                     <VBox spacing="6" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="NOME DO ANIMAL *" />
                         <TextField fx:id="txtNome" promptText="Ex: Pipoca, Bidu, Thor..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
                     </VBox>
 
-                    <!-- Linha 1: Espécie e Porte -->
                     <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="ESPÉCIE *" />
                         <ComboBox fx:id="cbEspecie" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
@@ -71,7 +66,6 @@
                         <ComboBox fx:id="cbPorte" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
                     </VBox>
 
-                    <!-- Linha 2: Sexo e Status Gestacional -->
                     <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="SEXO *" />
                         <ComboBox fx:id="cbSexo" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
@@ -82,7 +76,6 @@
                         <ComboBox fx:id="cbGravida" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
                     </VBox>
 
-                    <!-- Linha 3: Data de Nascimento e Idade Estimada -->
                     <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="3">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="DATA DE NASCIMENTO (OPCIONAL)" />
                         <DatePicker fx:id="dpDataNascimento" maxWidth="1.7976931348623157E308" promptText="Se houver registro..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
@@ -92,22 +85,10 @@
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="IDADE ESTIMADA (ANOS) *" />
                         <TextField fx:id="txtIdade" promptText="Ex: 2" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
                     </VBox>
-
-                    <!-- Linha 4: Status Vacinação e Última Consulta -->
-                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="STATUS DE VACINAÇÃO *" />
-                        <ComboBox fx:id="cbVacina" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
-
-                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="ÚLTIMA CONSULTA / VACINA" />
-                        <DatePicker fx:id="dpUltimaConsulta" maxWidth="1.7976931348623157E308" promptText="Se houver..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
                 </GridPane>
 
                 <Separator style="-fx-opacity: 0.3;" />
 
-                <!-- Botões -->
                 <HBox alignment="CENTER_RIGHT" spacing="12">
                     <padding>
                         <Insets top="10" />

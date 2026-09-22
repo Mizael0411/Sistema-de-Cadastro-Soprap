@@ -43,7 +43,6 @@ public class Adocao {
         this.animal = animal;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

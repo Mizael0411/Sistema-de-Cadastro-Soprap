@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. MENU LATERAL (Corrigido)
-   ========================================================================== */
+/* 1. MENU LATERAL */
 
 /* Estado Base */
 .menu-btn {
@@ -30,13 +28,11 @@
     -fx-text-fill: #2C3E50;
     -fx-font-weight: bold;
     -fx-border-color: #E91E63;
-    -fx-border-width: 0 0 0 4px; /* Mantém o destaque lateral apenas quando ativo */
+    -fx-border-width: 0 0 0 4px;
 }
 
 
-/* ==========================================================================
-   2. BOTÕES DE AÇÃO DAS TABELAS E FORMULÁRIOS
-   ========================================================================== */
+/* 2. BOTÕES DE AÇÃO DAS TABELAS E FORMULÁRIOS */
 
 /* Regra Geral para Botões de Ação */
 .btn-acao {
@@ -51,7 +47,7 @@
     -fx-alignment: CENTER;
 }
 
-/* Botão Voltar (Neutro) */
+/* Botão Voltar */
 .btn-voltar {
     -fx-background-color: #F8FAFC;
     -fx-text-fill: #475569;
@@ -64,7 +60,7 @@
     -fx-border-color: #CBD5E1;
 }
 
-/* Botão Excluir (Alerta) */
+/* Botão Excluir */
 .btn-excluir {
     -fx-background-color: #FFEBEE;
     -fx-text-fill: #C62828;
@@ -77,7 +73,7 @@
     -fx-border-color: #EF9A9A;
 }
 
-/* Botão Editar (Ação Secundária) */
+/* Botão Editar */
 .btn-editar {
     -fx-background-color: #EEF2FF;
     -fx-text-fill: #4F46E5;
@@ -90,7 +86,7 @@
     -fx-border-color: #A5B4FC;
 }
 
-/* Botão + Novo (Destaque/CTA) */
+/* Botão + Novo */
 .btn-novo, .btn-salvar {
     -fx-background-color: #FCE4EC;
     -fx-text-fill: #C2185B;
@@ -116,4 +112,19 @@
     -fx-background-color: #BAE6FD;
     -fx-text-fill: #0284C7;
     -fx-border-color: #7DD3FC;
+}
+
+/* Botão Ver Ficha Técnica */
+.btn-ficha-tecnica {
+    -fx-background-color: #E6F3FF;
+    -fx-text-fill: #0066B2;
+    -fx-border-color: #B3D9FF;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 0 18px;
+}
+.btn-ficha-tecnica:hover {
+    -fx-background-color: #D4E9FF;
+    -fx-text-fill: #004C8C;
+    -fx-border-color: #99C2FF;
 }

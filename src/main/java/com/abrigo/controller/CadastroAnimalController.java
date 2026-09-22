@@ -8,7 +8,6 @@ import java.util.List;
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.database.JPAUtil;
 import com.abrigo.model.Animal;
-import com.abrigo.model.Vacina;
 
 import jakarta.persistence.EntityManager;
 import javafx.collections.FXCollections;
@@ -27,23 +26,18 @@ public class CadastroAnimalController {
     @FXML private DatePicker dpDataNascimento;
     @FXML private ComboBox<String> cbSexo;
     @FXML private ComboBox<String> cbGravida;
-    @FXML private ComboBox<String> cbVacina;
-    @FXML private DatePicker dpUltimaConsulta;
     @FXML private ComboBox<String> cbEspecie;
     @FXML private ComboBox<String> cbPorte;
 
     private Animal animalEmEdicao = null;
 
-    // Estilo aplicado quando o campo é inválido
     private static final String ESTILO_INVALIDO =
             " -fx-border-color: #E53935 !important; -fx-border-width: 2px; -fx-border-radius: 10;";
 
     @FXML
     public void initialize() {
         cbSexo.setItems(FXCollections.observableArrayList("Macho", "Fêmea"));
-        cbVacina.setItems(FXCollections.observableArrayList("Vacinado", "Não Vacinado", "Incompleto"));
         cbGravida.setItems(FXCollections.observableArrayList("Grávida", "Não grávida", "Não se aplica"));
-
         cbEspecie.setItems(FXCollections.observableArrayList("Cachorro", "Gato"));
         cbPorte.setItems(FXCollections.observableArrayList("Mini", "Pequeno", "Médio", "Grande", "Gigante"));
 
@@ -67,17 +61,6 @@ public class CadastroAnimalController {
             }
         });
 
-        dpUltimaConsulta.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                if (date != null && date.isAfter(LocalDate.now())) {
-                    setDisable(true);
-                    setStyle("-fx-background-color: #ffc4c4;");
-                }
-            }
-        });
-
         dpDataNascimento.getEditor().textProperty().addListener((obs, oldText, newText) -> {
             try {
                 if (newText != null && !newText.isBlank()) {
@@ -87,25 +70,17 @@ public class CadastroAnimalController {
             } catch (Exception e) {}
         });
 
-        // Limpa a marcação vermelha assim que o usuário começa a corrigir o campo
         configurarLimpezaValidacao();
     }
 
-    /** Adiciona listeners para remover a borda vermelha automaticamente ao editar o campo. */
     private void configurarLimpezaValidacao() {
         txtNome.textProperty().addListener((o, ov, nv) -> marcarInvalido(txtNome, false));
         txtIdade.textProperty().addListener((o, ov, nv) -> marcarInvalido(txtIdade, false));
         cbEspecie.valueProperty().addListener((o, ov, nv) -> marcarInvalido(cbEspecie, false));
         cbPorte.valueProperty().addListener((o, ov, nv) -> marcarInvalido(cbPorte, false));
-        cbVacina.valueProperty().addListener((o, ov, nv) -> marcarInvalido(cbVacina, false));
         cbGravida.valueProperty().addListener((o, ov, nv) -> marcarInvalido(cbGravida, false));
-        dpUltimaConsulta.valueProperty().addListener((o, ov, nv) -> marcarInvalido(dpUltimaConsulta, false));
     }
 
-    /**
-     * Aplica (ou remove) a borda vermelha em um controle.
-     * Guarda o estilo original para poder restaurá-lo depois.
-     */
     private void marcarInvalido(Control control, boolean invalido) {
         if (control == null) return;
 
@@ -122,7 +97,6 @@ public class CadastroAnimalController {
         }
     }
 
-    /** Remove a marcação vermelha de todos os campos de uma vez. */
     private void limparMarcacoes() {
         marcarInvalido(txtNome, false);
         marcarInvalido(txtIdade, false);
@@ -130,9 +104,7 @@ public class CadastroAnimalController {
         marcarInvalido(cbPorte, false);
         marcarInvalido(cbSexo, false);
         marcarInvalido(cbGravida, false);
-        marcarInvalido(cbVacina, false);
         marcarInvalido(dpDataNascimento, false);
-        marcarInvalido(dpUltimaConsulta, false);
     }
 
     private void calcularIdade(LocalDate dataNascimento) {
@@ -155,10 +127,7 @@ public class CadastroAnimalController {
         txtIdade.setText(String.valueOf(animal.getIdade()));
         dpDataNascimento.setValue(animal.getDataNascimento());
         cbSexo.setValue(animal.getSexo());
-        cbVacina.setValue(animal.getStatusVacinacao());
         cbGravida.setValue(animal.getStatusGravidez());
-        dpUltimaConsulta.setValue(animal.getDataUltimaVacinacao());
-
         cbEspecie.setValue(animal.getEspecie());
         cbPorte.setValue(animal.getPorte());
     }
@@ -170,12 +139,10 @@ public class CadastroAnimalController {
         String nome = txtNome.getText() != null ? txtNome.getText().trim() : "";
         String idadeTexto = txtIdade.getText() != null ? txtIdade.getText().trim() : "";
         String sexo = cbSexo.getValue();
-        String statusVacina = cbVacina.getValue();
         String statusGravidaTexto = cbGravida.getValue();
         String especie = cbEspecie.getValue();
         String porte = cbPorte.getValue();
 
-        // Auto-preenche status gestacional para macho
         if ("Macho".equalsIgnoreCase(sexo) && statusGravidaTexto == null) {
             statusGravidaTexto = "Não se aplica";
             cbGravida.setValue("Não se aplica");
@@ -184,7 +151,6 @@ public class CadastroAnimalController {
         List<String> camposFaltantes = new ArrayList<>();
         List<Control> controlesInvalidos = new ArrayList<>();
 
-        // ---------- CAMPOS OBRIGATÓRIOS ----------
         if (nome.isEmpty()) {
             camposFaltantes.add("Nome do Animal");
             controlesInvalidos.add(txtNome);
@@ -212,12 +178,7 @@ public class CadastroAnimalController {
             camposFaltantes.add("Idade Estimada");
             controlesInvalidos.add(txtIdade);
         }
-        if (statusVacina == null) {
-            camposFaltantes.add("Status de Vacinação");
-            controlesInvalidos.add(cbVacina);
-        }
 
-        // ---------- VALIDAÇÕES DE VALOR ----------
         if (!idadeTexto.isEmpty()) {
             try {
                 int idade = Integer.parseInt(idadeTexto);
@@ -237,13 +198,6 @@ public class CadastroAnimalController {
             controlesInvalidos.add(dpDataNascimento);
         }
 
-        LocalDate dataConsulta = dpUltimaConsulta.getValue();
-        if (dataConsulta != null && dataConsulta.isAfter(LocalDate.now())) {
-            camposFaltantes.add("Última Consulta / Vacina (não pode ser futura)");
-            controlesInvalidos.add(dpUltimaConsulta);
-        }
-
-        // ---------- SE HOUVER ERROS, MARCA E MOSTRA ----------
         if (!camposFaltantes.isEmpty()) {
             for (Control c : controlesInvalidos) {
                 marcarInvalido(c, true);
@@ -263,7 +217,6 @@ public class CadastroAnimalController {
             return;
         }
 
-        // ---------- PERSISTÊNCIA ----------
         try {
             int idade = Integer.parseInt(idadeTexto);
 
@@ -273,9 +226,7 @@ public class CadastroAnimalController {
             animal.setIdade(idade);
             animal.setDataNascimento(dataNasc);
             animal.setSexo(sexo);
-            animal.setStatusVacinacao(statusVacina);
             animal.setStatusGravidez(statusGravidaTexto);
-            animal.setDataUltimaVacinacao(dataConsulta);
             animal.setEspecie(especie);
             animal.setPorte(porte);
 
@@ -285,10 +236,6 @@ public class CadastroAnimalController {
                     : animalDAO.salvar(animal);
 
             if (sucesso) {
-                if (dataConsulta != null) {
-                    salvarRegistroVacina(animal, statusVacina, dataConsulta);
-                }
-
                 String msg = (animalEmEdicao != null)
                         ? "Animal atualizado com sucesso!"
                         : "Animal cadastrado com sucesso!";
@@ -305,31 +252,7 @@ public class CadastroAnimalController {
             }
 
         } catch (NumberFormatException e) {
-            // Segurança extra (já tratado acima)
             mostrarAlerta("Erro", "A idade deve ser um número inteiro válido.");
-        }
-    }
-
-    private void salvarRegistroVacina(Animal animal, String tipoVacina, LocalDate dataAplicacao) {
-        EntityManager em = JPAUtil.getEntityManager();
-        try {
-            em.getTransaction().begin();
-
-            Vacina vacina = new Vacina();
-            vacina.setAnimal(animal);
-            vacina.setTipoVacina(tipoVacina != null ? tipoVacina : "Vacina Inicial");
-            vacina.setDataVacinacao(dataAplicacao);
-            vacina.setDose("1ª Dose / Registro Inicial");
-
-            em.persist(vacina);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            System.err.println("Erro ao registrar histórico de vacina: " + e.getMessage());
-        } finally {
-            em.close();
         }
     }
 
@@ -356,8 +279,6 @@ public class CadastroAnimalController {
         cbSexo.setValue(null);
         cbGravida.setValue(null);
         cbGravida.setDisable(false);
-        cbVacina.setValue(null);
-        dpUltimaConsulta.setValue(null);
         cbEspecie.setValue(null);
         cbPorte.setValue(null);
         limparMarcacoes();

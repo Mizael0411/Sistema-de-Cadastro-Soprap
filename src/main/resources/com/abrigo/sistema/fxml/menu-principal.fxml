@@ -17,7 +17,7 @@
 
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirCadastro" styleClass="menu-btn" text="Cadastro" />
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelatorios" styleClass="menu-btn" text="Relatórios" />
-    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirMovimentacoes" styleClass="menu-btn" text="Movimentações" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirFichaTecnicaAnimais" styleClass="menu-btn" text="Ficha Técnica dos Animais" />
 
     <VBox prefHeight="16" />
 

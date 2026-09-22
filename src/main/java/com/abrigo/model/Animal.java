@@ -33,17 +33,11 @@ public class Animal {
     @Column(name = "porte")
     private String porte;
 
-    @Column(name = "status_vacinacao", nullable = false)
-    private String statusVacinacao;
-
     @Column(name = "status_gravidez", nullable = true)
     private String statusGravidez;
 
     @Column(name = "data_nascimento", nullable = true)
     private LocalDate dataNascimento;
-
-    @Column(name = "data_ultima_vacinacao", nullable = true)
-    private LocalDate dataUltimaVacinacao;
 
      public Animal() {
         
@@ -102,20 +96,12 @@ public class Animal {
         this.especie = especie;
     }
 
-    public String getPorte() { 
-        return porte; 
+    public String getPorte() {
+        return porte;
     }
 
     public void setPorte(String porte) {
         this.porte = porte;
-    }
-
-    public String getStatusVacinacao() {
-        return statusVacinacao;
-    }
-
-    public void setStatusVacinacao(String statusVacinacao) {
-        this.statusVacinacao = statusVacinacao;
     }
 
     public String getStatusGravidez() {
@@ -126,11 +112,4 @@ public class Animal {
         this.statusGravidez = statusGravidez;
     }
 
-    public LocalDate getDataUltimaVacinacao() {
-        return dataUltimaVacinacao;
-    }
-
-    public void setDataUltimaVacinacao(LocalDate dataUltimaVacinacao) {
-        this.dataUltimaVacinacao = dataUltimaVacinacao;
-    }
 }

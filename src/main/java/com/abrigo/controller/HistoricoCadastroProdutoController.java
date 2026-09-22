@@ -3,6 +3,7 @@ package com.abrigo.controller;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -11,12 +12,14 @@ import com.abrigo.model.Produto;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class HistoricoCadastroProdutoController {
@@ -26,17 +29,25 @@ public class HistoricoCadastroProdutoController {
     @FXML private TableColumn<Produto, String> colNome;
     @FXML private TableColumn<Produto, Double> colPrecoCompra;
     @FXML private TableColumn<Produto, LocalDate> colDataCompra;
+    @FXML private TextField txtBusca;
 
     private final ProdutoDAO produtoDAO = new ProdutoDAO();
+    private final ObservableList<Produto> todosProdutos = FXCollections.observableArrayList();
+    private FilteredList<Produto> produtosFiltrados;
 
     @FXML
     public void initialize() {
+        configurarColunas();
+        configurarBusca();
+        carregarDados();
+    }
+
+    private void configurarColunas() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
         colDataCompra.setCellValueFactory(new PropertyValueFactory<>("dataCompra"));
 
-        // Formatação em Reais (R$)
         colPrecoCompra.setCellFactory(tc -> new TableCell<>() {
             private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
             @Override
@@ -46,7 +57,6 @@ public class HistoricoCadastroProdutoController {
             }
         });
 
-        // Formatação de Data (dd/MM/yyyy)
         colDataCompra.setCellFactory(tc -> new TableCell<>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             @Override
@@ -55,14 +65,40 @@ public class HistoricoCadastroProdutoController {
                 setText(empty || value == null ? null : formatter.format(value));
             }
         });
+    }
 
-        carregarDados();
+    private void configurarBusca() {
+        produtosFiltrados = new FilteredList<>(todosProdutos, p -> true);
+        tabelaProdutos.setItems(produtosFiltrados);
+
+        if (txtBusca != null) {
+            txtBusca.textProperty().addListener((obs, oldVal, newVal) -> aplicarFiltro(newVal));
+        }
+    }
+
+    private void aplicarFiltro(String termo) {
+        if (termo == null || termo.isBlank()) {
+            produtosFiltrados.setPredicate(p -> true);
+            return;
+        }
+
+        String termoMinusc = termo.trim().toLowerCase();
+        produtosFiltrados.setPredicate(p -> {
+            if (p.getId() != null && String.valueOf(p.getId()).contains(termoMinusc)) {
+                return true;
+            }
+            if (p.getNome() != null && p.getNome().toLowerCase().contains(termoMinusc)) {
+                return true;
+            }
+            return false;
+        });
     }
 
     private void carregarDados() {
         try {
-            ObservableList<Produto> listaProdutos = FXCollections.observableArrayList(produtoDAO.listarTodos());
-            tabelaProdutos.setItems(listaProdutos);
+            List<Produto> lista = produtoDAO.listarTodos();
+            todosProdutos.setAll(lista);
+            aplicarFiltro(txtBusca != null ? txtBusca.getText() : null);
         } catch (Exception e) {
             exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão", "Não foi possível carregar o histórico: " + e.getMessage());
         }
@@ -81,10 +117,8 @@ public class HistoricoCadastroProdutoController {
             return;
         }
 
-        // Armazena no manager para garantia total (Fallback)
         NavigationManager.getInstance().setProdutoParaEdicao(selecionado);
 
-        // Abre a tela e recupera a instância do controller
         CadastroProdutoController controller = (CadastroProdutoController) NavigationManager.getInstance()
                 .navegarConteudoComController("cadastro-produto");
 

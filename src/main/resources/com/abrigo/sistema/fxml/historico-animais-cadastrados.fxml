@@ -8,14 +8,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" style="-fx-background-color: #FAF8F5;"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.abrigo.controller.HistoricoAnimaisCadastradosController">
+<VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoAnimaisCadastradosController">
 
     <stylesheets>
         <URL value="@../../css/style.css" />
@@ -25,55 +21,45 @@
         <Insets bottom="30" left="30" right="30" top="30" />
     </padding>
 
-    <!-- Cabeçalho -->
     <HBox alignment="CENTER_LEFT" spacing="15">
-        <StackPane prefHeight="50" prefWidth="50"
-                   style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
             <Label style="-fx-font-size: 24px;" text="📋" />
         </StackPane>
         <VBox spacing="3">
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"
-                   text="Animais Cadastrados" />
-            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;"
-                   text="Gerencie os resgatados do abrigo." />
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Animais Cadastrados" />
+            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Gerencie os resgatados do abrigo." />
         </VBox>
     </HBox>
 
-    <!-- Barra de pesquisa + Botões -->
     <HBox alignment="CENTER_LEFT" spacing="12">
-        <TextField fx:id="txtBusca"
-                   promptText="🔍  Buscar por nome ou ID..."
-                   HBox.hgrow="ALWAYS"
-                   style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;
-                          -fx-border-radius: 10; -fx-background-radius: 10;
-                          -fx-padding: 10 14; -fx-font-size: 13px;" />
+        <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 0 12;" HBox.hgrow="ALWAYS">
+            <Label style="-fx-font-size: 14px; -fx-text-fill: #A0A0A0;" text="🔍" />
+            <TextField fx:id="txtBusca" promptText="Buscar por nome ou ID..." style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 10 0; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+        </HBox>
 
         <Button onAction="#inserir" styleClass="btn-acao, btn-novo" text="+ Novo Animal" />
         <Button onAction="#editar" styleClass="btn-acao, btn-editar" text="Editar" />
         <Button onAction="#excluir" styleClass="btn-acao, btn-excluir" text="Excluir" />
     </HBox>
 
-    <!-- Tabela -->
-    <VBox VBox.vgrow="ALWAYS"
-          style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;
-                 -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;">
+    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
         <padding>
             <Insets bottom="15" left="15" right="15" top="15" />
         </padding>
 
-        <TableView fx:id="tabelaAnimais" VBox.vgrow="ALWAYS"
-                   style="-fx-background-color: transparent; -fx-border-color: transparent;">
+        <TableView fx:id="tabelaAnimais" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colunaIdAnimal"           prefWidth="60"  text="ID" />
-                <TableColumn fx:id="colunaNomeAnimal"         prefWidth="160" text="Nome" />
-                <TableColumn fx:id="colunaEspecie"            prefWidth="100" text="Espécie" />
-                <TableColumn fx:id="colunaPorte"              prefWidth="100" text="Porte" />
-                <TableColumn fx:id="colunaIdadeAnimal"        prefWidth="70"  text="Idade" />
-                <TableColumn fx:id="colunaSexo"               prefWidth="90"  text="Sexo" />
-                <TableColumn fx:id="colunaStsVacinacao"       prefWidth="130" text="Vacinação" />
-                <TableColumn fx:id="colunaDataUltimaVacinacao" prefWidth="150" text="Última Vacina" />
-                <TableColumn fx:id="colunaStsGravidez"        prefWidth="140" text="Gestação" />
+                <TableColumn fx:id="colunaIdAnimal" prefWidth="80" text="ID" />
+                <TableColumn fx:id="colunaNomeAnimal" prefWidth="200" text="Nome" />
+                <TableColumn fx:id="colunaEspecie" prefWidth="130" text="Espécie" />
+                <TableColumn fx:id="colunaPorte" prefWidth="130" text="Porte" />
+                <TableColumn fx:id="colunaIdadeAnimal" prefWidth="90" text="Idade" />
+                <TableColumn fx:id="colunaSexo" prefWidth="110" text="Sexo" />
+                <TableColumn fx:id="colunaStsGravidez" prefWidth="160" text="Gestação" />
             </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
         </TableView>
     </VBox>
 

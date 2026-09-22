@@ -13,9 +13,7 @@ public class TesteAnimal {
         animal.setIdade(3);
         animal.setDataNascimento(LocalDate.of(2023, 1, 15));
         animal.setSexo("Macho");
-        animal.setStatusVacinacao("Vacinado");
         animal.setStatusGravidez("Não se aplica");
-        animal.setDataUltimaVacinacao(LocalDate.now());
 
         EntityManager em = JPAUtil.getEntityManager();
 

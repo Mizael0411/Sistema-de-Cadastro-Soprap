@@ -45,25 +45,21 @@
 
                 <VBox spacing="18">
 
-                    <!-- SELEÇÃO DE ANIMAL -->
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Animal *" />
                         <ComboBox fx:id="cbAnimal" maxWidth="Infinity" promptText="Selecione o animal" styleClass="input-campo" />
                     </VBox>
 
-                    <!-- SELEÇÃO DE TIPO DE VACINA -->
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Nome/Tipo da Vacina *" />
                         <ComboBox fx:id="cbTipoVacina" maxWidth="Infinity" promptText="Selecione o tipo..." styleClass="input-campo" />
                     </VBox>
 
-                    <!-- SELEÇÃO DE DOSE -->
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Dose *" />
                         <ComboBox fx:id="cbDose" maxWidth="Infinity" promptText="Selecione a dose..." styleClass="input-campo" />
                     </VBox>
 
-                    <!-- DATA DE APLICAÇÃO -->
                     <VBox spacing="6">
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Data da Aplicação *" />
                         <DatePicker fx:id="dpDataVacinacao" maxWidth="Infinity" promptText="dd/mm/aaaa" styleClass="input-campo" />
