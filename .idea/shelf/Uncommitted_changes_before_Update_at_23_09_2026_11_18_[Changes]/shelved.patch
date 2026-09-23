@@ -1,0 +1,444 @@
+Index: src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.abrigo.controller;\r\n\r\nimport java.net.URL;\r\nimport java.util.ResourceBundle;\r\n\r\nimport com.abrigo.dto.AdocaoDefinitivaDTO;\r\nimport com.abrigo.repository.AdocaoRepository;\r\n\r\nimport javafx.beans.property.SimpleObjectProperty;\r\nimport javafx.beans.property.SimpleStringProperty;\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.collections.transformation.FilteredList;\r\nimport javafx.collections.transformation.SortedList;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.Initializable;\r\nimport javafx.scene.control.Alert;\r\nimport javafx.scene.control.Alert.AlertType;\r\nimport javafx.scene.control.TableColumn;\r\nimport javafx.scene.control.TableView;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.stage.Stage;\r\n\r\npublic class AdocoesDefinitivasController implements Initializable {\r\n\r\n    @FXML private TextField txtBusca;\r\n    @FXML private TableView<AdocaoDefinitivaDTO> tabelaAdocoes;\r\n    @FXML private TableColumn<AdocaoDefinitivaDTO, Long> colunaIdAnimal;\r\n    @FXML private TableColumn<AdocaoDefinitivaDTO, String> colunaNome;\r\n    @FXML private TableColumn<AdocaoDefinitivaDTO, String> colunaStatus;\r\n    @FXML private TableColumn<AdocaoDefinitivaDTO, String> colunaTutor;\r\n    @FXML private TableColumn<AdocaoDefinitivaDTO, Long> colunaIdAdocao;\r\n\r\n    private final AdocaoRepository adocaoRepository = new AdocaoRepository();\r\n    private final ObservableList<AdocaoDefinitivaDTO> dados = FXCollections.observableArrayList();\r\n\r\n    @Override\r\n    public void initialize(URL location, ResourceBundle resources) {\r\n        colunaIdAnimal.setCellValueFactory(d -> new SimpleObjectProperty<>(d.getValue().idAnimal()));\r\n        colunaNome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().nomeAnimal()));\r\n        colunaStatus.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().statusAdocao()));\r\n        colunaTutor.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().nomeTutor()));\r\n        colunaIdAdocao.setCellValueFactory(d -> new SimpleObjectProperty<>(d.getValue().idAdocao()));\r\n\r\n        FilteredList<AdocaoDefinitivaDTO> filtrados = new FilteredList<>(dados, a -> true);\r\n        txtBusca.textProperty().addListener((obs, oldV, newV) -> {\r\n            String termo = newV == null ? \"\" : newV.trim().toLowerCase();\r\n            filtrados.setPredicate(a ->\r\n                    termo.isEmpty()\r\n                            || a.nomeAnimal().toLowerCase().contains(termo)\r\n                            || a.nomeTutor().toLowerCase().contains(termo)\r\n                            || String.valueOf(a.idAnimal()).contains(termo));\r\n        });\r\n\r\n        SortedList<AdocaoDefinitivaDTO> ordenados = new SortedList<>(filtrados);\r\n        ordenados.comparatorProperty().bind(tabelaAdocoes.comparatorProperty());\r\n        tabelaAdocoes.setItems(ordenados);\r\n\r\n        carregarDados();\r\n    }\r\n\r\n    private void carregarDados() {\r\n        dados.setAll(adocaoRepository.findAdocoesDefinitivas());\r\n    }\r\n\r\n    @FXML\r\n    private void cancelarAdocao() {\r\n        AdocaoDefinitivaDTO selecionado = tabelaAdocoes.getSelectionModel().getSelectedItem();\r\n        if (selecionado == null) {\r\n            new Alert(AlertType.WARNING, \"Selecione uma adoção na tabela.\").showAndWait();\r\n            return;\r\n        }\r\n        Alert confirmacao = new Alert(AlertType.CONFIRMATION,\r\n                \"Cancelar a adoção de \" + selecionado.nomeAnimal() + \"? O animal volta para a lista de sem adoção.\");\r\n        confirmacao.showAndWait().filter(botao -> botao.getButtonData().isDefaultButton()).ifPresent(botao -> {\r\n            adocaoRepository.cancelarAdocao(selecionado.idAdocao());\r\n            carregarDados();\r\n        });\r\n    }\r\n\r\n    @FXML\r\n    private void voltar() {\r\n        NavigationManager.getInstance().navegarConteudo(\"gestao-adoçao\");\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java b/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java
+--- a/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java	(revision b1a6ada64a437368b4b65a6bc7551aa5a0aa10ee)
++++ b/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java	(date 1790172999123)
+@@ -1,27 +1,32 @@
+ package com.abrigo.controller;
+ 
+-import java.net.URL;
+-import java.util.ResourceBundle;
++import java.util.List;
+ 
+ import com.abrigo.dto.AdocaoDefinitivaDTO;
+ import com.abrigo.repository.AdocaoRepository;
+ 
++import javafx.animation.Animation;
++import javafx.animation.ScaleTransition;
+ import javafx.beans.property.SimpleObjectProperty;
+ import javafx.beans.property.SimpleStringProperty;
+ import javafx.collections.FXCollections;
+ import javafx.collections.ObservableList;
+ import javafx.collections.transformation.FilteredList;
+ import javafx.collections.transformation.SortedList;
++import javafx.concurrent.Task;
+ import javafx.fxml.FXML;
+-import javafx.fxml.Initializable;
++import javafx.geometry.Pos;
++import javafx.scene.Node;
+ import javafx.scene.control.Alert;
+ import javafx.scene.control.Alert.AlertType;
++import javafx.scene.control.Label;
+ import javafx.scene.control.TableColumn;
+ import javafx.scene.control.TableView;
+ import javafx.scene.control.TextField;
+-import javafx.stage.Stage;
++import javafx.scene.layout.VBox;
++import javafx.util.Duration;
+ 
+-public class AdocoesDefinitivasController implements Initializable {
++public class AdocoesDefinitivasController {
+ 
+     @FXML private TextField txtBusca;
+     @FXML private TableView<AdocaoDefinitivaDTO> tabelaAdocoes;
+@@ -34,14 +39,22 @@
+     private final AdocaoRepository adocaoRepository = new AdocaoRepository();
+     private final ObservableList<AdocaoDefinitivaDTO> dados = FXCollections.observableArrayList();
+ 
+-    @Override
+-    public void initialize(URL location, ResourceBundle resources) {
++    @FXML
++    public void initialize() {
++        configurarColunas();
++        configurarBusca();
++        carregarDadosAssincrono();
++    }
++
++    private void configurarColunas() {
+         colunaIdAnimal.setCellValueFactory(d -> new SimpleObjectProperty<>(d.getValue().idAnimal()));
+         colunaNome.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().nomeAnimal()));
+         colunaStatus.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().statusAdocao()));
+         colunaTutor.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().nomeTutor()));
+         colunaIdAdocao.setCellValueFactory(d -> new SimpleObjectProperty<>(d.getValue().idAdocao()));
++    }
+ 
++    private void configurarBusca() {
+         FilteredList<AdocaoDefinitivaDTO> filtrados = new FilteredList<>(dados, a -> true);
+         txtBusca.textProperty().addListener((obs, oldV, newV) -> {
+             String termo = newV == null ? "" : newV.trim().toLowerCase();
+@@ -55,26 +68,88 @@
+         SortedList<AdocaoDefinitivaDTO> ordenados = new SortedList<>(filtrados);
+         ordenados.comparatorProperty().bind(tabelaAdocoes.comparatorProperty());
+         tabelaAdocoes.setItems(ordenados);
++    }
++
++
++    private void carregarDadosAssincrono() {
++        tabelaAdocoes.setPlaceholder(criarPlaceholderCarregando());
++
++        Task<List<AdocaoDefinitivaDTO>> task = new Task<>() {
++            @Override
++            protected List<AdocaoDefinitivaDTO> call() {
++                return adocaoRepository.findAdocoesDefinitivas();
++            }
++        };
++
++        task.setOnSucceeded(e -> {
++            dados.setAll(task.getValue());
++            tabelaAdocoes.setPlaceholder(criarPlaceholderVazio());
++        });
++
++        task.setOnFailed(e -> {
++            Throwable ex = task.getException();
++            if (ex != null) ex.printStackTrace();
++            tabelaAdocoes.setPlaceholder(criarPlaceholderVazio());
++            mostrarAlerta(AlertType.ERROR, "Erro",
++                    "Não foi possível carregar as adoções definitivas.\n" +
++                            (ex != null ? ex.getMessage() : ""));
++        });
++
++        Thread t = new Thread(task, "carregar-adocoes-definitivas");
++        t.setDaemon(true);
++        t.start();
++    }
++
++
++    private Node criarPlaceholderCarregando() {
++        Label pata = new Label("🐾");
++        pata.getStyleClass().add("loading-paw");
++
++        ScaleTransition pulso = new ScaleTransition(Duration.millis(650), pata);
++        pulso.setFromX(0.85);
++        pulso.setFromY(0.85);
++        pulso.setToX(1.25);
++        pulso.setToY(1.25);
++        pulso.setCycleCount(Animation.INDEFINITE);
++        pulso.setAutoReverse(true);
++        pulso.play();
++
++        Label texto = new Label("Farejando adoções...");
++        texto.getStyleClass().add("loading-text");
+ 
+-        carregarDados();
++        VBox box = new VBox(10, pata, texto);
++        box.setAlignment(Pos.CENTER);
++        box.getStyleClass().add("loading-placeholder");
++        return box;
+     }
+ 
+-    private void carregarDados() {
+-        dados.setAll(adocaoRepository.findAdocoesDefinitivas());
++
++    private Node criarPlaceholderVazio() {
++        Label pata = new Label("🐾");
++        pata.getStyleClass().add("empty-paw");
++
++        Label texto = new Label("Nenhuma adoção definitiva encontrada.");
++        texto.getStyleClass().add("loading-text");
++
++        VBox box = new VBox(10, pata, texto);
++        box.setAlignment(Pos.CENTER);
++        box.getStyleClass().add("loading-placeholder");
++        return box;
+     }
+ 
+     @FXML
+     private void cancelarAdocao() {
+         AdocaoDefinitivaDTO selecionado = tabelaAdocoes.getSelectionModel().getSelectedItem();
+         if (selecionado == null) {
+-            new Alert(AlertType.WARNING, "Selecione uma adoção na tabela.").showAndWait();
++            mostrarAlerta(AlertType.WARNING, "Seleção Necessária", "Selecione uma adoção na tabela.");
+             return;
+         }
+         Alert confirmacao = new Alert(AlertType.CONFIRMATION,
+                 "Cancelar a adoção de " + selecionado.nomeAnimal() + "? O animal volta para a lista de sem adoção.");
++        confirmacao.setHeaderText(null);
+         confirmacao.showAndWait().filter(botao -> botao.getButtonData().isDefaultButton()).ifPresent(botao -> {
+             adocaoRepository.cancelarAdocao(selecionado.idAdocao());
+-            carregarDados();
++            carregarDadosAssincrono();
+         });
+     }
+ 
+@@ -82,4 +157,12 @@
+     private void voltar() {
+         NavigationManager.getInstance().navegarConteudo("gestao-adoçao");
+     }
+-}
++
++    private void mostrarAlerta(AlertType tipo, String titulo, String msg) {
++        Alert alert = new Alert(tipo);
++        alert.setTitle(titulo);
++        alert.setHeaderText(null);
++        alert.setContentText(msg);
++        alert.showAndWait();
++    }
++}
+\ No newline at end of file
+Index: src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.abrigo.controller;\r\n\r\nimport com.abrigo.dao.AnimalDAO;\r\nimport com.abrigo.database.JPAUtil;\r\nimport com.abrigo.model.Animal;\r\nimport jakarta.persistence.EntityManager;\r\nimport javafx.beans.property.SimpleObjectProperty;\r\nimport javafx.beans.property.SimpleStringProperty;\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.collections.transformation.FilteredList;\r\nimport javafx.concurrent.Task;\r\nimport javafx.fxml.FXML;\r\nimport javafx.scene.control.*;\r\n\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\npublic class HistoricoAnimaisCadastradosController {\r\n\r\n    @FXML private TableView<Animal> tabelaAnimais;\r\n    @FXML private TableColumn<Animal, Long> colunaIdAnimal;\r\n    @FXML private TableColumn<Animal, String> colunaNomeAnimal;\r\n    @FXML private TableColumn<Animal, String> colunaEspecie;\r\n    @FXML private TableColumn<Animal, String> colunaPorte;\r\n    @FXML private TableColumn<Animal, Integer> colunaIdadeAnimal;\r\n    @FXML private TableColumn<Animal, String> colunaSexo;\r\n    @FXML private TableColumn<Animal, String> colunaStsVacinacao;\r\n    @FXML private TableColumn<Animal, LocalDate> colunaDataUltimaVacinacao;\r\n    @FXML private TableColumn<Animal, String> colunaStsGravidez;\r\n    @FXML private TextField txtBusca;\r\n\r\n    private final AnimalDAO animalDAO = new AnimalDAO();\r\n\r\n    /** Lista completa (backing) e lista filtrada (o que a tabela vê). */\r\n    private final ObservableList<Animal> todosAnimais = FXCollections.observableArrayList();\r\n    private FilteredList<Animal> animaisFiltrados;\r\n\r\n    @FXML\r\n    public void initialize() {\r\n        configurarColunas();\r\n        configurarBusca();\r\n        carregarTabelaAssincrono();\r\n    }\r\n\r\n    private void configurarColunas() {\r\n        colunaIdAnimal.setCellValueFactory(c ->\r\n                new SimpleObjectProperty<>(c.getValue().getId()));\r\n        colunaNomeAnimal.setCellValueFactory(c ->\r\n                new SimpleStringProperty(c.getValue().getNome()));\r\n        colunaEspecie.setCellValueFactory(c ->\r\n                new SimpleStringProperty(c.getValue().getEspecie()));\r\n        colunaPorte.setCellValueFactory(c ->\r\n                new SimpleStringProperty(c.getValue().getPorte()));\r\n        colunaIdadeAnimal.setCellValueFactory(c ->\r\n                new SimpleObjectProperty<>(c.getValue().getIdade()));\r\n        colunaSexo.setCellValueFactory(c ->\r\n                new SimpleStringProperty(c.getValue().getSexo()));\r\n        colunaStsVacinacao.setCellValueFactory(c ->\r\n                new SimpleStringProperty(c.getValue().getStatusVacinacao()));\r\n        colunaDataUltimaVacinacao.setCellValueFactory(c ->\r\n                new SimpleObjectProperty<>(c.getValue().getDataUltimaVacinacao()));\r\n        colunaStsGravidez.setCellValueFactory(c ->\r\n                new SimpleStringProperty(c.getValue().getStatusGravidez()));\r\n    }\r\n\r\n\r\n    private void configurarBusca() {\r\n        animaisFiltrados = new FilteredList<>(todosAnimais, p -> true);\r\n        tabelaAnimais.setItems(animaisFiltrados);\r\n\r\n        if (txtBusca != null) {\r\n            txtBusca.textProperty().addListener((obs, oldV, newV) -> aplicarFiltro(newV));\r\n        }\r\n    }\r\n\r\n    private void aplicarFiltro(String termo) {\r\n        if (termo == null || termo.isBlank()) {\r\n            animaisFiltrados.setPredicate(a -> true);\r\n            return;\r\n        }\r\n        String t = termo.trim().toLowerCase();\r\n        animaisFiltrados.setPredicate(a -> {\r\n\r\n            if (a.getId() != null && String.valueOf(a.getId()).equals(t)) return true;\r\n\r\n            if (a.getNome() != null && a.getNome().toLowerCase().contains(t)) return true;\r\n\r\n            if (a.getId() != null && String.valueOf(a.getId()).contains(t)) return true;\r\n            return false;\r\n        });\r\n    }\r\n\r\n\r\n    private void carregarTabelaAssincrono() {\r\n        Task<List<Animal>> task = new Task<>() {\r\n            @Override\r\n            protected List<Animal> call() {\r\n                return animalDAO.listarTodos();\r\n            }\r\n        };\r\n\r\n        task.setOnSucceeded(e -> {\r\n            todosAnimais.setAll(task.getValue());\r\n            aplicarFiltro(txtBusca != null ? txtBusca.getText() : null);\r\n        });\r\n\r\n        task.setOnFailed(e -> {\r\n            Throwable ex = task.getException();\r\n            if (ex != null) ex.printStackTrace();\r\n            mostrarAlerta(Alert.AlertType.ERROR, \"Erro\",\r\n                    \"Não foi possível carregar a lista de animais.\\n\" +\r\n                            (ex != null ? ex.getMessage() : \"\"));\r\n        });\r\n\r\n        Thread t = new Thread(task, \"carregar-animais\");\r\n        t.setDaemon(true);\r\n        t.start();\r\n    }\r\n\r\n\r\n    private void carregarTabela() {\r\n        carregarTabelaAssincrono();\r\n    }\r\n\r\n\r\n    @FXML\r\n    private void inserir() {\r\n        NavigationManager.getInstance().navegarConteudo(\"cadastro-animal\");\r\n    }\r\n\r\n    @FXML\r\n    private void editar() {\r\n        Animal selecionado = tabelaAnimais.getSelectionModel().getSelectedItem();\r\n        if (selecionado == null) {\r\n            mostrarAlerta(Alert.AlertType.WARNING, \"Seleção Necessária\",\r\n                    \"Selecione um animal na tabela para editar.\");\r\n            return;\r\n        }\r\n\r\n        CadastroAnimalController controller = (CadastroAnimalController)\r\n                NavigationManager.getInstance().navegarConteudoEObterController(\"cadastro-animal\");\r\n\r\n        if (controller != null) {\r\n            controller.carregarDadosParaEdicao(selecionado);\r\n        }\r\n    }\r\n\r\n    @FXML\r\n    private void excluir() {\r\n        Animal selecionado = tabelaAnimais.getSelectionModel().getSelectedItem();\r\n        if (selecionado == null) {\r\n            mostrarAlerta(Alert.AlertType.WARNING, \"Seleção Necessária\",\r\n                    \"Selecione um animal na tabela para excluir.\");\r\n            return;\r\n        }\r\n\r\n        Alert confirmacao = new Alert(\r\n                Alert.AlertType.CONFIRMATION,\r\n                \"Deseja realmente excluir o animal \\\"\" + selecionado.getNome() + \"\\\"?\\n\" +\r\n                        \"Os registros de vacinas vinculados também serão removidos.\",\r\n                ButtonType.YES, ButtonType.NO);\r\n        confirmacao.setHeaderText(null);\r\n        confirmacao.setTitle(\"Confirmar Exclusão\");\r\n\r\n        confirmacao.showAndWait().ifPresent(resposta -> {\r\n            if (resposta == ButtonType.YES) {\r\n                boolean ok = excluirAnimalComDependencias(selecionado.getId());\r\n                if (ok) {\r\n                    carregarTabela();\r\n                    mostrarAlerta(Alert.AlertType.INFORMATION, \"Sucesso\",\r\n                            \"Animal excluído com sucesso.\");\r\n                } else {\r\n                    mostrarAlerta(Alert.AlertType.ERROR, \"Erro\",\r\n                            \"Não foi possível excluir o animal. Verifique o console para mais detalhes.\");\r\n                }\r\n            }\r\n        });\r\n    }\r\n\r\n\r\n    private boolean excluirAnimalComDependencias(Long animalId) {\r\n        EntityManager em = JPAUtil.getEntityManager();\r\n        try {\r\n            em.getTransaction().begin();\r\n\r\n\r\n            em.createQuery(\"DELETE FROM Vacina v WHERE v.animal.id = :id\")\r\n                    .setParameter(\"id\", animalId)\r\n                    .executeUpdate();\r\n\r\n            // 2) Remove o animal\r\n            Animal animal = em.find(Animal.class, animalId);\r\n            if (animal != null) {\r\n                em.remove(animal);\r\n            }\r\n\r\n            em.getTransaction().commit();\r\n            return true;\r\n\r\n        } catch (Exception e) {\r\n            if (em.getTransaction().isActive()) {\r\n                em.getTransaction().rollback();\r\n            }\r\n            System.err.println(\"Erro ao excluir animal id=\" + animalId + \": \" + e.getMessage());\r\n            e.printStackTrace();\r\n            return false;\r\n        } finally {\r\n            em.close();\r\n        }\r\n    }\r\n\r\n    @FXML\r\n    private void voltar() {\r\n        NavigationManager.getInstance().navegarConteudo(\"cadastro-animal\");\r\n    }\r\n\r\n    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String msg) {\r\n        Alert alert = new Alert(tipo);\r\n        alert.setTitle(titulo);\r\n        alert.setHeaderText(null);\r\n        alert.setContentText(msg);\r\n        alert.showAndWait();\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java b/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java
+--- a/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java	(revision b1a6ada64a437368b4b65a6bc7551aa5a0aa10ee)
++++ b/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java	(date 1790172999134)
+@@ -4,6 +4,8 @@
+ import com.abrigo.database.JPAUtil;
+ import com.abrigo.model.Animal;
+ import jakarta.persistence.EntityManager;
++import javafx.animation.Animation;
++import javafx.animation.ScaleTransition;
+ import javafx.beans.property.SimpleObjectProperty;
+ import javafx.beans.property.SimpleStringProperty;
+ import javafx.collections.FXCollections;
+@@ -11,7 +13,11 @@
+ import javafx.collections.transformation.FilteredList;
+ import javafx.concurrent.Task;
+ import javafx.fxml.FXML;
++import javafx.geometry.Pos;
++import javafx.scene.Node;
+ import javafx.scene.control.*;
++import javafx.scene.layout.VBox;
++import javafx.util.Duration;
+ 
+ import java.time.LocalDate;
+ import java.util.List;
+@@ -93,6 +99,7 @@
+ 
+ 
+     private void carregarTabelaAssincrono() {
++        tabelaAnimais.setPlaceholder(criarPlaceholderCarregando());
+         Task<List<Animal>> task = new Task<>() {
+             @Override
+             protected List<Animal> call() {
+@@ -102,12 +109,14 @@
+ 
+         task.setOnSucceeded(e -> {
+             todosAnimais.setAll(task.getValue());
++            tabelaAnimais.setPlaceholder(criarPlaceholderVazio());
+             aplicarFiltro(txtBusca != null ? txtBusca.getText() : null);
+         });
+ 
+         task.setOnFailed(e -> {
+             Throwable ex = task.getException();
+             if (ex != null) ex.printStackTrace();
++            tabelaAnimais.setPlaceholder(criarPlaceholderVazio());
+             mostrarAlerta(Alert.AlertType.ERROR, "Erro",
+                     "Não foi possível carregar a lista de animais.\n" +
+                             (ex != null ? ex.getMessage() : ""));
+@@ -123,6 +132,41 @@
+         carregarTabelaAssincrono();
+     }
+ 
++    private Node criarPlaceholderVazio() {
++        Label pata = new Label("🐾");
++        pata.getStyleClass().add("empty-paw");
++
++        Label texto = new Label("Nenhum animal cadastrado.");
++        texto.getStyleClass().add("loading-text");
++
++        VBox box = new VBox(10, pata, texto);
++        box.setAlignment(Pos.CENTER);
++        box.getStyleClass().add("loading-placeholder");
++        return box;
++    }
++
++    private Node criarPlaceholderCarregando() {
++        Label pata = new Label("🐾");
++        pata.getStyleClass().add("loading-paw");
++
++        ScaleTransition pulso = new ScaleTransition(Duration.millis(650), pata);
++        pulso.setFromX(0.85);
++        pulso.setFromY(0.85);
++        pulso.setToX(1.25);
++        pulso.setToY(1.25);
++        pulso.setCycleCount(Animation.INDEFINITE);
++        pulso.setAutoReverse(true);
++        pulso.play();
++
++        Label texto = new Label("Farejando bichinhos...");
++        texto.getStyleClass().add("loading-text");
++
++        VBox box = new VBox(10, pata, texto);
++        box.setAlignment(Pos.CENTER);
++        box.getStyleClass().add("loading-placeholder");
++        return box;
++    }
++
+ 
+     @FXML
+     private void inserir() {
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"VcsDirectoryMappings\">\r\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision b1a6ada64a437368b4b65a6bc7551aa5a0aa10ee)
++++ b/.idea/vcs.xml	(date 1790170904814)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/main/resources/com/abrigo/css/style.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/* ==========================================================================\r\n   1. MENU LATERAL (Corrigido)\r\n   ========================================================================== */\r\n\r\n/* Estado Base */\r\n.menu-btn {\r\n    -fx-background-color: #FFFFFF;\r\n    -fx-text-fill: #2C3E50;\r\n    -fx-font-size: 13px;\r\n    -fx-font-weight: normal;\r\n    -fx-background-radius: 8px;\r\n    -fx-border-color: #F1E5D1;\r\n    -fx-border-radius: 8px;\r\n    -fx-border-width: 1px;\r\n    -fx-padding: 10px 14px;\r\n    -fx-cursor: hand;\r\n    -fx-alignment: CENTER-LEFT;\r\n}\r\n\r\n/* Transição de Hover (ao passar o mouse) */\r\n.menu-btn:hover {\r\n    -fx-background-color: #FFF9F0;\r\n    -fx-border-color: #E2D3BC;\r\n    -fx-text-fill: #1E293B;\r\n}\r\n\r\n/* Estado Ativo (Botão Selecionado no Menu) */\r\n.menu-btn.active {\r\n    -fx-background-color: #FFF3E0;\r\n    -fx-text-fill: #2C3E50;\r\n    -fx-font-weight: bold;\r\n    -fx-border-color: #E91E63;\r\n    -fx-border-width: 0 0 0 4px; /* Mantém o destaque lateral apenas quando ativo */\r\n}\r\n\r\n\r\n/* ==========================================================================\r\n   2. BOTÕES DE AÇÃO DAS TABELAS E FORMULÁRIOS\r\n   ========================================================================== */\r\n\r\n/* Regra Geral para Botões de Ação */\r\n.btn-acao {\r\n    -fx-min-height: 38px;\r\n    -fx-pref-height: 38px;\r\n    -fx-font-size: 13px;\r\n    -fx-font-weight: bold;\r\n    -fx-background-radius: 10px;\r\n    -fx-border-radius: 10px;\r\n    -fx-border-width: 1px;\r\n    -fx-cursor: hand;\r\n    -fx-alignment: CENTER;\r\n}\r\n\r\n/* Botão Voltar (Neutro) */\r\n.btn-voltar {\r\n    -fx-background-color: #F8FAFC;\r\n    -fx-text-fill: #475569;\r\n    -fx-border-color: #E2E8F0;\r\n    -fx-padding: 0 18px;\r\n}\r\n.btn-voltar:hover {\r\n    -fx-background-color: #E2E8F0;\r\n    -fx-text-fill: #1E293B;\r\n    -fx-border-color: #CBD5E1;\r\n}\r\n\r\n/* Botão Excluir (Alerta) */\r\n.btn-excluir {\r\n    -fx-background-color: #FFEBEE;\r\n    -fx-text-fill: #C62828;\r\n    -fx-border-color: #FFCDD2;\r\n    -fx-padding: 0 18px;\r\n}\r\n.btn-excluir:hover {\r\n    -fx-background-color: #FFCDD2;\r\n    -fx-text-fill: #B71C1C;\r\n    -fx-border-color: #EF9A9A;\r\n}\r\n\r\n/* Botão Editar (Ação Secundária) */\r\n.btn-editar {\r\n    -fx-background-color: #EEF2FF;\r\n    -fx-text-fill: #4F46E5;\r\n    -fx-border-color: #C7D2FE;\r\n    -fx-padding: 0 18px;\r\n}\r\n.btn-editar:hover {\r\n    -fx-background-color: #C7D2FE;\r\n    -fx-text-fill: #3730A3;\r\n    -fx-border-color: #A5B4FC;\r\n}\r\n\r\n/* Botão + Novo (Destaque/CTA) */\r\n.btn-novo, .btn-salvar {\r\n    -fx-background-color: #FCE4EC;\r\n    -fx-text-fill: #C2185B;\r\n    -fx-border-color: #F8BBD0;\r\n    -fx-padding: 0 22px;\r\n    -fx-effect: dropshadow(three-pass-box, rgba(233, 30, 99, 0.15), 6, 0, 0, 2);\r\n}\r\n.btn-novo:hover, .btn-salvar:hover {\r\n    -fx-background-color: #F8BBD0;\r\n    -fx-text-fill: #880E4F;\r\n    -fx-border-color: #F48FB1;\r\n    -fx-effect: dropshadow(three-pass-box, rgba(233, 30, 99, 0.3), 8, 0, 0, 3);\r\n}\r\n\r\n/* Botão Ver Histórico / Pesquisar */\r\n.btn-historico {\r\n    -fx-background-color: #E0F2FE;\r\n    -fx-text-fill: #0369A1;\r\n    -fx-border-color: #BAE6FD;\r\n    -fx-padding: 0 18px;\r\n}\r\n.btn-historico:hover {\r\n    -fx-background-color: #BAE6FD;\r\n    -fx-text-fill: #0284C7;\r\n    -fx-border-color: #7DD3FC;\r\n}\r\n\r\n\r\n.menu-card {\r\n    -fx-background-color: #FFFFFF;\r\n    -fx-background-radius: 16;\r\n    -fx-border-color: #F1E5D1;\r\n    -fx-border-radius: 16;\r\n    -fx-border-width: 1.5;\r\n    -fx-padding: 22 28 22 28;\r\n    -fx-pref-width: 520;\r\n    -fx-min-width: 380;\r\n    -fx-cursor: hand;\r\n}\r\n\r\n\r\n.menu-card:hover {\r\n    -fx-border-color: #F8BBD0;\r\n    -fx-background-color: #FFFDFB;\r\n}\r\n\r\n.menu-card-titulo {\r\n    -fx-font-size: 15px;\r\n    -fx-font-weight: bold;\r\n    -fx-text-fill: #2C3E50;\r\n    -fx-letter-spacing: 0.5px;\r\n}\r\n\r\n.menu-card-sub {\r\n    -fx-font-size: 12px;\r\n    -fx-text-fill: #7F8C8D;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/abrigo/css/style.css b/src/main/resources/com/abrigo/css/style.css
+--- a/src/main/resources/com/abrigo/css/style.css	(revision b1a6ada64a437368b4b65a6bc7551aa5a0aa10ee)
++++ b/src/main/resources/com/abrigo/css/style.css	(date 1790170988704)
+@@ -147,4 +147,24 @@
+ .menu-card-sub {
+     -fx-font-size: 12px;
+     -fx-text-fill: #7F8C8D;
++}
++
++.loading-placeholder {
++    -fx-alignment: center;
++}
++
++.loading-placeholder .label {
++    -fx-font-size: 13px;
++    -fx-text-fill: #7F8C8D;
++}
++
++.loading-paw {
++    -fx-font-size: 38px;
++    -fx-text-fill: #E8A33D;
++}
++
++.empty-paw {
++    -fx-font-size: 38px;
++    -fx-text-fill: #D8CFC4;
++    -fx-opacity: 0.8;
+ }
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"BackgroundAgentGlobalSettings\">\r\n    <option name=\"selectedModelId\" value=\"auto\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"30e1fbe5-f517-4ca4-9867-e23f7dd1f935\" name=\"Changes\" comment=\"alteração histórico de animal,e filtros de pesquisa\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesLarTemporarioController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/AnimaisSemAdocaoController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/GestaoAdocaoController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuFichaTecnicaController.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoDefinitivaDTO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoLarTemporarioDTO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/dto/AnimalNaoAdotadoDTO.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/repository/AdocaoRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/repository/AnimalRepository.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/gestao-adoçao.fxml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/telaAdocoesDefinitivas.fxml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/telaAdocoesLarTemporario.fxml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/telaAnimaisSemAdocao.fxml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoCadastroProdutoController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoCadastroProdutoController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoLarTempController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoLarTempController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoVacinasController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoVacinasController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuMovimentacoesController.java\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuPrincipalController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuPrincipalController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/dao/AnimalDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/dao/AnimalDAO.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/database/JPAUtil.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/database/JPAUtil.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/abrigo/model/Adocao.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/abrigo/model/Adocao.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/module-info.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/module-info.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/css/style.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/css/style.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/Movimentacao.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/FichaTecnica.fxml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/cadastro-animal.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/cadastro-animal.fxml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/menu-principal.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/menu-principal.fxml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"CopilotPersistence\">\r\n    <persistenceIdMap>\r\n      <entry key=\"_C:/Users/Windows 10/Downloads/sistema\" value=\"3IO0QmiAGowLSgdZObP8VRGwfpf\" />\r\n    </persistenceIdMap>\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"package-info\" />\r\n        <option value=\"JavaFXApplication\" />\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Mizael0411&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Mizael0411/sistema.git&quot;,\r\n    &quot;accountId&quot;: &quot;dab8b785-3d2c-407b-a077-a45c2a0663bb&quot;\r\n  }\r\n}</component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHomeTypeForPersistence\" value=\"WRAPPER\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 4\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3IN85xRu2XLeGfjPxr8l72wXfTi\" />\r\n  <component name=\"ProjectSessionTemplates\">\r\n    <option name=\"inlineTemplate\">\r\n      <template>\r\n        <option name=\"modeId\" value=\"Ask\" />\r\n        <option name=\"model\">\r\n          <model>\r\n            <option name=\"modelType\" value=\"builtin_id\" />\r\n            <option name=\"modelValue\" value=\"auto\" />\r\n          </model>\r\n        </option>\r\n        <option name=\"targetType\" value=\"BACKGROUND\" />\r\n        <option name=\"worktreeMode\" value=\"WORKSPACE\" />\r\n      </template>\r\n    </option>\r\n    <option name=\"panelTemplate\">\r\n      <template>\r\n        <option name=\"modeId\" value=\"Agent\" />\r\n        <option name=\"model\">\r\n          <model>\r\n            <option name=\"modelType\" value=\"builtin_id\" />\r\n            <option name=\"modelValue\" value=\"auto\" />\r\n          </model>\r\n        </option>\r\n        <option name=\"targetType\" value=\"BACKGROUND\" />\r\n        <option name=\"worktreeMode\" value=\"WORKSPACE\" />\r\n      </template>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.App.executor\": \"Run\",\r\n    \"Application.HelloApplication.executor\": \"Run\",\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"copilot.chat.legacySessionMetadata.migrated\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"last_opened_file_path\": \"C:/Users/Windows 10/Downloads/sistema/src/main/java/com/abrigo/controller\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"settings.editor.selected.configurable\": \"project.propVCSSupport.DirectoryMappings\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Windows 10\\Downloads\\sistema\\src\\main\\java\\com\\abrigo\\controller\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\Windows 10\\Downloads\\sistema\\src\\main\\java\\com\\abrigo\\controller\" />\r\n      <recent name=\"C:\\Users\\Windows 10\\Downloads\\sistema\\src\\main\\resources\\com\\abrigo\\sistema\\fxml\" />\r\n      <recent name=\"C:\\Users\\Windows 10\\Downloads\\sistema\\src\\main\\java\\com\\abrigo\\dto\" />\r\n      <recent name=\"C:\\Users\\Windows 10\\Downloads\\sistema\\src\\main\\java\\com\\abrigo\\repository\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"App\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.abrigo.App\" />\r\n      <module name=\"sistema\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.abrigo.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.App\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.27812.49\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.27812.49\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"30e1fbe5-f517-4ca4-9867-e23f7dd1f935\" name=\"Changes\" comment=\"\" />\r\n      <created>1787593487554</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1787593487554</updated>\r\n      <workItem from=\"1787593490131\" duration=\"1475000\" />\r\n      <workItem from=\"1787598693973\" duration=\"6113000\" />\r\n      <workItem from=\"1787657887870\" duration=\"9686000\" />\r\n      <workItem from=\"1787701234011\" duration=\"16122000\" />\r\n      <workItem from=\"1787784639960\" duration=\"2438000\" />\r\n      <workItem from=\"1787789583777\" duration=\"217000\" />\r\n      <workItem from=\"1787789839708\" duration=\"1000\" />\r\n      <workItem from=\"1787828275949\" duration=\"13482000\" />\r\n      <workItem from=\"1788020863220\" duration=\"3529000\" />\r\n      <workItem from=\"1788311476321\" duration=\"6000\" />\r\n      <workItem from=\"1788393762718\" duration=\"10367000\" />\r\n      <workItem from=\"1788482058368\" duration=\"972000\" />\r\n      <workItem from=\"1788894569658\" duration=\"18756000\" />\r\n      <workItem from=\"1788980252870\" duration=\"3171000\" />\r\n      <workItem from=\"1788999909266\" duration=\"3272000\" />\r\n      <workItem from=\"1789045632973\" duration=\"2708000\" />\r\n      <workItem from=\"1789073607022\" duration=\"1703000\" />\r\n      <workItem from=\"1789422462609\" duration=\"8122000\" />\r\n      <workItem from=\"1789562997843\" duration=\"1125000\" />\r\n      <workItem from=\"1789581358827\" duration=\"1568000\" />\r\n      <workItem from=\"1789601717954\" duration=\"8359000\" />\r\n      <workItem from=\"1789670550913\" duration=\"74000\" />\r\n      <workItem from=\"1789682759236\" duration=\"18161000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"atualizado\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1787831365865</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1787831365865</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"atualizado\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1787831476908</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1787831476908</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"cadastroLarTemp.fxml front pronto\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1787836913236</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1787836913236</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"cadstro do produto tela\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1788435153151</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1788435153152</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"novas telas, relaçao com o banco, e estruturação do bakc-end\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1789046364418</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1789046364418</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"alteração histórico de animal,e filtros de pesquisa\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1789670473399</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1789670473399</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00007\" summary=\"alteração histórico de animal,e filtros de pesquisa\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1789670526195</created>\r\n      <option name=\"number\" value=\"00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1789670526195</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"8\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"atualizado\" />\r\n    <MESSAGE value=\"cadastroLarTemp.fxml front pronto\" />\r\n    <MESSAGE value=\"rolas\" />\r\n    <MESSAGE value=\"cadstro do produto tela\" />\r\n    <MESSAGE value=\"novas telas, relaçao com o banco, e estruturação do bakc-end\" />\r\n    <MESSAGE value=\"alteração histórico de animal,e filtros de pesquisa\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"alteração histórico de animal,e filtros de pesquisa\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b1a6ada64a437368b4b65a6bc7551aa5a0aa10ee)
++++ b/.idea/workspace.xml	(date 1790172999327)
+@@ -8,37 +8,11 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="30e1fbe5-f517-4ca4-9867-e23f7dd1f935" name="Changes" comment="alteração histórico de animal,e filtros de pesquisa">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesLarTemporarioController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AnimaisSemAdocaoController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/GestaoAdocaoController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuFichaTecnicaController.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoDefinitivaDTO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoLarTemporarioDTO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AnimalNaoAdotadoDTO.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/repository/AdocaoRepository.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/repository/AnimalRepository.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/gestao-adoçao.fxml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/telaAdocoesDefinitivas.fxml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/telaAdocoesLarTemporario.fxml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/telaAnimaisSemAdocao.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoCadastroProdutoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoCadastroProdutoController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoLarTempController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoLarTempController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoVacinasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoVacinasController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuMovimentacoesController.java" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuPrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuPrincipalController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/dao/AnimalDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dao/AnimalDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/database/JPAUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/database/JPAUtil.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/model/Adocao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/model/Adocao.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/css/style.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/Movimentacao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/FichaTecnica.fxml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/cadastro-animal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/cadastro-animal.fxml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/menu-principal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/menu-principal.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -83,7 +57,7 @@
+     </option>
+   </component>
+   <component name="ProblemsViewState">
+-    <option name="selectedTabId" value="CurrentFile" />
++    <option name="selectedTabId" value="ProjectErrors" />
+   </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 4
+@@ -121,25 +95,25 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.App.executor": "Run",
+-    "Application.HelloApplication.executor": "Run",
+-    "ModuleVcsDetector.initialDetectionPerformed": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "copilot.chat.legacySessionMetadata.migrated": "true",
+-    "git-widget-placeholder": "master",
+-    "last_opened_file_path": "C:/Users/Windows 10/Downloads/sistema/src/main/java/com/abrigo/controller",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.App.executor&quot;: &quot;Run&quot;,
++    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
++    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/Windows 10/Downloads/sistema/src/main/java/com/abrigo/controller&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\Windows 10\Downloads\sistema\src\main\java\com\abrigo\controller" />
+@@ -209,6 +183,7 @@
+       <workItem from="1789601717954" duration="8359000" />
+       <workItem from="1789670550913" duration="74000" />
+       <workItem from="1789682759236" duration="18161000" />
++      <workItem from="1790170830790" duration="2163000" />
+     </task>
+     <task id="LOCAL-00001" summary="atualizado">
+       <option name="closed" value="true" />
