@@ -259,6 +259,24 @@ public class HistoricoAnimaisCadastradosController {
         NavigationManager.getInstance().navegarConteudo("cadastro-animal");
     }
 
+    @FXML
+    private void transferirAdocao(){
+        Animal selecionado = tabelaAnimais.getSelectionModel().getSelectedItem();
+        if (selecionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Seleção Necessária",
+                    "Selecione um animal na tabela para transferir para adoção.");
+            return;
+        }
+
+        GestaoAdocaoController controller = (GestaoAdocaoController)
+                NavigationManager.getInstance().navegarConteudoEObterController("gestao-adocao");
+
+        if (controller != null) {
+            controller.carregarDadosParaTransferenciaAdocao(selecionado);
+        }
+
+    }
+
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String msg) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

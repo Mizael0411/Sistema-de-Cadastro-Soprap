@@ -75,8 +75,9 @@ public class NavigationManager {
         return temp;
     }
 
-    public void setAnimalSelecionado(Animal animalSelecionado) {
+    public Animal setAnimalSelecionado(Animal animalSelecionado) {
         this.animalSelecionado = animalSelecionado;
+        return animalSelecionado;
     }
     
     public void navegarMenu(String nomeFxml) {

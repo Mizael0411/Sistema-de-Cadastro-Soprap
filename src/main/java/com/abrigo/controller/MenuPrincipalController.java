@@ -25,7 +25,7 @@ public class MenuPrincipalController {
     @FXML
     private void abrirGestaoAdocao() {
         NavigationManager.getInstance().navegarMenu("menu-principal");
-        NavigationManager.getInstance().navegarConteudo("gestao-adoçao");
+        NavigationManager.getInstance().navegarConteudo("gestao-adocao");
     }
 
     @FXML

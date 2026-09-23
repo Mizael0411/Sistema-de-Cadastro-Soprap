@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.abrigo.dto.AdocaoDefinitivaDTO;
 import com.abrigo.repository.AdocaoRepository;
+import com.abrigo.util.DestaqueTabelaUtil;
 
 import javafx.animation.Animation;
+import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -39,11 +41,23 @@ public class AdocoesDefinitivasController {
     private final AdocaoRepository adocaoRepository = new AdocaoRepository();
     private final ObservableList<AdocaoDefinitivaDTO> dados = FXCollections.observableArrayList();
 
+    // Id do animal recém-transferido, se houver, pra destacar a linha em verde.
+    private Long idAnimalParaDestacar;
+
     @FXML
     public void initialize() {
         configurarColunas();
         configurarBusca();
+        DestaqueTabelaUtil.configurarRowFactory(tabelaAdocoes, () -> idAnimalParaDestacar);
         carregarDadosAssincrono();
+    }
+
+
+    public void destacarAnimalRecemAdicionado(Long idAnimal) {
+        this.idAnimalParaDestacar = idAnimal;
+
+        DestaqueTabelaUtil.selecionarEExibir(tabelaAdocoes, dados, idAnimalParaDestacar);
+        tabelaAdocoes.refresh();
     }
 
     private void configurarColunas() {
@@ -84,6 +98,16 @@ public class AdocoesDefinitivasController {
         task.setOnSucceeded(e -> {
             dados.setAll(task.getValue());
             tabelaAdocoes.setPlaceholder(criarPlaceholderVazio());
+
+            if (idAnimalParaDestacar != null) {
+                DestaqueTabelaUtil.selecionarEExibir(tabelaAdocoes, dados, idAnimalParaDestacar);
+                PauseTransition apagarDestaque = new PauseTransition(Duration.seconds(4));
+                apagarDestaque.setOnFinished(ev -> {
+                    idAnimalParaDestacar = null;
+                    tabelaAdocoes.refresh();
+                });
+                apagarDestaque.play();
+            }
         });
 
         task.setOnFailed(e -> {
@@ -123,7 +147,6 @@ public class AdocoesDefinitivasController {
         return box;
     }
 
-
     private Node criarPlaceholderVazio() {
         Label pata = new Label("🐾");
         pata.getStyleClass().add("empty-paw");
@@ -155,7 +178,7 @@ public class AdocoesDefinitivasController {
 
     @FXML
     private void voltar() {
-        NavigationManager.getInstance().navegarConteudo("gestao-adoçao");
+        NavigationManager.getInstance().navegarConteudo("gestao-adocao");
     }
 
     private void mostrarAlerta(AlertType tipo, String titulo, String msg) {

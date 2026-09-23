@@ -7,4 +7,4 @@ public record AdocaoDefinitivaDTO(
         String statusAdocao,
         String nomeTutor,
         Long idAdocao
-) {}
+) implements ItemAdocao {}

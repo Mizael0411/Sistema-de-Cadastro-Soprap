@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.abrigo.dto.AnimalNaoAdotadoDTO;
 import com.abrigo.repository.AdocaoRepository;
 import com.abrigo.repository.AnimalRepository;
+import com.abrigo.util.SelecionarLarTempDialog;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,7 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-
+import javafx.stage.Stage;
 
 public class AnimaisSemAdocaoController implements Initializable {
 
@@ -89,32 +90,15 @@ public class AnimaisSemAdocaoController implements Initializable {
             new Alert(AlertType.WARNING, "Selecione um animal na tabela.").showAndWait();
             return;
         }
-        TextInputDialog dialogTutor = new TextInputDialog();
-        dialogTutor.setTitle("Adoção em Lar Temporário");
-        dialogTutor.setHeaderText("Adotar " + selecionado.nome());
-        dialogTutor.setContentText("Nome do tutor:");
-        dialogTutor.showAndWait().ifPresent(nomeTutor -> {
-            if (nomeTutor.isBlank()) {
-                return;
-            }
-            // TODO: trocar por uma tela/combo real de seleção de LarTemp existente.
-            TextInputDialog dialogLar = new TextInputDialog();
-            dialogLar.setTitle("Lar Temporário");
-            dialogLar.setContentText("ID do lar temporário:");
-            dialogLar.showAndWait().ifPresent(idLarTexto -> {
-                try {
-                    Long idLarTemp = Long.valueOf(idLarTexto.trim());
-                    adocaoRepository.registrarAdocaoLarTemporario(selecionado.idAnimal(), idLarTemp, nomeTutor);
-                    carregarDados();
-                } catch (NumberFormatException e) {
-                    new Alert(AlertType.ERROR, "ID de lar temporário inválido.").showAndWait();
-                }
-            });
+        SelecionarLarTempDialog.abrir().ifPresent(larEscolhido -> {
+            adocaoRepository.registrarAdocaoLarTemporario(
+                    selecionado.idAnimal(), larEscolhido.getId(), larEscolhido.getNome());
+            carregarDados();
         });
     }
 
     @FXML
     private void voltar() {
-        NavigationManager.getInstance().navegarConteudo("gestao-adoçao");
+        NavigationManager.getInstance().navegarConteudo("gestao-adocao");
     }
 }

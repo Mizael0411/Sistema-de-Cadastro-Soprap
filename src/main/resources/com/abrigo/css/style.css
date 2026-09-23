@@ -51,7 +51,26 @@
     -fx-alignment: CENTER;
 }
 
-/* Botão Voltar (Neutro) */
+.btn-transferirAdocao {
+    -fx-background-color: #011932;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #2C3E50;       /* borda mais clara para contrastar */
+    -fx-border-width: 1.5px;         /* ✅ agora a borda tem largura */
+    -fx-border-radius: 10px;         /* ✅ arredondamento na borda */
+    -fx-background-radius: 10px;     /* ✅ arredondamento no fundo */
+    -fx-padding: 0 18px;
+}
+
+.btn-transferirAdocao:hover {
+    -fx-background-color: #0A1E2D;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #4A6572;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 0 18px;
+}
+
 .btn-voltar {
     -fx-background-color: #F8FAFC;
     -fx-text-fill: #475569;
@@ -98,6 +117,7 @@
     -fx-padding: 0 22px;
     -fx-effect: dropshadow(three-pass-box, rgba(233, 30, 99, 0.15), 6, 0, 0, 2);
 }
+
 .btn-novo:hover, .btn-salvar:hover {
     -fx-background-color: #F8BBD0;
     -fx-text-fill: #880E4F;

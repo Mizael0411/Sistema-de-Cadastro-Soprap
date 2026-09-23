@@ -6,4 +6,4 @@ public record AnimalNaoAdotadoDTO(
         Long idAnimal,
         String nome,
         String statusAdocao
-) {}
+) implements ItemAdocao {}
