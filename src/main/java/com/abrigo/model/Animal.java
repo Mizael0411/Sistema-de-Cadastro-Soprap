@@ -33,7 +33,7 @@ public class Animal {
     @Column(name = "porte")
     private String porte;
 
-    @Column(name = "status_vacinacao", nullable = false)
+    @Column(name = "status_vacinacao", nullable = true)
     private String statusVacinacao;
 
     @Column(name = "status_gravidez", nullable = true)
