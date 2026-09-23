@@ -15,17 +15,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 
-/**
- * Controller responsável pela tela de login.
- * Camada: Controller
- * Arquivo Relacionado: login.fxml
- */
 public class LoginController implements Initializable {
 
     @FXML private ComboBox<String> cbUsuario;
     @FXML private PasswordField txtSenha;
 
-    // Simula os usuários que viriam do banco de dados (RF08.12)
     private final Map<String, String> usuariosFake = Map.of(
             "admin", "1234"
     );
@@ -35,12 +29,10 @@ public class LoginController implements Initializable {
         List<String> listaUsuarios = List.copyOf(usuariosFake.keySet());
         cbUsuario.setItems(FXCollections.observableArrayList(listaUsuarios));
 
-        // Seleciona automaticamente o primeiro usuário para agilizar o login
         if (!listaUsuarios.isEmpty()) {
             cbUsuario.setValue(listaUsuarios.get(0));
         }
 
-        // Permite pressionar ENTER no campo de senha para entrar
         txtSenha.setOnAction(event -> onEntrarClick());
     }
 

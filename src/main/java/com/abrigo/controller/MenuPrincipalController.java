@@ -13,6 +13,7 @@ public class MenuPrincipalController {
 
     @FXML
     private void abrirCadastro() {
+        // Carrega apenas o menu lateral de cadastros sem abrir telas centrais automaticamente
         NavigationManager.getInstance().navegarMenu("menu-cadastro");
     }
 
@@ -25,6 +26,10 @@ public class MenuPrincipalController {
     private void abrirGestaoAdocao() {
         NavigationManager.getInstance().navegarMenu("menu-principal");
         NavigationManager.getInstance().navegarConteudo("gestao-adoçao");
+
+
+    private void abrirFichaTecnicaAnimais() {
+       NavigationManager.getInstance().navegarConteudo("selecao-animal-ficha");
     }
 
     @FXML

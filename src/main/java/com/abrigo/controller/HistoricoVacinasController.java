@@ -1,12 +1,28 @@
 package com.abrigo.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.dao.VacinaDAO;
 import com.abrigo.model.Animal;
 import com.abrigo.model.Vacina;
+
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -18,16 +34,36 @@ public class HistoricoVacinasController {
 
     @FXML private ComboBox<Animal> cbAnimal;
     @FXML private TableView<Vacina> tabelaHistorico;
+    @FXML private TableColumn<Vacina, Long> colunaId;
+    @FXML private TableColumn<Vacina, String> colunaNomeAnimal;
     @FXML private TableColumn<Vacina, String> colunaVacina;
     @FXML private TableColumn<Vacina, String> colunaDose;
     @FXML private TableColumn<Vacina, LocalDate> colunaData;
+    @FXML private TextField txtBusca;
 
     private final VacinaDAO vacinaDAO = new VacinaDAO();
-    private final AnimalDAO animalDAO = new AnimalDAO();
+
+    private final ObservableList<Vacina> todasVacinas = FXCollections.observableArrayList();
+    private FilteredList<Vacina> vacinasFiltradas;
 
     @FXML
     public void initialize() {
-        // Mapeamento das colunas conforme IDs do FXML
+        configurarColunas();
+        configurarBusca();
+        carregarTabelaAssincrono();
+    }
+
+    private void configurarColunas() {
+        colunaId.setCellValueFactory(c ->
+            new SimpleObjectProperty<>(c.getValue().getId()));
+
+        colunaNomeAnimal.setCellValueFactory(c -> {
+            if (c.getValue() != null && c.getValue().getAnimal() != null) {
+                return new SimpleStringProperty(c.getValue().getAnimal().getNome());
+            }
+            return new SimpleStringProperty("");
+        });
+
         colunaVacina.setCellValueFactory(new PropertyValueFactory<>("tipoVacina"));
         colunaDose.setCellValueFactory(new PropertyValueFactory<>("dose"));
         colunaData.setCellValueFactory(new PropertyValueFactory<>("dataVacinacao"));
@@ -41,17 +77,15 @@ public class HistoricoVacinasController {
                 setText(empty || value == null ? null : formatter.format(value));
             }
         });
+    }
 
-        carregarAnimais();
+    private void configurarBusca() {
+        vacinasFiltradas = new FilteredList<>(todasVacinas, p -> true);
+        tabelaHistorico.setItems(vacinasFiltradas);
 
-        // Evento de seleção no ComboBox para filtrar a tabela por animal
-        cbAnimal.getSelectionModel().selectedItemProperty().addListener((obs, antigo, selecionado) -> {
-            if (selecionado != null) {
-                carregarVacinasDoAnimal(selecionado.getId());
-            } else {
-                tabelaHistorico.getItems().clear();
-            }
-        });
+        if (txtBusca != null) {
+            txtBusca.textProperty().addListener((obs, oldV, newV) -> aplicarFiltro(newV));
+        }
     }
 
     private void carregarAnimais() {
@@ -60,15 +94,44 @@ public class HistoricoVacinasController {
         } catch (Exception e) {
             exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão", "Falha ao carregar lista de animais: " + e.getMessage());
         }
+        String t = termo.trim().toLowerCase();
+        vacinasFiltradas.setPredicate(v -> {
+            if (v.getId() != null && String.valueOf(v.getId()).contains(t)) return true;
+
+            if (v.getAnimal() != null && v.getAnimal().getNome() != null && v.getAnimal().getNome().toLowerCase().contains(t)) return true;
+
+            if (v.getTipoVacina() != null && v.getTipoVacina().toLowerCase().contains(t)) return true;
+
+            if (v.getDose() != null && v.getDose().toLowerCase().contains(t)) return true;
+
+            return false;
+        });
     }
 
-    private void carregarVacinasDoAnimal(Object animalId) {
-        try {
-            ObservableList<Vacina> lista = FXCollections.observableArrayList(vacinaDAO.buscarPorAnimalId(animalId));
-            tabelaHistorico.setItems(lista);
-        } catch (Exception e) {
-            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão", "Não foi possível carregar o histórico: " + e.getMessage());
-        }
+    private void carregarTabelaAssincrono() {
+        Task<List<Vacina>> task = new Task<>() {
+            @Override
+            protected List<Vacina> call() {
+                return vacinaDAO.listarTodos();
+            }
+        };
+
+        task.setOnSucceeded(e -> {
+            todasVacinas.setAll(task.getValue());
+            aplicarFiltro(txtBusca != null ? txtBusca.getText() : null);
+        });
+
+        task.setOnFailed(e -> {
+            Throwable ex = task.getException();
+            if (ex != null) ex.printStackTrace();
+            exibirAlerta(Alert.AlertType.ERROR, "Erro",
+                    "Não foi possível carregar a lista de vacinas.\n" +
+                            (ex != null ? ex.getMessage() : ""));
+        });
+
+        Thread t = new Thread(task, "carregar-vacinas");
+        t.setDaemon(true);
+        t.start();
     }
 
     @FXML
@@ -104,7 +167,7 @@ public class HistoricoVacinasController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             if (vacinaDAO.excluir(selecionada.getId())) {
-                carregarVacinasDoAnimal(cbAnimal.getValue().getId());
+                carregarTabelaAssincrono();
                 exibirAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Registro de vacina excluído com sucesso.");
             } else {
                 exibirAlerta(Alert.AlertType.ERROR, "Erro", "Falha ao excluir o registro de vacina.");

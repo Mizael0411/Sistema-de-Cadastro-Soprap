@@ -148,3 +148,18 @@
     -fx-font-size: 12px;
     -fx-text-fill: #7F8C8D;
 }
+
+/* Botão Ver Ficha Técnica */
+.btn-ficha-tecnica {
+    -fx-background-color: #E6F3FF;
+    -fx-text-fill: #0066B2;
+    -fx-border-color: #B3D9FF;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 0 18px;
+}
+.btn-ficha-tecnica:hover {
+    -fx-background-color: #D4E9FF;
+    -fx-text-fill: #004C8C;
+    -fx-border-color: #99C2FF;
+}

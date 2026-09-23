@@ -1,12 +1,7 @@
 package com.abrigo.controller;
 
 import javafx.fxml.FXML;
-/**
- * Controller responsável pela tela de relatórios, contendo os relatórios de financeiro, doações, adoções e animais.
- * Camada: Controller
-     * Arquivo Relacionado: Relatorios.fxml
- * @author Mizael
- */
+
 public class RelatorioMenuController {
 
     @FXML

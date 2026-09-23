@@ -113,6 +113,7 @@ public class RegistrarVacinasController {
         vacina.setTipoVacina(tipoVacina);
         vacina.setDose(cbDose.getValue());
         vacina.setDataVacinacao(dpDataVacinacao.getValue());
+        vacina.setStatusVacinacao("Concluída");
 
         boolean sucesso;
         if (vacina.getId() == null) {
@@ -122,11 +123,7 @@ public class RegistrarVacinasController {
         }
 
         if (sucesso) {
-
-            animalSelecionado.setStatusVacinacao("Vacinado (" + tipoVacina + ")");
-            animalDAO.atualizar(animalSelecionado);
-
-            mostrarAlerta("Sucesso", "Registro de vacina salvo e status do animal atualizado!");
+            mostrarAlerta("Sucesso", "Registro de vacina salvo com sucesso!");
             abrirHistorico();
         } else {
             mostrarAlerta("Erro", "Não foi possível salvar o registro da vacina.");

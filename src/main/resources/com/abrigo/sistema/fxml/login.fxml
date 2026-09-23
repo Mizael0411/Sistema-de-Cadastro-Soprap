@@ -10,7 +10,6 @@
     <content>
         <StackPane style="-fx-background-color: #FAF8F5;">
             
-            <!-- CAMADA DAS PATINHAS FIXAS NO FUNDO -->
             <AnchorPane mouseTransparent="true" style="-fx-background-color: transparent;">
                 <Label style="-fx-font-size: 32px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -20;" text="🐾" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0" />
                 <Label style="-fx-font-size: 22px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: 15;" text="🐾" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="110.0" />
@@ -30,7 +29,6 @@
                 <Label style="-fx-font-size: 26px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: -30;" text="🐾" AnchorPane.bottomAnchor="140.0" AnchorPane.rightAnchor="190.0" />
             </AnchorPane>
 
-            <!-- CARD DE LOGIN (SOBREPOSTO E CENTRALIZADO) -->
             <VBox alignment="CENTER" style="-fx-background-color: transparent;">
                 <padding>
                     <Insets bottom="30" left="20" right="20" top="30" />

@@ -20,6 +20,7 @@ public class NavigationManager {
     private Vacina vacinaParaEdicao;
     private Animal animalParaVacinar;
     private Produto produtoParaEdicao;
+    private Animal animalSelecionado;
 
     private NavigationManager() {}
 
@@ -66,6 +67,16 @@ public class NavigationManager {
 
     public void setProdutoParaEdicao(Produto produtoParaEdicao) {
         this.produtoParaEdicao = produtoParaEdicao;
+    }
+
+    public Animal getAnimalSelecionado() {
+        Animal temp = this.animalSelecionado;
+        this.animalSelecionado = null;
+        return temp;
+    }
+
+    public void setAnimalSelecionado(Animal animalSelecionado) {
+        this.animalSelecionado = animalSelecionado;
     }
     
     public void navegarMenu(String nomeFxml) {

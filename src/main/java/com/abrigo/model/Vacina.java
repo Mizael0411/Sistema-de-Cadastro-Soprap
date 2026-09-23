@@ -21,6 +21,9 @@ public class Vacina {
     @Column(nullable = false)
     private String dose; 
 
+    @Column(name = "status_vacinacao")
+    private String statusVacinacao;
+
     @ManyToOne
     @JoinColumn(name = "id_animal", nullable = false)
     private Animal animal; 
@@ -28,10 +31,11 @@ public class Vacina {
     public Vacina() {
     }
 
-    public Vacina(String tipoVacina, LocalDate dataVacinacao, String dose, Animal animal) {
+    public Vacina(String tipoVacina, LocalDate dataVacinacao, String dose, String statusVacinacao, Animal animal) {
         this.tipoVacina = tipoVacina;
         this.dataVacinacao = dataVacinacao;
         this.dose = dose;
+        this.statusVacinacao = statusVacinacao;
         this.animal = animal;
     }
 
@@ -65,6 +69,14 @@ public class Vacina {
 
     public void setDose(String dose) {
         this.dose = dose;
+    }
+
+    public String getStatusVacinacao() {
+        return statusVacinacao;
+    }
+
+    public void setStatusVacinacao(String statusVacinacao) {
+        this.statusVacinacao = statusVacinacao;
     }
 
     public Animal getAnimal() {

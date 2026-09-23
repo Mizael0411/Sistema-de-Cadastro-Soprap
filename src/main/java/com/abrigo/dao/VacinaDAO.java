@@ -1,6 +1,7 @@
 package com.abrigo.dao;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.abrigo.database.JPAUtil;
@@ -10,9 +11,6 @@ import jakarta.persistence.EntityManager;
 
 public class VacinaDAO {
 
-    /**
-     * Salva um novo registro de vacina no banco de dados.
-     */
     public boolean salvar(Vacina vacina) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -31,9 +29,6 @@ public class VacinaDAO {
         }
     }
 
-    /**
-     * Atualiza os dados de uma vacina existente.
-     */
     public boolean atualizar(Vacina vacina) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -52,9 +47,6 @@ public class VacinaDAO {
         }
     }
 
-    /**
-     * Exclui uma vacina pelo seu ID.
-     */
     public boolean excluir(Long vacinaId) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -76,9 +68,6 @@ public class VacinaDAO {
         }
     }
 
-    /**
-     * Busca uma vacina específica pelo ID.
-     */
     public Vacina buscarPorId(Long vacinaId) {
         EntityManager em = JPAUtil.getEntityManager();
         try {
@@ -91,9 +80,6 @@ public class VacinaDAO {
         }
     }
 
-    /**
-     * Retorna todas as vacinas cadastradas no sistema.
-     */
     public List<Vacina> listarTodos() {
         EntityManager em = JPAUtil.getEntityManager();
         List<Vacina> vacinas = new ArrayList<>();
@@ -108,9 +94,6 @@ public class VacinaDAO {
         return vacinas;
     }
 
-    /**
-     * Retorna o histórico de vacinas associadas a um determinado animal.
-     */
     public List<Vacina> buscarPorAnimalId(Object animalId) {
         EntityManager em = JPAUtil.getEntityManager();
         List<Vacina> vacinas = new ArrayList<>();
@@ -124,5 +107,21 @@ public class VacinaDAO {
             em.close();
         }
         return vacinas;
+    }
+
+    public List<Vacina> listarPorAnimal(Long idAnimal) {
+        if (idAnimal == null) return Collections.emptyList();
+        
+        EntityManager em = JPAUtil.getEntityManager();
+        try {
+            return em.createQuery("SELECT v FROM Vacina v WHERE v.animal.id = :idAnimal", Vacina.class)
+                     .setParameter("idAnimal", idAnimal)
+                     .getResultList();
+        } catch (Exception e) {
+            System.err.println("Erro ao listar vacinas por animal: " + e.getMessage());
+            return Collections.emptyList();
+        } finally {
+            em.close();
+        }
     }
 }

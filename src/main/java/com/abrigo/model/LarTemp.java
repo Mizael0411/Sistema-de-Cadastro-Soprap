@@ -50,7 +50,6 @@ public class LarTemp {
         this.aceitaDeficiencia = aceitaDeficiencia;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
