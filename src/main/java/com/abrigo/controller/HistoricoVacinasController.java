@@ -19,16 +19,12 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 public class HistoricoVacinasController {
 
@@ -42,6 +38,7 @@ public class HistoricoVacinasController {
     @FXML private TextField txtBusca;
 
     private final VacinaDAO vacinaDAO = new VacinaDAO();
+    private final AnimalDAO animalDAO = new AnimalDAO();          // ✅ faltava declarar
 
     private final ObservableList<Vacina> todasVacinas = FXCollections.observableArrayList();
     private FilteredList<Vacina> vacinasFiltradas;
@@ -50,12 +47,13 @@ public class HistoricoVacinasController {
     public void initialize() {
         configurarColunas();
         configurarBusca();
+        carregarAnimais();                                        // ✅ agora é chamado
         carregarTabelaAssincrono();
     }
 
     private void configurarColunas() {
         colunaId.setCellValueFactory(c ->
-            new SimpleObjectProperty<>(c.getValue().getId()));
+                new SimpleObjectProperty<>(c.getValue().getId()));
 
         colunaNomeAnimal.setCellValueFactory(c -> {
             if (c.getValue() != null && c.getValue().getAnimal() != null) {
@@ -92,13 +90,24 @@ public class HistoricoVacinasController {
         try {
             cbAnimal.setItems(FXCollections.observableArrayList(animalDAO.listarTodos()));
         } catch (Exception e) {
-            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão", "Falha ao carregar lista de animais: " + e.getMessage());
+            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão",
+                    "Falha ao carregar lista de animais: " + e.getMessage());
         }
+    }
+
+    // ✅ ESTE é o método que estava faltando — o bloco "String t = termo..." era o corpo dele
+    private void aplicarFiltro(String termo) {
+        if (termo == null || termo.isBlank()) {
+            vacinasFiltradas.setPredicate(v -> true);
+            return;
+        }
+
         String t = termo.trim().toLowerCase();
         vacinasFiltradas.setPredicate(v -> {
             if (v.getId() != null && String.valueOf(v.getId()).contains(t)) return true;
 
-            if (v.getAnimal() != null && v.getAnimal().getNome() != null && v.getAnimal().getNome().toLowerCase().contains(t)) return true;
+            if (v.getAnimal() != null && v.getAnimal().getNome() != null
+                    && v.getAnimal().getNome().toLowerCase().contains(t)) return true;
 
             if (v.getTipoVacina() != null && v.getTipoVacina().toLowerCase().contains(t)) return true;
 
@@ -143,7 +152,8 @@ public class HistoricoVacinasController {
     public void editarVacina() {
         Vacina selecionada = tabelaHistorico.getSelectionModel().getSelectedItem();
         if (selecionada == null) {
-            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente", "Selecione uma vacina na tabela para editar.");
+            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente",
+                    "Selecione uma vacina na tabela para editar.");
             return;
         }
 
@@ -155,7 +165,8 @@ public class HistoricoVacinasController {
     public void excluirVacina() {
         Vacina selecionada = tabelaHistorico.getSelectionModel().getSelectedItem();
         if (selecionada == null) {
-            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente", "Selecione uma vacina na tabela para excluir.");
+            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente",
+                    "Selecione uma vacina na tabela para excluir.");
             return;
         }
 
@@ -168,9 +179,11 @@ public class HistoricoVacinasController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             if (vacinaDAO.excluir(selecionada.getId())) {
                 carregarTabelaAssincrono();
-                exibirAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Registro de vacina excluído com sucesso.");
+                exibirAlerta(Alert.AlertType.INFORMATION, "Sucesso",
+                        "Registro de vacina excluído com sucesso.");
             } else {
-                exibirAlerta(Alert.AlertType.ERROR, "Erro", "Falha ao excluir o registro de vacina.");
+                exibirAlerta(Alert.AlertType.ERROR, "Erro",
+                        "Falha ao excluir o registro de vacina.");
             }
         }
     }

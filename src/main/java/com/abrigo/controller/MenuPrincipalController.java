@@ -26,8 +26,9 @@ public class MenuPrincipalController {
     private void abrirGestaoAdocao() {
         NavigationManager.getInstance().navegarMenu("menu-principal");
         NavigationManager.getInstance().navegarConteudo("gestao-adoçao");
+    }
 
-
+    @FXML
     private void abrirFichaTecnicaAnimais() {
        NavigationManager.getInstance().navegarConteudo("selecao-animal-ficha");
     }

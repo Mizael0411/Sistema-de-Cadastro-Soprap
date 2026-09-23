@@ -3,6 +3,7 @@ package com.abrigo.controller;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -11,12 +12,14 @@ import com.abrigo.model.Produto;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class HistoricoCadastroProdutoController {
@@ -34,18 +37,13 @@ public class HistoricoCadastroProdutoController {
 
     @FXML
     public void initialize() {
-        configurarColunas();
-        configurarBusca();
-        carregarDados();
-    }
-
-    private void configurarColunas() {
+        // 1) Configurar as colunas
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         colPrecoCompra.setCellValueFactory(new PropertyValueFactory<>("precoCompra"));
         colDataCompra.setCellValueFactory(new PropertyValueFactory<>("dataCompra"));
 
-        // Formatação em Reais (R$)
+        // 2) Formatação em Reais (R$)
         colPrecoCompra.setCellFactory(tc -> new TableCell<>() {
             private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
             @Override
@@ -55,7 +53,7 @@ public class HistoricoCadastroProdutoController {
             }
         });
 
-        // Formatação de Data (dd/MM/yyyy)
+        // 3) Formatação de Data (dd/MM/yyyy)
         colDataCompra.setCellFactory(tc -> new TableCell<>() {
             private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             @Override
@@ -64,6 +62,10 @@ public class HistoricoCadastroProdutoController {
                 setText(empty || value == null ? null : formatter.format(value));
             }
         });
+
+        // 4) Configurar busca e carregar dados (ESSENCIAL!)
+        configurarBusca();
+        carregarDados();
     }
 
     private void configurarBusca() {
@@ -81,11 +83,15 @@ public class HistoricoCadastroProdutoController {
             return;
         }
 
-        String termoMinusc = termo.trim().toLowerCase();
+        String termoLimpo = termo.trim();
+        String termoMinusc = termoLimpo.toLowerCase();
+
         produtosFiltrados.setPredicate(p -> {
-            if (p.getId() != null && String.valueOf(p.getId()).contains(termoMinusc)) {
+            // Busca por ID (comparação numérica/textual direta, sem lowercase)
+            if (p.getId() != null && String.valueOf(p.getId()).contains(termoLimpo)) {
                 return true;
             }
+            // Busca por nome (case-insensitive)
             if (p.getNome() != null && p.getNome().toLowerCase().contains(termoMinusc)) {
                 return true;
             }
@@ -97,9 +103,11 @@ public class HistoricoCadastroProdutoController {
         try {
             List<Produto> lista = produtoDAO.listarTodos();
             todosProdutos.setAll(lista);
+            // Reaplica o filtro atual (caso o usuário já tenha digitado algo)
             aplicarFiltro(txtBusca != null ? txtBusca.getText() : null);
         } catch (Exception e) {
-            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão", "Não foi possível carregar o histórico: " + e.getMessage());
+            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão",
+                    "Não foi possível carregar o histórico: " + e.getMessage());
         }
     }
 
@@ -112,14 +120,13 @@ public class HistoricoCadastroProdutoController {
     public void btnEditarOnAction() {
         Produto selecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
         if (selecionado == null) {
-            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente", "Selecione um produto na tabela para editar.");
+            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente",
+                    "Selecione um produto na tabela para editar.");
             return;
         }
 
-        // Armazena no manager para garantia total (Fallback)
         NavigationManager.getInstance().setProdutoParaEdicao(selecionado);
 
-        // Abre a tela e recupera a instância do controller
         CadastroProdutoController controller = (CadastroProdutoController) NavigationManager.getInstance()
                 .navegarConteudoComController("cadastro-produto");
 
@@ -132,7 +139,8 @@ public class HistoricoCadastroProdutoController {
     public void btnExcluirOnAction() {
         Produto selecionado = tabelaProdutos.getSelectionModel().getSelectedItem();
         if (selecionado == null) {
-            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente", "Selecione um produto na tabela para excluir.");
+            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente",
+                    "Selecione um produto na tabela para excluir.");
             return;
         }
 
@@ -148,7 +156,8 @@ public class HistoricoCadastroProdutoController {
                 carregarDados();
                 exibirAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Produto excluído com sucesso.");
             } catch (Exception e) {
-                exibirAlerta(Alert.AlertType.ERROR, "Erro", "Falha ao excluir o registro: " + e.getMessage());
+                exibirAlerta(Alert.AlertType.ERROR, "Erro",
+                        "Falha ao excluir o registro: " + e.getMessage());
             }
         }
     }

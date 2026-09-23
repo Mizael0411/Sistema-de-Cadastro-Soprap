@@ -149,6 +149,26 @@
     -fx-text-fill: #7F8C8D;
 }
 
+.loading-placeholder {
+    -fx-alignment: center;
+}
+
+.loading-placeholder .label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #7F8C8D;
+}
+
+.loading-paw {
+    -fx-font-size: 38px;
+    -fx-text-fill: #E8A33D;
+}
+
+.empty-paw {
+    -fx-font-size: 38px;
+    -fx-text-fill: #D8CFC4;
+    -fx-opacity: 0.8;
+}
+
 /* Botão Ver Ficha Técnica */
 .btn-ficha-tecnica {
     -fx-background-color: #E6F3FF;

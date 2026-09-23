@@ -4,6 +4,8 @@ import com.abrigo.dao.AnimalDAO;
 import com.abrigo.database.JPAUtil;
 import com.abrigo.model.Animal;
 import jakarta.persistence.EntityManager;
+import javafx.animation.Animation;
+import javafx.animation.ScaleTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,7 +13,11 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -93,6 +99,7 @@ public class HistoricoAnimaisCadastradosController {
 
 
     private void carregarTabelaAssincrono() {
+        tabelaAnimais.setPlaceholder(criarPlaceholderCarregando());
         Task<List<Animal>> task = new Task<>() {
             @Override
             protected List<Animal> call() {
@@ -102,12 +109,14 @@ public class HistoricoAnimaisCadastradosController {
 
         task.setOnSucceeded(e -> {
             todosAnimais.setAll(task.getValue());
+            tabelaAnimais.setPlaceholder(criarPlaceholderVazio());
             aplicarFiltro(txtBusca != null ? txtBusca.getText() : null);
         });
 
         task.setOnFailed(e -> {
             Throwable ex = task.getException();
             if (ex != null) ex.printStackTrace();
+            tabelaAnimais.setPlaceholder(criarPlaceholderVazio());
             mostrarAlerta(Alert.AlertType.ERROR, "Erro",
                     "Não foi possível carregar a lista de animais.\n" +
                             (ex != null ? ex.getMessage() : ""));
@@ -121,6 +130,41 @@ public class HistoricoAnimaisCadastradosController {
 
     private void carregarTabela() {
         carregarTabelaAssincrono();
+    }
+
+    private Node criarPlaceholderVazio() {
+        Label pata = new Label("🐾");
+        pata.getStyleClass().add("empty-paw");
+
+        Label texto = new Label("Nenhum animal cadastrado.");
+        texto.getStyleClass().add("loading-text");
+
+        VBox box = new VBox(10, pata, texto);
+        box.setAlignment(Pos.CENTER);
+        box.getStyleClass().add("loading-placeholder");
+        return box;
+    }
+
+    private Node criarPlaceholderCarregando() {
+        Label pata = new Label("🐾");
+        pata.getStyleClass().add("loading-paw");
+
+        ScaleTransition pulso = new ScaleTransition(Duration.millis(650), pata);
+        pulso.setFromX(0.85);
+        pulso.setFromY(0.85);
+        pulso.setToX(1.25);
+        pulso.setToY(1.25);
+        pulso.setCycleCount(Animation.INDEFINITE);
+        pulso.setAutoReverse(true);
+        pulso.play();
+
+        Label texto = new Label("Farejando bichinhos...");
+        texto.getStyleClass().add("loading-text");
+
+        VBox box = new VBox(10, pata, texto);
+        box.setAlignment(Pos.CENTER);
+        box.getStyleClass().add("loading-placeholder");
+        return box;
     }
 
 
