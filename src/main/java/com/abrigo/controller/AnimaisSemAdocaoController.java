@@ -78,8 +78,12 @@ public class AnimaisSemAdocaoController implements Initializable {
             if (nomeTutor.isBlank()) {
                 return;
             }
-            adocaoRepository.registrarAdocaoDefinitiva(selecionado.idAnimal(), nomeTutor);
-            carregarDados();
+            try {
+                adocaoRepository.registrarAdocaoDefinitiva(selecionado.idAnimal(), nomeTutor);
+            } catch (IllegalStateException e) {
+                new Alert(AlertType.ERROR, e.getMessage()).showAndWait();
+            }
+            carregarDados(); // recarrega de qualquer forma: se deu erro, tira a linha desatualizada da tela
         });
     }
 
@@ -91,14 +95,19 @@ public class AnimaisSemAdocaoController implements Initializable {
             return;
         }
         SelecionarLarTempDialog.abrir().ifPresent(larEscolhido -> {
-            adocaoRepository.registrarAdocaoLarTemporario(
-                    selecionado.idAnimal(), larEscolhido.getId(), larEscolhido.getNome());
-            carregarDados();
+            try {
+                adocaoRepository.registrarAdocaoLarTemporario(
+                        selecionado.idAnimal(), larEscolhido.getId(), larEscolhido.getNome());
+                carregarDados();
+            } catch (IllegalStateException e) {
+                new Alert(AlertType.ERROR, e.getMessage()).showAndWait();
+            }
         });
     }
 
     @FXML
     private void voltar() {
-        NavigationManager.getInstance().navegarConteudo("gestao-adocao");
+        Stage stage = (Stage) tabelaAnimais.getScene().getWindow();
+        stage.close(); // ajuste para a navegação que você já usa entre telas
     }
 }

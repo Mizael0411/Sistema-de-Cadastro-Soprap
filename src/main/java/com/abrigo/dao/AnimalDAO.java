@@ -71,6 +71,8 @@ public class AnimalDAO {
     }
 
     public boolean excluir(Long id) {
+
+
         EntityManager em = JPAUtil.getEntityManager();
         try {
             em.getTransaction().begin();

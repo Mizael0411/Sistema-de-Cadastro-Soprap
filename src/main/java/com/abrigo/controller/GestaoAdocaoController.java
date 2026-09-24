@@ -8,6 +8,8 @@ import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -77,7 +79,12 @@ public class GestaoAdocaoController {
             if (nomeTutor.isBlank()) {
                 return;
             }
-            adocaoRepository.registrarAdocaoDefinitiva(animal.getId(), nomeTutor);
+            try {
+                adocaoRepository.registrarAdocaoDefinitiva(animal.getId(), nomeTutor);
+            } catch (IllegalStateException e) {
+                new Alert(AlertType.ERROR, e.getMessage()).showAndWait();
+                return;
+            }
             animalParaTransferencia = null;
 
             AdocoesDefinitivasController destino = (AdocoesDefinitivasController)
@@ -90,8 +97,13 @@ public class GestaoAdocaoController {
 
     private void registrarLarTemporarioEAbrir(Animal animal) {
         SelecionarLarTempDialog.abrir().ifPresent(larEscolhido -> {
-            adocaoRepository.registrarAdocaoLarTemporario(
-                    animal.getId(), larEscolhido.getId(), larEscolhido.getNome());
+            try {
+                adocaoRepository.registrarAdocaoLarTemporario(
+                        animal.getId(), larEscolhido.getId(), larEscolhido.getNome());
+            } catch (IllegalStateException e) {
+                new Alert(AlertType.ERROR, e.getMessage()).showAndWait();
+                return;
+            }
             animalParaTransferencia = null;
 
             AdocoesLarTemporarioController destino = (AdocoesLarTemporarioController)
@@ -102,7 +114,6 @@ public class GestaoAdocaoController {
         });
     }
 
-    // --- animação de hover, sem mudanças em relação ao que você já tinha ---
     private void aplicarAnimacaoHover(StackPane card) {
 
         DropShadow sombraBase = new DropShadow(16, 0, 6,

@@ -5,6 +5,7 @@ import java.util.List;
 import com.abrigo.dto.AnimalNaoAdotadoDTO;
 import com.abrigo.database.JPAUtil;
 
+import com.abrigo.model.Animal;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -28,5 +29,9 @@ public class AnimalRepository {
         } finally {
             em.close();
         }
+    }
+
+    public Animal findById(Long aLong) {
+        return null;
     }
 }

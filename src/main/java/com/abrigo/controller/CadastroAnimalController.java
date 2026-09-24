@@ -43,14 +43,13 @@ public class CadastroAnimalController {
         cbSexo.setItems(FXCollections.observableArrayList("Macho", "Fêmea"));
         cbVacina.setItems(FXCollections.observableArrayList("Vacinado", "Não Vacinado", "Incompleto"));
         cbGravida.setItems(FXCollections.observableArrayList("Grávida", "Não grávida", "Não se aplica"));
-
         cbEspecie.setItems(FXCollections.observableArrayList("Cachorro", "Gato"));
         cbPorte.setItems(FXCollections.observableArrayList("Mini", "Pequeno", "Médio", "Grande", "Gigante"));
-
         cbSexo.valueProperty().addListener((obs, oldVal, newVal) -> {
             atualizarStatusGravidez();
             marcarInvalido(cbSexo, false);
         });
+
         dpDataNascimento.valueProperty().addListener((obs, oldDate, newDate) -> {
             calcularIdade(newDate);
             marcarInvalido(dpDataNascimento, false);
@@ -87,11 +86,10 @@ public class CadastroAnimalController {
             } catch (Exception e) {}
         });
 
-        // Limpa a marcação vermelha assim que o usuário começa a corrigir o campo
         configurarLimpezaValidacao();
     }
 
-    /** Adiciona listeners para remover a borda vermelha automaticamente ao editar o campo. */
+
     private void configurarLimpezaValidacao() {
         txtNome.textProperty().addListener((o, ov, nv) -> marcarInvalido(txtNome, false));
         txtIdade.textProperty().addListener((o, ov, nv) -> marcarInvalido(txtIdade, false));
@@ -217,7 +215,7 @@ public class CadastroAnimalController {
             controlesInvalidos.add(cbVacina);
         }
 
-        // ---------- VALIDAÇÕES DE VALOR ----------
+
         if (!idadeTexto.isEmpty()) {
             try {
                 int idade = Integer.parseInt(idadeTexto);
@@ -243,7 +241,7 @@ public class CadastroAnimalController {
             controlesInvalidos.add(dpUltimaConsulta);
         }
 
-        // ---------- SE HOUVER ERROS, MARCA E MOSTRA ----------
+
         if (!camposFaltantes.isEmpty()) {
             for (Control c : controlesInvalidos) {
                 marcarInvalido(c, true);
@@ -263,7 +261,7 @@ public class CadastroAnimalController {
             return;
         }
 
-        // ---------- PERSISTÊNCIA ----------
+        limparMarcacoes();
         try {
             int idade = Integer.parseInt(idadeTexto);
 

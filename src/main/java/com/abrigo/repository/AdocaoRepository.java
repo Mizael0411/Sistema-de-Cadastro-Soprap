@@ -53,13 +53,16 @@ public class AdocaoRepository {
         }
     }
 
-    // Usado pelo botão "Adotar Definitivo" na tela 1.
-    // getReference evita carregar o Animal inteiro só pra usar como FK.
     public void registrarAdocaoDefinitiva(Long idAnimal, String nomeTutor) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+
+            if (possuiAdocao(em, idAnimal)) {
+                throw new IllegalStateException("Este animal já possui uma adoção registrada.");
+            }
+
             Animal animalRef = em.getReference(Animal.class, idAnimal);
             Adocao adocao = new Adocao(LocalDate.now(), nomeTutor, false, animalRef, "Adotado Definitivo", null);
             em.persist(adocao);
@@ -74,16 +77,31 @@ public class AdocaoRepository {
         }
     }
 
-    // Usado pelo botão "Adotar Lar Temporário" na tela 1.
+
     public void registrarAdocaoLarTemporario(Long idAnimal, Long idLarTemp, String nomeTutor) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+
+            if (possuiAdocao(em, idAnimal)) {
+                throw new IllegalStateException("Este animal já possui uma adoção registrada.");
+            }
+
+            LarTemp larTemp = em.find(LarTemp.class, idLarTemp);
+            if (larTemp == null) {
+                throw new IllegalStateException("Lar temporário não encontrado.");
+            }
+            Integer vagas = larTemp.getVagasDisponiveis();
+            if (vagas == null || vagas <= 0) {
+                throw new IllegalStateException("Este lar temporário não tem vagas disponíveis.");
+            }
+            larTemp.setVagasDisponiveis(vagas - 1); // entidade já managed, não precisa de merge
+
             Animal animalRef = em.getReference(Animal.class, idAnimal);
-            LarTemp larTempRef = em.getReference(LarTemp.class, idLarTemp);
-            Adocao adocao = new Adocao(LocalDate.now(), nomeTutor, false, animalRef, "Adotado Lar Temporario", larTempRef);
+            Adocao adocao = new Adocao(LocalDate.now(), nomeTutor, false, animalRef, "Adotado Lar Temporario", larTemp);
             em.persist(adocao);
+
             tx.commit();
         } catch (RuntimeException e) {
             if (tx.isActive()) {
@@ -95,9 +113,19 @@ public class AdocaoRepository {
         }
     }
 
-    // Usado pelo botão "Cancelar Adoção" nas telas 2 e 3.
-    // Ao remover o registro, o animal volta a aparecer automaticamente
-    // na tela de "sem adoção" (a query de lá é um NOT EXISTS).
+
+    private boolean possuiAdocao(EntityManager em, Long idAnimal) {
+        Long existentes = em.createQuery("""
+                select count(ad)
+                from Adocao ad
+                where ad.animal.id = :idAnimal
+                """, Long.class)
+                .setParameter("idAnimal", idAnimal)
+                .getSingleResult();
+        return existentes > 0;
+    }
+
+
     public void cancelarAdocao(Long idAdocao) {
         EntityManager em = JPAUtil.getEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -105,6 +133,16 @@ public class AdocaoRepository {
             tx.begin();
             Adocao adocao = em.find(Adocao.class, idAdocao);
             if (adocao != null) {
+                LarTemp larTemp = adocao.getLarTemp();
+                if (larTemp != null) {
+                    Integer vagas = larTemp.getVagasDisponiveis();
+                    Integer capacidade = larTemp.getCapacidadeMaxima();
+                    int novaVaga = (vagas != null ? vagas : 0) + 1;
+                    if (capacidade != null) {
+                        novaVaga = Math.min(novaVaga, capacidade); // nunca passa da capacidade máxima
+                    }
+                    larTemp.setVagasDisponiveis(novaVaga);
+                }
                 em.remove(adocao);
             }
             tx.commit();

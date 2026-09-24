@@ -52,8 +52,7 @@ public class AdocoesLarTemporarioController {
         carregarDadosAssincrono();
     }
 
-    // Chamado pelo GestaoAdocaoController logo depois de registrar a adoção
-    // e navegar pra essa tela.
+
     public void destacarAnimalRecemAdicionado(Long idAnimal) {
         this.idAnimalParaDestacar = idAnimal;
         DestaqueTabelaUtil.selecionarEExibir(tabelaAdocoes, dados, idAnimalParaDestacar);

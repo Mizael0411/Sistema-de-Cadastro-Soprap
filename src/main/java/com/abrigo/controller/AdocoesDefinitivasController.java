@@ -41,7 +41,6 @@ public class AdocoesDefinitivasController {
     private final AdocaoRepository adocaoRepository = new AdocaoRepository();
     private final ObservableList<AdocaoDefinitivaDTO> dados = FXCollections.observableArrayList();
 
-    // Id do animal recém-transferido, se houver, pra destacar a linha em verde.
     private Long idAnimalParaDestacar;
 
     @FXML
@@ -146,7 +145,6 @@ public class AdocoesDefinitivasController {
         box.getStyleClass().add("loading-placeholder");
         return box;
     }
-
     private Node criarPlaceholderVazio() {
         Label pata = new Label("🐾");
         pata.getStyleClass().add("empty-paw");

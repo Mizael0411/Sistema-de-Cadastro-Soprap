@@ -70,7 +70,11 @@
     -fx-background-radius: 10px;
     -fx-padding: 0 18px;
 }
-
+.aviso-vagas {
+    -fx-text-fill: #E53935;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
 .btn-voltar {
     -fx-background-color: #F8FAFC;
     -fx-text-fill: #475569;

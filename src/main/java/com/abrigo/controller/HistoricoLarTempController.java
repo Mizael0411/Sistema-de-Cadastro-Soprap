@@ -41,7 +41,7 @@ public class HistoricoLarTempController {
         colTelefone.setCellValueFactory(new PropertyValueFactory<>("telefone"));
         colCapacidade.setCellValueFactory(new PropertyValueFactory<>("capacidadeMaxima"));
         colVagas.setCellValueFactory(new PropertyValueFactory<>("vagasDisponiveis"));
-        
+
         colAceitaDoencas.setCellValueFactory(cellData -> {
             Boolean aceita = cellData.getValue().getAceitaDoencasTransmissiveis();
             return new SimpleStringProperty(aceita != null && aceita ? "Sim" : "Não");
@@ -62,7 +62,7 @@ public class HistoricoLarTempController {
     @FXML
     public void filtrar() {
         String termo = txtFiltroNome.getText() != null ? txtFiltroNome.getText().toLowerCase().trim() : "";
-        
+
         if (termo.isEmpty()) {
             tblLares.setItems(listaLares);
         } else {
@@ -79,7 +79,7 @@ public class HistoricoLarTempController {
     @FXML
     public void editarLar() {
         LarTemp selecionado = tblLares.getSelectionModel().getSelectedItem();
-        
+
         if (selecionado == null) {
             mostrarAlerta("Aviso", "Selecione um lar temporário na tabela para editar.", Alert.AlertType.WARNING);
             return;
@@ -98,7 +98,7 @@ public class HistoricoLarTempController {
     @FXML
     public void excluirLar() {
         LarTemp selecionado = tblLares.getSelectionModel().getSelectedItem();
-        
+
         if (selecionado == null) {
             mostrarAlerta("Aviso", "Selecione um lar temporário na tabela para excluir.", Alert.AlertType.WARNING);
             return;

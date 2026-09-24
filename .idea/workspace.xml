@@ -7,24 +7,22 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="30e1fbe5-f517-4ca4-9867-e23f7dd1f935" name="Changes" comment="mescla entre ficha tecnica e gesta de adoção">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/ItemAdocao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/util/DestaqueTabelaUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/util/SelecionarLarTempDialog.java" afterDir="false" />
+    <list default="true" id="30e1fbe5-f517-4ca4-9867-e23f7dd1f935" name="Changes" comment="novas alerações em gestão de adoção">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesDefinitivasController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesLarTemporarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AdocoesLarTemporarioController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AnimaisSemAdocaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/AnimaisSemAdocaoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroAnimalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroLarTempController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/CadastroLarTempController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/GestaoAdocaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/GestaoAdocaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoAnimaisCadastradosController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuPrincipalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/MenuPrincipalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/NavigationManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/NavigationManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoDefinitivaDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoDefinitivaDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoLarTemporarioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AdocaoLarTemporarioDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AnimalNaoAdotadoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dto/AnimalNaoAdotadoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoLarTempController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/controller/HistoricoLarTempController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/dao/AnimalDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dao/AnimalDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/dao/LarTemporarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/dao/LarTemporarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/repository/AdocaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/repository/AdocaoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/repository/AnimalRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/repository/AnimalRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/abrigo/util/SelecionarLarTempDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/abrigo/util/SelecionarLarTempDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/gestao-adoçao.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/gestao-adocao.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/historico-animais-cadastrados.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/cadastro-lar-temp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/abrigo/sistema/fxml/cadastro-lar-temp.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +196,7 @@
       <workItem from="1789601717954" duration="8359000" />
       <workItem from="1789670550913" duration="74000" />
       <workItem from="1789682759236" duration="18161000" />
-      <workItem from="1790170830790" duration="12059000" />
+      <workItem from="1790170830790" duration="33877000" />
     </task>
     <task id="LOCAL-00001" summary="atualizado">
       <option name="closed" value="true" />
@@ -272,7 +270,15 @@
       <option name="project" value="LOCAL" />
       <updated>1790175103194</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="novas alerações em gestão de adoção">
+      <option name="closed" value="true" />
+      <created>1790191378556</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1790191378556</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,7 +303,8 @@
     <MESSAGE value="novas telas, relaçao com o banco, e estruturação do bakc-end" />
     <MESSAGE value="alteração histórico de animal,e filtros de pesquisa" />
     <MESSAGE value="mescla entre ficha tecnica e gesta de adoção" />
-    <option name="LAST_COMMIT_MESSAGE" value="mescla entre ficha tecnica e gesta de adoção" />
+    <MESSAGE value="novas alerações em gestão de adoção" />
+    <option name="LAST_COMMIT_MESSAGE" value="novas alerações em gestão de adoção" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
