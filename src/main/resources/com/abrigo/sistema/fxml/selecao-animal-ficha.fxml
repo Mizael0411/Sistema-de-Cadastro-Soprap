@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -18,21 +20,25 @@
         <URL value="@../../css/style.css" />
     </stylesheets>
 
-    <!-- Cabeçalho com Ícone Bege, Título e Subtítulo (Estilo da imagem) -->
+    <!-- Cabeçalho com Ícone Bege, Título e Subtítulo -->
     <HBox alignment="CENTER_LEFT" spacing="15.0">
         <children>
-            <!-- Caixinha Amarela/Bege arredondada com o emoji dentro -->
+            <!-- Caixinha Amarela/Bege arredondada com a imagem dentro -->
             <StackPane prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12; -fx-border-radius: 12;">
                 <children>
-                    <Label text="📋" style="-fx-font-size: 22px;" />
+                    <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                        <image>
+                            <Image url="@../../images/historico.png" />
+                        </image>
+                    </ImageView>
                 </children>
             </StackPane>
             
             <!-- Título e Subtítulo -->
             <VBox alignment="CENTER_LEFT" spacing="2.0">
                 <children>
-                    <Label text="Ficha Técnica do Animal" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1A202C;" />
-                    <Label text="Selecione um animal para visualizar os detalhes." style="-fx-font-size: 13px; -fx-text-fill: #718096;" />
+                    <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1A202C;" text="Ficha Técnica do Animal" />
+                    <Label style="-fx-font-size: 13px; -fx-text-fill: #718096;" text="Selecione um animal para visualizar os detalhes." />
                 </children>
             </VBox>
         </children>

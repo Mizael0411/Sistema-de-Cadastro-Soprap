@@ -13,6 +13,7 @@
         <class>com.abrigo.model.LarTemp</class>
         <class>com.abrigo.model.Produto</class>
         <class>com.abrigo.model.Vacina</class>
+        <class>com.abrigo.model.Doacao</class>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 

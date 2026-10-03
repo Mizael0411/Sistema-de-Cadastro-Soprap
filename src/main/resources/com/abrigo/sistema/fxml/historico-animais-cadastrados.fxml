@@ -3,6 +3,8 @@
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoAnimaisCadastradosController">
@@ -18,7 +20,11 @@
     <!-- Cabeçalho -->
     <HBox alignment="CENTER_LEFT" spacing="15">
         <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <Label style="-fx-font-size: 24px;" text="📋" />
+            <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/historico.png" />
+                </image>
+            </ImageView>
         </StackPane>
         <VBox spacing="3">
             <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Animais Cadastrados" />
@@ -28,7 +34,7 @@
 
 
     <HBox alignment="CENTER_LEFT" spacing="12">
-        <TextField fx:id="txtBusca" promptText="  Buscar por nome ou ID..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;                           -fx-border-radius: 10; -fx-background-radius: 10;                           -fx-padding: 10 14; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+        <TextField fx:id="txtBusca" promptText="  Buscar por nome ou ID..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10 14; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
 
         <Button onAction="#inserir" styleClass="btn-acao, btn-novo" text="+ Novo Animal" />
         <Button onAction="#editar" styleClass="btn-acao, btn-editar" text="Editar" />
@@ -36,7 +42,7 @@
     </HBox>
 
 
-    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;                  -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
         <padding>
             <Insets bottom="15" left="15" right="15" top="15" />
         </padding>
@@ -56,8 +62,8 @@
         </TableView>
     </VBox>
 
-    <HBox alignment="CENTER_RIGHT">
+    <HBox alignment="CENTER_RIGHT" spacing="12">
       <Button onAction="#transferirAdocao" styleClass="btn-acao, btn-transferir" text="Transferir para Adoção" />
-        <Button onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
+      <Button onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
     </HBox>
 </VBox>

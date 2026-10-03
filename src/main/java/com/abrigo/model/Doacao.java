@@ -1,43 +1,51 @@
 package com.abrigo.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "doacao")
+@Table(name = "doacoes")
 public class Doacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_doacao")
     private Long id;
 
-    @Column(name = "nome_doador", nullable = false)
+    @Column(name = "nome_doador", nullable = false, length = 150)
     private String nomeDoador;
 
-    @Column(name = "tipo_doacao", nullable = false)
-    private String tipoDoacao; 
-
-    @Column(name = "valor")
-    private Double valor; 
-
-    @Column(name = "descricao")
-    private String descricao; 
+    @Column(name = "tipo_doacao", nullable = false, length = 50)
+    private String tipoDoacao;
 
     @Column(name = "data_doacao", nullable = false)
-    private LocalDate dataDoacao; 
+    private LocalDate dataDoacao;
 
+    @Column(name = "valor")
+    private Double valor;
+
+    @Column(name = "descricao", columnDefinition = "TEXT")
+    private String descricao;
+
+    // Construtor padrão exigido pelo JPA
     public Doacao() {
     }
 
-    public Doacao(String nomeDoador, String tipoDoacao, Double valor, String descricao, LocalDate dataDoacao) {
+    public Doacao(String nomeDoador, String tipoDoacao, LocalDate dataDoacao, Double valor, String descricao) {
         this.nomeDoador = nomeDoador;
         this.tipoDoacao = tipoDoacao;
+        this.dataDoacao = dataDoacao;
         this.valor = valor;
         this.descricao = descricao;
-        this.dataDoacao = dataDoacao;
     }
 
+    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -62,6 +70,14 @@ public class Doacao {
         this.tipoDoacao = tipoDoacao;
     }
 
+    public LocalDate getDataDoacao() {
+        return dataDoacao;
+    }
+
+    public void setDataDoacao(LocalDate dataDoacao) {
+        this.dataDoacao = dataDoacao;
+    }
+
     public Double getValor() {
         return valor;
     }
@@ -78,11 +94,28 @@ public class Doacao {
         this.descricao = descricao;
     }
 
-    public LocalDate getDataDoacao() {
-        return dataDoacao;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Doacao doacao = (Doacao) o;
+        return Objects.equals(id, doacao.id);
     }
 
-    public void setDataDoacao(LocalDate dataDoacao) {
-        this.dataDoacao = dataDoacao;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Doacao{" +
+                "id=" + id +
+                ", nomeDoador='" + nomeDoador + '\'' +
+                ", tipoDoacao='" + tipoDoacao + '\'' +
+                ", dataDoacao=" + dataDoacao +
+                ", valor=" + valor +
+                ", descricao='" + descricao + '\'' +
+                '}';
     }
 }

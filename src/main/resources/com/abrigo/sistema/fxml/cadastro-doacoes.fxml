@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroDoacaoController">
+
+    <stylesheets>
+        <URL value="@../../css/style.css" />
+    </stylesheets>
+
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+            <padding>
+                <Insets bottom="40" left="20" right="20" top="30" />
+            </padding>
+
+            <VBox maxWidth="800.0" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+                <padding>
+                    <Insets bottom="35" left="35" right="35" top="35" />
+                </padding>
+
+                <!-- Cabeçalho -->
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+                        <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/doação.png" />
+                            </image>
+                        </ImageView>
+                    </StackPane>
+
+                    <VBox spacing="3" HBox.hgrow="ALWAYS">
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Cadastro de Doação" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Registre as doações financeiras ou de materiais recebidas pelo abrigo." />
+                    </VBox>
+                </HBox>
+
+                <Separator style="-fx-opacity: 0.3;" />
+
+                <!-- Formulário -->
+                <GridPane hgap="20" vgap="18">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50" />
+                        <ColumnConstraints percentWidth="50" />
+                    </columnConstraints>
+
+                    <!-- Nome do Doador -->
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="NOME DO DOADOR *" />
+                        <TextField fx:id="txtNomeDoador" promptText="Ex: João Silva, Anônimo..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- Tipo e Data -->
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="TIPO DE DOAÇÃO *" />
+                        <ComboBox fx:id="cbTipoDoacao" maxWidth="1.7976931348623157E308" onAction="#handleTipoChange" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="DATA DA DOAÇÃO *" />
+                        <DatePicker fx:id="dpDataDoacao" maxWidth="1.7976931348623157E308" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- Valor (exibido apenas se Financeira) -->
+                    <VBox fx:id="boxValor" managed="false" spacing="6" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="VALOR (R$) *" />
+                        <TextField fx:id="txtValor" promptText="Ex: 150.00" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <!-- O QUE FOI DOADO / DESCRIÇÃO -->
+                    <VBox fx:id="boxDescricao" spacing="6" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                        <Label fx:id="lblDescricao" style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="DESCRIÇÃO DA DOAÇÃO / ITEM *" />
+                        <TextArea fx:id="txtDescricao" prefRowCount="3" promptText="Escreva aqui o que foi doado. Ex: 2 sacos de ração 15kg, coberta, PIX referente a vacinas..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
+                    </VBox>
+
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                </GridPane>
+
+                <Separator style="-fx-opacity: 0.3;" />
+
+                <!-- Botões com classes CSS -->
+                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <padding>
+                        <Insets top="10" />
+                    </padding>
+                    <Button onAction="#limpar" styleClass="btn-acao, btn-voltar" text="Limpar Campos" />
+                    <Button onAction="#verHistorico" styleClass="btn-acao, btn-historico" text="Ver Histórico" />
+                    <Button onAction="#salvar" styleClass="btn-acao, btn-salvar" text="Salvar Doação" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </content>
+</ScrollPane>

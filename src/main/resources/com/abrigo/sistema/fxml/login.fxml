@@ -60,7 +60,23 @@
 
                         <VBox spacing="4">
                             <Label style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;" text="SENHA *" />
-                            <PasswordField fx:id="txtSenha" promptText="Digite sua senha..." style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 8; -fx-font-size: 13px;" />
+                            
+                            <HBox alignment="CENTER_RIGHT" style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8;">
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <PasswordField fx:id="txtSenha" promptText="Digite sua senha..." style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 8; -fx-font-size: 13px;" />
+                                    <TextField fx:id="txtSenhaVisivel" promptText="Digite sua senha..." visible="false" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 8; -fx-font-size: 13px;" />
+                                </StackPane>
+                                
+                                <ToggleButton fx:id="btnToggleSenha" onAction="#onToggleSenhaClick" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 0 8 0 0;">
+                                    <graphic>
+                                        <ImageView fx:id="imgIconeSenha" fitHeight="24" fitWidth="24" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../../images/cachorro-olho-fechado.png" />
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </ToggleButton>
+                            </HBox>
                         </VBox>
                     </VBox>
 

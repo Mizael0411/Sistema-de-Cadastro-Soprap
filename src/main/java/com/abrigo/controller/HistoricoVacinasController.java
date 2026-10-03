@@ -38,7 +38,7 @@ public class HistoricoVacinasController {
     @FXML private TextField txtBusca;
 
     private final VacinaDAO vacinaDAO = new VacinaDAO();
-    private final AnimalDAO animalDAO = new AnimalDAO();          // ✅ faltava declarar
+    private final AnimalDAO animalDAO = new AnimalDAO();
 
     private final ObservableList<Vacina> todasVacinas = FXCollections.observableArrayList();
     private FilteredList<Vacina> vacinasFiltradas;
@@ -47,7 +47,7 @@ public class HistoricoVacinasController {
     public void initialize() {
         configurarColunas();
         configurarBusca();
-        carregarAnimais();                                        // ✅ agora é chamado
+        carregarAnimais();
         carregarTabelaAssincrono();
     }
 
@@ -87,15 +87,16 @@ public class HistoricoVacinasController {
     }
 
     private void carregarAnimais() {
-        try {
-            cbAnimal.setItems(FXCollections.observableArrayList(animalDAO.listarTodos()));
-        } catch (Exception e) {
-            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão",
-                    "Falha ao carregar lista de animais: " + e.getMessage());
+        if (cbAnimal != null) { // Proteção para evitar o NullPointerException
+            try {
+                cbAnimal.setItems(FXCollections.observableArrayList(animalDAO.listarTodos()));
+            } catch (Exception e) {
+                exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão",
+                        "Falha ao carregar lista de animais: " + e.getMessage());
+            }
         }
     }
 
-    // ✅ ESTE é o método que estava faltando — o bloco "String t = termo..." era o corpo dele
     private void aplicarFiltro(String termo) {
         if (termo == null || termo.isBlank()) {
             vacinasFiltradas.setPredicate(v -> true);

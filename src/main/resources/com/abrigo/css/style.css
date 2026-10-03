@@ -51,24 +51,17 @@
     -fx-alignment: CENTER;
 }
 
-.btn-transferirAdocao {
-    -fx-background-color: #011932;
-    -fx-text-fill: #ffffff;
-    -fx-border-color: #2C3E50;       /* borda mais clara para contrastar */
-    -fx-border-width: 1.5px;         /* ✅ agora a borda tem largura */
-    -fx-border-radius: 10px;         /* ✅ arredondamento na borda */
-    -fx-background-radius: 10px;     /* ✅ arredondamento no fundo */
+.btn-transferir {
+    -fx-background-color: #DCFCE7;
+    -fx-text-fill: #15803D;
+    -fx-border-color: #BBF7D0;       
     -fx-padding: 0 18px;
 }
 
-.btn-transferirAdocao:hover {
-    -fx-background-color: #0A1E2D;
-    -fx-text-fill: #ffffff;
-    -fx-border-color: #4A6572;
-    -fx-border-width: 1.5px;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-padding: 0 18px;
+.btn-transferir:hover {
+    -fx-background-color: #BBF7D0;
+    -fx-text-fill: #166534;
+    -fx-border-color: #86EFAC;
 }
 .aviso-vagas {
     -fx-text-fill: #E53935;

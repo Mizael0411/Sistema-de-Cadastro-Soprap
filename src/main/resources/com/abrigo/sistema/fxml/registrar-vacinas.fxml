@@ -8,6 +8,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -30,8 +32,13 @@
                 </padding>
 
                 <HBox alignment="CENTER_LEFT" spacing="15">
+                    <!-- StackPane com a imagem da vacina -->
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B" text="💉" />
+                        <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/vacina.png" />
+                            </image>
+                        </ImageView>
                     </StackPane>
 
                     <VBox HBox.hgrow="ALWAYS" spacing="3">

@@ -22,7 +22,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.stage.Stage;
 
 public class AnimaisSemAdocaoController implements Initializable {
 
@@ -107,7 +106,6 @@ public class AnimaisSemAdocaoController implements Initializable {
 
     @FXML
     private void voltar() {
-        Stage stage = (Stage) tabelaAnimais.getScene().getWindow();
-        stage.close(); // ajuste para a navegação que você já usa entre telas
+        NavigationManager.getInstance().navegarConteudo("gestao-adocao");
     }
 }

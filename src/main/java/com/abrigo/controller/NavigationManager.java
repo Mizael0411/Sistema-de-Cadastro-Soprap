@@ -3,6 +3,7 @@ package com.abrigo.controller;
 import java.io.IOException;
 
 import com.abrigo.model.Animal;
+import com.abrigo.model.Doacao;
 import com.abrigo.model.Produto;
 import com.abrigo.model.Vacina;
 
@@ -21,6 +22,7 @@ public class NavigationManager {
     private Animal animalParaVacinar;
     private Produto produtoParaEdicao;
     private Animal animalSelecionado;
+    private Doacao doacaoParaEdicao; // <--- Adicionado para Doação
 
     private NavigationManager() {}
 
@@ -67,6 +69,17 @@ public class NavigationManager {
 
     public void setProdutoParaEdicao(Produto produtoParaEdicao) {
         this.produtoParaEdicao = produtoParaEdicao;
+    }
+
+    // --- Métodos de Doação adicionados ---
+    public Doacao getDoacaoParaEdicao() {
+        Doacao temp = this.doacaoParaEdicao;
+        this.doacaoParaEdicao = null;
+        return temp;
+    }
+
+    public void setDoacaoParaEdicao(Doacao doacaoParaEdicao) {
+        this.doacaoParaEdicao = doacaoParaEdicao;
     }
 
     public Animal getAnimalSelecionado() {

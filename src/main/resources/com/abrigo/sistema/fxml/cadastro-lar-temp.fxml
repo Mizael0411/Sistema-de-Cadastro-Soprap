@@ -5,6 +5,8 @@
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroLarTempController">
@@ -27,7 +29,11 @@
 
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B;" text="🏡" />
+                        <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/abrigo.png" />
+                            </image>
+                        </ImageView>
                     </StackPane>
 
                     <VBox spacing="3" HBox.hgrow="ALWAYS">
@@ -64,9 +70,9 @@
                         <Spinner fx:id="spCapacidade" editable="true" initialValue="0" max="100" maxWidth="1.7976931348623157E308" min="0" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 4; -fx-font-size: 13px;" />
                     </VBox>
 
-                    <VBox spacing="4" GridPane.rowIndex="3">
-                        <Label text="Vagas Disponíveis" />
-                        <Spinner fx:id="spDisponibilidadeVagas" />
+                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="VAGAS DISPONÍVEIS *" />
+                        <Spinner fx:id="spDisponibilidadeVagas" editable="true" initialValue="0" max="100" maxWidth="1.7976931348623157E308" min="0" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 4; -fx-font-size: 13px;" />
                         <Label fx:id="lblAvisoVagas" managed="false" styleClass="aviso-vagas" visible="false" />
                     </VBox>
 

@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,7 +26,11 @@
 
     <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-background-color: #FFFFFF; -fx-padding: 15; -fx-background-radius: 12; -fx-border-color: #E0E0E0; -fx-border-radius: 12;">
         <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <Label style="-fx-font-size: 26px;" text="🐾" />
+            <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/pets.png" />
+                </image>
+            </ImageView>
         </StackPane>
 
         <VBox spacing="2" HBox.hgrow="ALWAYS">
@@ -93,7 +99,6 @@
     </VBox>
 
     <HBox alignment="CENTER_RIGHT" spacing="12">
-        <Button onAction="#btnEditarPetOnAction" styleClass="btn-acao, btn-editar" text="Editar Pet" />
         <Button onAction="#btnVoltarOnAction" styleClass="btn-acao, btn-voltar" text="Voltar" />
     </HBox>
 

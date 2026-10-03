@@ -3,6 +3,8 @@
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroAnimalController">
@@ -25,7 +27,11 @@
                 <!-- Cabeçalho -->
                 <HBox alignment="CENTER_LEFT" spacing="15">
                     <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-                        <Label style="-fx-font-size: 24px; -fx-text-fill: #1E293B;" text="🐾" />
+                        <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/pets.png" />
+                            </image>
+                        </ImageView>
                     </StackPane>
 
                     <VBox spacing="3" HBox.hgrow="ALWAYS">
@@ -108,7 +114,6 @@
                     <padding>
                         <Insets top="10" />
                     </padding>
-               <Button fx:id="voltar" layoutX="321.0" layoutY="20.0" onAction="#voltar" styleClass="btn-acao, btn-voltar" text="voltar" />
                     <Button onAction="#limpar" styleClass="btn-acao, btn-voltar" text="Limpar Campos" />
                     <Button onAction="#verHistorico" styleClass="btn-acao, btn-historico" text="Ver Histórico" />
                     <Button onAction="#salvar" styleClass="btn-acao, btn-novo" text="Salvar Animal" />
