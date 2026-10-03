@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.abrigo.dao.DoacaoDAO;
 import com.abrigo.model.Doacao;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -42,7 +43,26 @@ public class HistoricoDoacaoController {
         colDoador.setCellValueFactory(new PropertyValueFactory<>("nomeDoador"));
         colTipo.setCellValueFactory(new PropertyValueFactory<>("tipoDoacao"));
         colData.setCellValueFactory(new PropertyValueFactory<>("dataDoacao"));
-        colDetalhes.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+
+        // ✅ CORREÇÃO: Formata a coluna "Descrição / Valor" dinamicamente
+        colDetalhes.setCellValueFactory(cellData -> {
+            Doacao doacao = cellData.getValue();
+            if (doacao == null) return new SimpleStringProperty("");
+
+            if ("FINANCEIRA".equalsIgnoreCase(doacao.getTipoDoacao())) {
+                String valorFormatado = doacao.getValor() != null 
+                        ? String.format("R$ %.2f", doacao.getValor()) 
+                        : "R$ 0,00";
+
+                if (doacao.getDescricao() != null && !doacao.getDescricao().isBlank()) {
+                    return new SimpleStringProperty(valorFormatado + " (" + doacao.getDescricao() + ")");
+                } else {
+                    return new SimpleStringProperty(valorFormatado);
+                }
+            } else {
+                return new SimpleStringProperty(doacao.getDescricao() != null ? doacao.getDescricao() : "");
+            }
+        });
 
         // Redimensiona as colunas para ocupar toda a largura da tabela proporcionalmente
         tabelaDoacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
