@@ -4,74 +4,290 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoDoacaoController">
+<VBox spacing="12"
+      style="-fx-background-color: #FAF8F5;"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.abrigo.controller.HistoricoDoacaoController">
 
     <stylesheets>
-        <URL value="@../../css/style.css" />
+        <URL value="@../../css/style.css"/>
     </stylesheets>
 
     <padding>
-        <Insets bottom="30" left="30" right="30" top="30" />
+        <Insets top="20" right="20" bottom="15" left="20"/>
     </padding>
 
-    <!-- Cabeçalho -->
-    <HBox alignment="CENTER_LEFT" spacing="15">
-        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+    <HBox alignment="CENTER_LEFT" spacing="12">
+
+        <StackPane prefHeight="44"
+                   prefWidth="44"
+                   minHeight="44"
+                   minWidth="44"
+                   style="-fx-background-color: #FCE4EC;
+                          -fx-background-radius: 12;">
+
+            <ImageView fitHeight="27"
+                       fitWidth="27"
+                       preserveRatio="true">
                 <image>
-                    <Image url="@../../images/historico.png" />
+                    <Image url="@../../images/histórico.png"/>
                 </image>
             </ImageView>
         </StackPane>
+
         <VBox spacing="3">
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Doações Cadastradas" />
-            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Consulte, filtre e gerencie as doações registradas no sistema." />
+            <Label text="Doações Cadastradas"
+                   style="-fx-font-size: 19px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2C3E50;"/>
+
+            <Label text="Consulte, filtre e gerencie as doações cadastradas."
+                   wrapText="true"
+                   style="-fx-font-size: 12px;
+                          -fx-text-fill: #7F8C8D;"/>
         </VBox>
     </HBox>
 
-    <!-- Barra de Filtro e Botões -->
-    <HBox alignment="CENTER_LEFT" spacing="12">
-        <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 0 12;" HBox.hgrow="ALWAYS">
-            <Label style="-fx-font-size: 14px; -fx-text-fill: #A0A0A0;" text="🔍" />
-            <TextField fx:id="txtBusca" promptText="Buscar doação por doador ou ID..." style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 10 0; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+    <HBox alignment="CENTER_LEFT" spacing="8">
+
+        <HBox alignment="CENTER_LEFT"
+              spacing="8"
+              HBox.hgrow="ALWAYS"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-border-color: #E0E0E0;
+                     -fx-border-radius: 9;
+                     -fx-background-radius: 9;
+                     -fx-padding: 0 10;">
+
+            <Label text="🔍"
+                   style="-fx-font-size: 13px;
+                          -fx-text-fill: #A0A0A0;"/>
+
+            <TextField fx:id="txtBusca"
+                       onKeyReleased="#filtrar"
+                       promptText="Buscar por doador, tipo ou descrição..."
+                       HBox.hgrow="ALWAYS"
+                       style="-fx-background-color: transparent;
+                              -fx-border-color: transparent;
+                              -fx-padding: 9 0;
+                              -fx-font-size: 12px;"/>
         </HBox>
 
-        <Button onAction="#btnNovaDoacaoOnAction" styleClass="btn-acao, btn-novo" text="+ Nova Doação" />
-        <Button onAction="#btnEditarOnAction" styleClass="btn-acao, btn-editar" text="Editar" />
-        <Button onAction="#btnExcluirOnAction" styleClass="btn-acao, btn-excluir" text="Excluir" />
+        <Button onAction="#btnNovaDoacaoOnAction"
+                text="+ Novo"
+                styleClass="btn-acao, btn-novo"/>
+
+        <Button onAction="#btnEditarOnAction"
+                text="Editar"
+                styleClass="btn-acao, btn-editar"/>
+
+        <Button onAction="#btnExcluirOnAction"
+                text="Excluir"
+                styleClass="btn-acao, btn-excluir"/>
     </HBox>
 
-    <!-- Tabela -->
-    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
-        <padding>
-            <Insets bottom="15" left="15" right="15" top="15" />
-        </padding>
+    <HBox spacing="12" VBox.vgrow="ALWAYS">
 
-        <TableView fx:id="tabelaDoacoes" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colId" prefWidth="60.0" text="ID" />
-                <TableColumn fx:id="colDoador" prefWidth="200.0" text="Doador" />
-                <TableColumn fx:id="colTipo" prefWidth="130.0" text="Tipo" />
-                <TableColumn fx:id="colData" prefWidth="120.0" text="Data" />
-                <TableColumn fx:id="colDetalhes" prefWidth="250.0" text="Descrição / Valor" />
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
-        </TableView>
-    </VBox>
+        <VBox spacing="8"
+              minWidth="0"
+              HBox.hgrow="ALWAYS"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-background-radius: 12;
+                     -fx-border-color: #F1E5D1;
+                     -fx-border-radius: 12;
+                     -fx-border-width: 1;">
 
-    <!-- Rodapé -->
-    <HBox alignment="CENTER_RIGHT">
-        <Button onAction="#btnVoltarOnAction" styleClass="btn-acao, btn-voltar" text="Voltar" />
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Lista de doações"
+                   style="-fx-font-size: 13px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2C3E50;"/>
+
+            <TableView fx:id="tabelaDoacoes"
+                       minHeight="100"
+                       prefHeight="400"
+                       VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: transparent;
+                              -fx-border-color: transparent;">
+
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+
+                <columns>
+                    <TableColumn fx:id="colId"
+                                 text="ID"
+                                 prefWidth="40"/>
+
+                    <TableColumn fx:id="colDoador"
+                                 text="Doador"
+                                 prefWidth="125"/>
+
+                    <TableColumn fx:id="colTipo"
+                                 text="Tipo"
+                                 prefWidth="90"/>
+
+                    <TableColumn fx:id="colData"
+                                 text="Data"
+                                 prefWidth="85"/>
+
+                    <TableColumn fx:id="colDetalhes"
+                                 text="Descrição"
+                                 prefWidth="120"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <VBox spacing="9"
+              prefWidth="340"
+              minWidth="300"
+              maxWidth="390"
+              VBox.vgrow="ALWAYS"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-background-radius: 12;
+                     -fx-border-color: #F1E5D1;
+                     -fx-border-radius: 12;
+                     -fx-border-width: 1;">
+
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12"/>
+            </padding>
+
+            <Label text="Detalhes da doação"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2C3E50;"/>
+
+            <Separator/>
+
+            <Label fx:id="lblIdDetalhe"
+                   text="Nenhuma doação selecionada"
+                   wrapText="true"
+                   style="-fx-font-size: 11px;
+                          -fx-text-fill: #8A8A8A;"/>
+
+            <VBox spacing="3">
+                <Label text="Doador"
+                       style="-fx-font-size: 11px;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblDoadorDetalhe"
+                       text="Selecione uma doação na tabela"
+                       wrapText="true"
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #2C3E50;"/>
+            </VBox>
+
+            <VBox spacing="3">
+                <Label text="Tipo de doação"
+                       style="-fx-font-size: 11px;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblTipoDetalhe"
+                       text="—"
+                       wrapText="true"
+                       style="-fx-font-size: 12px;
+                              -fx-text-fill: #34495E;"/>
+            </VBox>
+
+            <VBox spacing="3">
+                <Label text="Data da doação"
+                       style="-fx-font-size: 11px;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblDataDetalhe"
+                       text="—"
+                       wrapText="true"
+                       style="-fx-font-size: 12px;
+                              -fx-text-fill: #34495E;"/>
+            </VBox>
+
+            <VBox fx:id="boxValorDetalhe" spacing="3">
+                <Label text="Valor"
+                       style="-fx-font-size: 11px;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblValorDetalhe"
+                       text="—"
+                       wrapText="true"
+                       style="-fx-font-size: 13px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #2C3E50;"/>
+            </VBox>
+
+            <Separator/>
+
+            <VBox spacing="3">
+                <Label text="Descrição"
+                       style="-fx-font-size: 12px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #2C3E50;"/>
+
+                <Label fx:id="lblDescricaoDetalhe"
+                       text="—"
+                       wrapText="true"
+                       style="-fx-font-size: 11px;
+                              -fx-text-fill: #34495E;"/>
+            </VBox>
+
+            <Separator/>
+
+            <VBox spacing="5" VBox.vgrow="ALWAYS">
+                <Label text="Itens e validades"
+                       style="-fx-font-size: 12px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #2C3E50;"/>
+
+                <ScrollPane fitToWidth="true"
+                            fitToHeight="false"
+                            prefViewportHeight="280"
+                            minHeight="100"
+                            VBox.vgrow="ALWAYS"
+                            style="-fx-background-color: transparent;
+                                   -fx-background: transparent;
+                                   -fx-border-color: transparent;">
+
+                    <content>
+                        <Label fx:id="lblItensDetalhe"
+                               text="—"
+                               wrapText="true"
+                               maxWidth="10000"
+                               style="-fx-font-size: 11px;
+                                      -fx-text-fill: #34495E;
+                                      -fx-padding: 4 2 8 2;"/>
+                    </content>
+                </ScrollPane>
+            </VBox>
+
+        </VBox>
     </HBox>
+
+    <HBox alignment="CENTER_RIGHT"
+          minHeight="35"
+          spacing="8">
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button onAction="#btnVoltarOnAction"
+                text="Voltar"
+                styleClass="btn-acao, btn-voltar"/>
+    </HBox>
+
 </VBox>

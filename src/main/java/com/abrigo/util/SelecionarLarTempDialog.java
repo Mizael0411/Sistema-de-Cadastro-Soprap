@@ -27,9 +27,6 @@ public final class SelecionarLarTempDialog {
     private SelecionarLarTempDialog() {
     }
 
-    // Abre um diálogo pequeno com uma tabela (ID / Responsável) de lares
-    // temporários. O "responsável" já é o próprio tutor da adoção temporária,
-    // então não pergunta nome de tutor separado.
     public static Optional<LarTemp> abrir() {
         List<LarTemp> lares = new LarTemporarioDAO().listarTodos().stream()
                 .filter(l -> l.getVagasDisponiveis() != null && l.getVagasDisponiveis() > 0)
@@ -68,7 +65,6 @@ public final class SelecionarLarTempDialog {
         dialog.getDialogPane().setContent(conteudo);
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-        // Duplo clique numa linha já confirma, sem precisar clicar em OK.
         tabela.setRowFactory(tv -> {
             TableRow<LarTemp> row = new TableRow<>();
             row.setOnMouseClicked(e -> {

@@ -1,7 +1,15 @@
 package com.abrigo.model;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "vacina")
@@ -10,28 +18,37 @@ public class Vacina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_vacina")
-    private Long id; 
+    private Long id;
 
     @Column(name = "tipo_vacina", nullable = false)
-    private String tipoVacina; 
+    private String tipoVacina;
 
     @Column(name = "data_vacinacao", nullable = false)
-    private LocalDate dataVacinacao; 
+    private LocalDate dataVacinacao;
 
     @Column(nullable = false)
-    private String dose; 
+    private String dose;
 
     @Column(name = "status_vacinacao")
     private String statusVacinacao;
 
+    @Column(name = "data_proxima_vacinacao", nullable = true)
+    private LocalDate dataProximaVacinacao;
+
     @ManyToOne
     @JoinColumn(name = "id_animal", nullable = false)
-    private Animal animal; 
+    private Animal animal;
 
     public Vacina() {
     }
 
-    public Vacina(String tipoVacina, LocalDate dataVacinacao, String dose, String statusVacinacao, Animal animal) {
+    public Vacina(
+            String tipoVacina,
+            LocalDate dataVacinacao,
+            String dose,
+            String statusVacinacao,
+            Animal animal) {
+
         this.tipoVacina = tipoVacina;
         this.dataVacinacao = dataVacinacao;
         this.dose = dose;
@@ -77,6 +94,14 @@ public class Vacina {
 
     public void setStatusVacinacao(String statusVacinacao) {
         this.statusVacinacao = statusVacinacao;
+    }
+
+    public LocalDate getDataProximaVacinacao() {
+        return dataProximaVacinacao;
+    }
+
+    public void setDataProximaVacinacao(LocalDate dataProximaVacinacao) {
+        this.dataProximaVacinacao = dataProximaVacinacao;
     }
 
     public Animal getAnimal() {

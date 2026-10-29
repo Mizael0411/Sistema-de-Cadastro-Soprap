@@ -18,6 +18,9 @@ public class Animal {
     @Column(name = "id_animal")
     private Long id;
 
+    @Column(name = "ativo", nullable = false)
+    private Boolean ativo = true;
+
     @Column(nullable = false)
     private String nome;
 
@@ -33,6 +36,12 @@ public class Animal {
     @Column(name = "porte")
     private String porte;
 
+    @Column(name = "possui_deficiencia")
+    private Boolean possuiDeficiencia = false;
+
+    @Column(name = "descricao_deficiencia")
+    private String descricaoDeficiencia;
+
     @Column(name = "status_vacinacao", nullable = true)
     private String statusVacinacao;
 
@@ -45,13 +54,16 @@ public class Animal {
     @Column(name = "data_ultima_vacinacao", nullable = true)
     private LocalDate dataUltimaVacinacao;
 
+    @Column(name = "data_ultima_consulta", nullable = true)
+    private LocalDate dataUltimaConsulta;
+
      public Animal() {
         
     }
 
     @Override
     public String toString() {
-        return (nome != null & !nome.isBlank()) ? nome : "Animal #" + id;
+        return (nome != null && !nome.isBlank()) ? nome : "Animal #" + id;
     }
 
     public Long getId() {
@@ -110,6 +122,22 @@ public class Animal {
         this.porte = porte;
     }
 
+    public Boolean getPossuiDeficiencia(){
+        return possuiDeficiencia;
+    }
+
+    public void setPossuiDeficiencia(Boolean possuiDeficiencia){
+        this.possuiDeficiencia = possuiDeficiencia;
+    }
+
+    public String getDescricaoDeficiencia(){
+        return descricaoDeficiencia;
+    }
+
+    public void setDescricaoDeficiencia(String descricaoDeficiencia) {
+        this.descricaoDeficiencia = descricaoDeficiencia;
+    }
+
     public String getStatusVacinacao() {
         return statusVacinacao;
     }
@@ -132,5 +160,21 @@ public class Animal {
 
     public void setDataUltimaVacinacao(LocalDate dataUltimaVacinacao) {
         this.dataUltimaVacinacao = dataUltimaVacinacao;
+    }
+
+    public LocalDate getDataUltimaConsulta() {
+        return dataUltimaConsulta;
+    }
+
+    public void setDataUltimaConsulta(LocalDate dataUltimaConsulta) {
+        this.dataUltimaConsulta = dataUltimaConsulta;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

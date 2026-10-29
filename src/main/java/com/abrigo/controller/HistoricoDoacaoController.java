@@ -1,209 +1,550 @@
 package com.abrigo.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 import com.abrigo.dao.DoacaoDAO;
 import com.abrigo.model.Doacao;
+import com.abrigo.model.ItemDoacao;
+import com.abrigo.model.NavigationManager;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Duration;
+import javafx.scene.layout.VBox;
 
 public class HistoricoDoacaoController {
 
-    @FXML private TableView<Doacao> tabelaDoacoes;
-    @FXML private TableColumn<Doacao, Long> colId;
-    @FXML private TableColumn<Doacao, String> colDoador;
-    @FXML private TableColumn<Doacao, String> colTipo;
-    @FXML private TableColumn<Doacao, LocalDate> colData;
-    @FXML private TableColumn<Doacao, String> colDetalhes;
-    @FXML private TextField txtBusca;
+    @FXML
+    private TableView<Doacao> tabelaDoacoes;
+
+    @FXML
+    private TableColumn<Doacao, Integer> colId;
+
+    @FXML
+    private TableColumn<Doacao, String> colDoador;
+
+    @FXML
+    private TableColumn<Doacao, String> colTipo;
+
+    @FXML
+    private TableColumn<Doacao, Object> colData;
+
+    @FXML
+    private TableColumn<Doacao, String> colDetalhes;
+
+    @FXML
+    private TextField txtBusca;
+
+    @FXML
+    private Label lblIdDetalhe;
+
+    @FXML
+    private Label lblDoadorDetalhe;
+
+    @FXML
+    private Label lblTipoDetalhe;
+
+    @FXML
+    private Label lblDataDetalhe;
+
+    @FXML
+    private Label lblValorDetalhe;
+
+    @FXML
+    private Label lblDescricaoDetalhe;
+
+    @FXML
+    private Label lblItensDetalhe;
+
+    @FXML
+    private VBox boxValorDetalhe;
 
     private final DoacaoDAO doacaoDAO = new DoacaoDAO();
-    private final ObservableList<Doacao> todasDoacoes = FXCollections.observableArrayList();
-    private FilteredList<Doacao> doacoesFiltradas;
+
+    private final NavigationManager navigationManager =
+            NavigationManager.getInstance();
+
+    private final ObservableList<Doacao> listaDoacoes =
+            FXCollections.observableArrayList();
+
+    private final DateTimeFormatter formatoData =
+            DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colDoador.setCellValueFactory(new PropertyValueFactory<>("nomeDoador"));
-        colTipo.setCellValueFactory(new PropertyValueFactory<>("tipoDoacao"));
-        colData.setCellValueFactory(new PropertyValueFactory<>("dataDoacao"));
-
-        // ✅ CORREÇÃO: Formata a coluna "Descrição / Valor" dinamicamente
-        colDetalhes.setCellValueFactory(cellData -> {
-            Doacao doacao = cellData.getValue();
-            if (doacao == null) return new SimpleStringProperty("");
-
-            if ("FINANCEIRA".equalsIgnoreCase(doacao.getTipoDoacao())) {
-                String valorFormatado = doacao.getValor() != null 
-                        ? String.format("R$ %.2f", doacao.getValor()) 
-                        : "R$ 0,00";
-
-                if (doacao.getDescricao() != null && !doacao.getDescricao().isBlank()) {
-                    return new SimpleStringProperty(valorFormatado + " (" + doacao.getDescricao() + ")");
-                } else {
-                    return new SimpleStringProperty(valorFormatado);
-                }
-            } else {
-                return new SimpleStringProperty(doacao.getDescricao() != null ? doacao.getDescricao() : "");
-            }
-        });
-
-        // Redimensiona as colunas para ocupar toda a largura da tabela proporcionalmente
-        tabelaDoacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        // Formatação da Data na Tabela (dd/MM/yyyy)
-        colData.setCellFactory(tc -> new TableCell<>() {
-            private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            @Override
-            protected void updateItem(LocalDate value, boolean empty) {
-                super.updateItem(value, empty);
-                setText(empty || value == null ? null : formatter.format(value));
-            }
-        });
-
-        // Configuração do Tooltip Rápido com quebra de linha para textos cortados
-        colDetalhes.setCellFactory(column -> new TableCell<Doacao, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                    setTooltip(null);
-                } else {
-                    setText(item);
-                    Tooltip tooltip = new Tooltip(item);
-                    tooltip.setWrapText(true);
-                    tooltip.setMaxWidth(400);
-                    tooltip.setShowDelay(Duration.millis(100)); // Tempo de exibição quase instantâneo
-                    setTooltip(tooltip);
-                }
-            }
-        });
-
-        configurarBusca();
-        carregarDados();
+        configurarTabela();
+        configurarSelecao();
+        carregarDoacoes();
     }
 
-    private void configurarBusca() {
-        doacoesFiltradas = new FilteredList<>(todasDoacoes, d -> true);
-        tabelaDoacoes.setItems(doacoesFiltradas);
+    private void configurarTabela() {
+        colId.setCellValueFactory(
+                new PropertyValueFactory<>("id")
+        );
 
-        if (txtBusca != null) {
-            txtBusca.textProperty().addListener((obs, oldVal, newVal) -> aplicarFiltro(newVal));
-        }
+        colDoador.setCellValueFactory(
+                new PropertyValueFactory<>("nomeDoador")
+        );
+
+        colTipo.setCellValueFactory(
+                new PropertyValueFactory<>("tipoDoacao")
+        );
+
+        colData.setCellValueFactory(
+                new PropertyValueFactory<>("dataDoacao")
+        );
+
+        colDetalhes.setCellValueFactory(
+                new PropertyValueFactory<>("descricao")
+        );
     }
 
-    private void aplicarFiltro(String termo) {
-        if (termo == null || termo.isBlank()) {
-            doacoesFiltradas.setPredicate(d -> true);
-            return;
-        }
-
-        String termoLimpo = termo.trim();
-        String termoMinusc = termoLimpo.toLowerCase();
-
-        doacoesFiltradas.setPredicate(d -> {
-            if (d.getId() != null && String.valueOf(d.getId()).contains(termoLimpo)) {
-                return true;
-            }
-            if (d.getNomeDoador() != null && d.getNomeDoador().toLowerCase().contains(termoMinusc)) {
-                return true;
-            }
-            if (d.getTipoDoacao() != null && d.getTipoDoacao().toLowerCase().contains(termoMinusc)) {
-                return true;
-            }
-            return false;
-        });
+    private void configurarSelecao() {
+        tabelaDoacoes.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((observable, anterior, selecionada) ->
+                        mostrarDetalhes(selecionada)
+                );
     }
 
-    private void carregarDados() {
+    private void carregarDoacoes() {
         try {
-            List<Doacao> lista = doacaoDAO.listarTodos();
-            todasDoacoes.setAll(lista);
-            aplicarFiltro(txtBusca != null ? txtBusca.getText() : null);
+            listaDoacoes.setAll(doacaoDAO.listarTodos());
+
+            tabelaDoacoes.setItems(listaDoacoes);
+
+            if (!listaDoacoes.isEmpty()) {
+                tabelaDoacoes.getSelectionModel().selectFirst();
+            } else {
+                mostrarDetalhes(null);
+            }
+
         } catch (Exception e) {
-            exibirAlerta(Alert.AlertType.ERROR, "Erro de Conexão",
-                    "Não foi possível carregar o histórico de doações: " + e.getMessage());
+            exibirAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Não foi possível carregar as doações.",
+                    e.getMessage()
+            );
         }
     }
 
     @FXML
-    public void btnNovaDoacaoOnAction() {
-        NavigationManager.getInstance().navegarConteudo("cadastro-doacoes");
+    private void filtrar() {
+        String busca = txtBusca.getText() == null
+                ? ""
+                : txtBusca.getText()
+                        .trim()
+                        .toLowerCase(Locale.ROOT);
+
+        Doacao selecionadaAnterior =
+                tabelaDoacoes.getSelectionModel().getSelectedItem();
+
+        ObservableList<Doacao> filtradas =
+                FXCollections.observableArrayList();
+
+        for (Doacao doacao : listaDoacoes) {
+            String id = String.valueOf(doacao.getId());
+
+            String doador = texto(doacao.getNomeDoador());
+
+            String tipo = texto(doacao.getTipoDoacao());
+
+            String descricao = texto(doacao.getDescricao());
+
+            if (id.contains(busca)
+                    || doador.toLowerCase(Locale.ROOT).contains(busca)
+                    || tipo.toLowerCase(Locale.ROOT).contains(busca)
+                    || descricao.toLowerCase(Locale.ROOT).contains(busca)) {
+
+                filtradas.add(doacao);
+            }
+        }
+
+        tabelaDoacoes.setItems(filtradas);
+
+        if (selecionadaAnterior != null
+                && filtradas.contains(selecionadaAnterior)) {
+
+            tabelaDoacoes.getSelectionModel()
+                    .select(selecionadaAnterior);
+
+        } else if (!filtradas.isEmpty()) {
+
+            tabelaDoacoes.getSelectionModel().selectFirst();
+
+        } else {
+
+            mostrarDetalhes(null);
+        }
     }
 
-    @FXML
-    public void btnEditarOnAction() {
-        Doacao selecionada = tabelaDoacoes.getSelectionModel().getSelectedItem();
-        if (selecionada == null) {
-            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente",
-                    "Selecione uma doação na tabela para editar.");
+    private void mostrarDetalhes(Doacao doacao) {
+
+        if (doacao == null) {
+            lblIdDetalhe.setText("Nenhuma doação selecionada");
+            lblDoadorDetalhe.setText("Selecione uma doação na tabela");
+            lblTipoDetalhe.setText("—");
+            lblDataDetalhe.setText("—");
+            lblValorDetalhe.setText("—");
+            lblDescricaoDetalhe.setText("—");
+            lblItensDetalhe.setText("—");
+
+            boxValorDetalhe.setVisible(true);
+            boxValorDetalhe.setManaged(true);
+
             return;
         }
 
-        NavigationManager.getInstance().setDoacaoParaEdicao(selecionada);
+        lblIdDetalhe.setText(
+                "Doação ID: " + doacao.getId()
+        );
 
-        CadastroDoacaoController controller = (CadastroDoacaoController) NavigationManager.getInstance()
-                .navegarConteudoComController("cadastro-doacoes");
+        lblDoadorDetalhe.setText(
+                textoOuTraco(doacao.getNomeDoador())
+        );
 
-        if (controller != null) {
-            controller.carregarDoacaoParaEdicao(selecionada);
+        lblTipoDetalhe.setText(
+                textoOuTraco(doacao.getTipoDoacao())
+        );
+
+        lblDataDetalhe.setText(
+                formatarData(doacao.getDataDoacao())
+        );
+
+        lblDescricaoDetalhe.setText(
+                textoOuTraco(doacao.getDescricao())
+        );
+
+        configurarValor(doacao);
+
+        carregarItens(doacao);
+    }
+
+    private void configurarValor(Doacao doacao) {
+
+        String tipo = texto(doacao.getTipoDoacao())
+                .trim()
+                .toLowerCase(Locale.ROOT);
+
+        boolean doacaoMaterial = tipo.contains("material");
+
+        boxValorDetalhe.setVisible(!doacaoMaterial);
+        boxValorDetalhe.setManaged(!doacaoMaterial);
+
+        if (!doacaoMaterial) {
+            Object valor = doacao.getValor();
+
+            lblValorDetalhe.setText(
+                    valor == null ? "—" : "R$ " + valor
+            );
         }
     }
 
-    @FXML
-    public void btnExcluirOnAction() {
-        Doacao selecionada = tabelaDoacoes.getSelectionModel().getSelectedItem();
-        if (selecionada == null) {
-            exibirAlerta(Alert.AlertType.WARNING, "Seleção Pendente",
-                    "Selecione uma doação na tabela para excluir.");
-            return;
+    private void carregarItens(Doacao doacao) {
+
+        try {
+            List<ItemDoacao> itens =
+                    doacaoDAO.listarItensPorDoacao(doacao.getId());
+
+            if (itens == null || itens.isEmpty()) {
+                lblItensDetalhe.setText(
+                        "Nenhum produto cadastrado nesta doação."
+                );
+                return;
+            }
+
+            String textoItens = itens.stream()
+                    .map(item -> {
+
+                        String nome =
+                                textoOuTraco(item.getNomeItem());
+
+                        String quantidade =
+                                String.valueOf(item.getQuantidade());
+
+                        String validade =
+                                descreverValidade(item.getValidade());
+
+                        return nome
+                                + "\nQuantidade: " + quantidade
+                                + "\n" + validade;
+                    })
+                    .collect(Collectors.joining("\n\n"));
+
+            lblItensDetalhe.setText(textoItens);
+
+        } catch (Exception e) {
+            lblItensDetalhe.setText(
+                    "Não foi possível carregar os produtos desta doação."
+            );
+        }
+    }
+
+    private String descreverValidade(Object validade) {
+
+        LocalDate dataValidade = converterParaLocalDate(validade);
+
+        if (dataValidade == null) {
+            return "Validade não informada.";
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmar Exclusão");
-        alert.setHeaderText(null);
-        alert.setContentText("Deseja realmente excluir a doação de: " + selecionada.getNomeDoador() + "?");
+        LocalDate hoje = LocalDate.now();
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        long dias = ChronoUnit.DAYS.between(
+                hoje,
+                dataValidade
+        );
+
+        String data = dataValidade.format(formatoData);
+
+        if (dias < 0) {
+            long diasVencidos = Math.abs(dias);
+
+            return "Vencido em " + data
+                    + " (há " + diasVencidos
+                    + (diasVencidos == 1 ? " dia)." : " dias).");
+        }
+
+        if (dias == 0) {
+            return "Vence hoje (" + data + ").";
+        }
+
+        return "Dentro da validade: " + dias
+                + (dias == 1 ? " dia restante" : " dias restantes")
+                + " (vence em " + data + ").";
+    }
+
+    private LocalDate converterParaLocalDate(Object validade) {
+
+        if (validade == null) {
+            return null;
+        }
+
+        if (validade instanceof LocalDate) {
+            return (LocalDate) validade;
+        }
+
+        if (validade instanceof java.sql.Date) {
+            return ((java.sql.Date) validade).toLocalDate();
+        }
+
+        if (validade instanceof Date) {
+            return new java.sql.Date(
+                    ((Date) validade).getTime()
+            ).toLocalDate();
+        }
+
+        String textoValidade = validade.toString().trim();
+
+        try {
+            return LocalDate.parse(textoValidade);
+
+        } catch (DateTimeParseException e) {
+
             try {
-                doacaoDAO.deletar(selecionada.getId());
-                carregarDados();
-                exibirAlerta(Alert.AlertType.INFORMATION, "Sucesso", "Doação excluída com sucesso.");
-            } catch (Exception e) {
-                exibirAlerta(Alert.AlertType.ERROR, "Erro",
-                        "Falha ao excluir o registro: " + e.getMessage());
+                return LocalDate.parse(
+                        textoValidade,
+                        formatoData
+                );
+
+            } catch (DateTimeParseException ex) {
+                return null;
             }
         }
     }
 
-    @FXML
-    public void btnVoltarOnAction() {
-        NavigationManager.getInstance().navegarConteudo("cadastro-doacoes");
+    private String formatarData(Object data) {
+
+        if (data == null) {
+            return "—";
+        }
+
+        if (data instanceof LocalDate) {
+            return ((LocalDate) data).format(formatoData);
+        }
+
+        if (data instanceof java.sql.Date) {
+            return ((java.sql.Date) data)
+                    .toLocalDate()
+                    .format(formatoData);
+        }
+
+        if (data instanceof Date) {
+            SimpleDateFormat formato =
+                    new SimpleDateFormat("dd/MM/yyyy");
+
+            return formato.format((Date) data);
+        }
+
+        String textoData = data.toString().trim();
+
+        try {
+            return LocalDate.parse(textoData)
+                    .format(formatoData);
+
+        } catch (DateTimeParseException e) {
+            return textoData;
+        }
     }
 
-    private void exibirAlerta(Alert.AlertType tipo, String titulo, String msg) {
-        Alert alert = new Alert(tipo);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(msg);
-        alert.showAndWait();
+    private String texto(Object valor) {
+        return valor == null ? "" : valor.toString();
+    }
+
+    private String textoOuTraco(Object valor) {
+        String resultado = texto(valor).trim();
+
+        return resultado.isEmpty() ? "—" : resultado;
+    }
+
+    @FXML
+    private void btnNovaDoacaoOnAction() {
+
+        try {
+            navigationManager.navegarConteudoComController(
+                    "cadastro-doacoes"
+            );
+
+        } catch (Exception e) {
+            exibirAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Não foi possível abrir o cadastro de doações.",
+                    e.getMessage()
+            );
+        }
+    }
+
+    @FXML
+    private void btnEditarOnAction() {
+
+        Doacao selecionada =
+                tabelaDoacoes.getSelectionModel().getSelectedItem();
+
+        if (selecionada == null) {
+            exibirAlerta(
+                    Alert.AlertType.WARNING,
+                    "Atenção",
+                    "Selecione uma doação para editar.",
+                    null
+            );
+            return;
+        }
+
+        try {
+            navigationManager.setDoacaoParaEdicao(selecionada);
+
+            navigationManager.navegarConteudoComController(
+                    "cadastro-doacoes"
+            );
+
+        } catch (Exception e) {
+            exibirAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Não foi possível abrir a edição da doação.",
+                    e.getMessage()
+            );
+        }
+    }
+
+    @FXML
+    private void btnExcluirOnAction() {
+
+        Doacao selecionada =
+                tabelaDoacoes.getSelectionModel().getSelectedItem();
+
+        if (selecionada == null) {
+            exibirAlerta(
+                    Alert.AlertType.WARNING,
+                    "Atenção",
+                    "Selecione uma doação para excluir.",
+                    null
+            );
+            return;
+        }
+
+        Alert confirmacao = new Alert(
+                Alert.AlertType.CONFIRMATION
+        );
+
+        confirmacao.setTitle("Confirmar exclusão");
+        confirmacao.setHeaderText("Excluir doação");
+
+        confirmacao.setContentText(
+                "Deseja realmente excluir a doação de "
+                        + textoOuTraco(selecionada.getNomeDoador())
+                        + "?"
+        );
+
+        confirmacao.showAndWait().ifPresent(resposta -> {
+
+            if (resposta == ButtonType.OK) {
+
+                try {
+                    doacaoDAO.deletar(selecionada.getId());
+
+                    carregarDoacoes();
+
+                } catch (Exception e) {
+                    exibirAlerta(
+                            Alert.AlertType.ERROR,
+                            "Erro",
+                            "Não foi possível excluir a doação.",
+                            e.getMessage()
+                    );
+                }
+            }
+        });
+    }
+
+    @FXML
+    private void btnVoltarOnAction() {
+
+        try {
+            navigationManager.voltarMenu();
+
+        } catch (Exception e) {
+            exibirAlerta(
+                    Alert.AlertType.ERROR,
+                    "Erro",
+                    "Não foi possível voltar ao menu.",
+                    e.getMessage()
+            );
+        }
+    }
+
+    private void exibirAlerta(
+            Alert.AlertType tipo,
+            String titulo,
+            String mensagem,
+            String detalhes) {
+
+        Alert alerta = new Alert(tipo);
+
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(mensagem);
+
+        if (detalhes != null && !detalhes.isBlank()) {
+            alerta.setContentText(detalhes);
+        }
+
+        alerta.showAndWait();
     }
 }

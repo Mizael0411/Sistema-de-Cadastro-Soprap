@@ -16,7 +16,7 @@
 
             <VBox alignment="CENTER_LEFT" spacing="4" style="-fx-background-color: #FFFFFF; -fx-padding: 20 20 15 20; -fx-border-color: #F1E5D1; -fx-border-width: 0 0 1 0;">
                 <HBox alignment="CENTER_LEFT" spacing="10">
-                    <StackPane prefHeight="36" prefWidth="36" style="-fx-background-color: #FFF3E0; -fx-background-radius: 18;">
+                    <StackPane minHeight="36" prefHeight="36" maxHeight="36" minWidth="36" prefWidth="36" alignment="CENTER" style="-fx-background-color: #FFF3E0; -fx-background-radius: 50%;">
                         <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../images/soprap-logo.png" />
@@ -26,6 +26,9 @@
                     <VBox spacing="2">
                         <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="SOPRAP" />
                         <Label style="-fx-font-size: 11px; -fx-text-fill: #E91E63; -fx-font-weight: bold;" text="Painel do Abrigo" />
+                        <Region prefHeight="4" />
+                        <Label fx:id="lblUsuarioAtual" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #475569;" text="Usuário" />
+                        <Label fx:id="lblPerfilAtual" style="-fx-font-size: 10px; -fx-text-fill: #8A8178;" text="Funcionário" />
                     </VBox>
                 </HBox>
             </VBox>

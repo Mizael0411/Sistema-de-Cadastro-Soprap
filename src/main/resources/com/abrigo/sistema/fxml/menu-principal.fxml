@@ -19,8 +19,10 @@
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelatorios" styleClass="menu-btn" text="Relatórios" />
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirGestaoAdocao" styleClass="menu-btn" text="Gestão de Adoções" />
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirFichaTecnicaAnimais" styleClass="menu-btn" text="Ficha Técnica dos Animais" />
+    <Button fx:id="btnGerenciarUsuarios" maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirGerenciamentoUsuarios" styleClass="menu-btn" text="Gerenciar Usuários" />
+    <Button fx:id="btnAuditoriaSistema" maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirAuditoriaSistema" styleClass="menu-btn" text="Auditoria do Sistema" />
 
     <VBox prefHeight="16" />
 
-    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#sair" styleClass="menu-btn" style="-fx-text-fill: #E74C3C;" text="Sair" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#sair" styleClass="menu-btn" style="-fx-font-weight: bold; -fx-text-fill: #E74C3C;" text="Sair" />
 </VBox>

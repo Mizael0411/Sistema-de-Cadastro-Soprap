@@ -14,75 +14,165 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.RegistrarVacinasController">
+<ScrollPane fitToWidth="true"
+            styleClass="cadastro-scroll"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.abrigo.controller.RegistrarVacinasController">
 
     <stylesheets>
-        <URL value="@../../css/style.css" />
+        <URL value="@../../css/style.css"/>
     </stylesheets>
 
     <content>
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+        <VBox alignment="TOP_CENTER"
+              spacing="20"
+              styleClass="cadastro-pagina">
+
             <padding>
-                <Insets bottom="40" left="20" right="20" top="30" />
+                <Insets top="30" right="20" bottom="40" left="20"/>
             </padding>
 
-            <VBox maxWidth="700" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+            <VBox maxWidth="700"
+                  spacing="24"
+                  styleClass="cadastro-card">
+
                 <padding>
-                    <Insets bottom="35" left="35" right="35" top="35" />
+                    <Insets top="32" right="34" bottom="30" left="34"/>
                 </padding>
 
-                <HBox alignment="CENTER_LEFT" spacing="15">
-                    <!-- StackPane com a imagem da vacina -->
-                    <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-                        <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+                <HBox alignment="CENTER_LEFT" spacing="16">
+
+                    <StackPane prefWidth="56"
+                               prefHeight="56"
+                               minWidth="56"
+                               styleClass="cadastro-icone">
+
+                        <ImageView fitWidth="34"
+                                   fitHeight="34"
+                                   preserveRatio="true">
                             <image>
-                                <Image url="@../../images/vacina.png" />
+                                <Image url="@../../images/vacina.png"/>
                             </image>
                         </ImageView>
                     </StackPane>
 
-                    <VBox HBox.hgrow="ALWAYS" spacing="3">
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Registrar Vacina" />
-                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Preencha os dados abaixo para registrar uma aplicação de vacina." />
-                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
 
+                        <Label text="SOPRAP  ·  CUIDADOS VETERINÁRIOS"
+                               styleClass="cadastro-sobretitulo"
+                               wrapText="true"/>
+
+                        <Label text="Registrar Vacina"
+                               styleClass="cadastro-titulo"
+                               wrapText="true"/>
+
+                        <Label text="Registre a aplicação e acompanhe a próxima vacinação do animal."
+                               styleClass="cadastro-subtitulo"
+                               wrapText="true"/>
+                    </VBox>
                 </HBox>
 
-                <Separator style="-fx-opacity: 0.3;" />
+                <Separator styleClass="cadastro-separador"/>
 
-                <VBox spacing="18">
+                <VBox spacing="5">
+                    <Label text="01  ·  Identificação"
+                           styleClass="cadastro-secao-titulo"/>
 
-                    <VBox spacing="6">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Animal *" />
-                        <ComboBox fx:id="cbAnimal" maxWidth="Infinity" promptText="Selecione o animal" styleClass="input-campo" />
-                    </VBox>
-
-                    <VBox spacing="6">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Nome/Tipo da Vacina *" />
-                        <ComboBox fx:id="cbTipoVacina" maxWidth="Infinity" promptText="Selecione o tipo..." styleClass="input-campo" />
-                    </VBox>
-
-                    <VBox spacing="6">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Dose *" />
-                        <ComboBox fx:id="cbDose" maxWidth="Infinity" promptText="Selecione a dose..." styleClass="input-campo" />
-                    </VBox>
-
-                    <VBox spacing="6">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E;" text="Data da Aplicação *" />
-                        <DatePicker fx:id="dpDataVacinacao" maxWidth="Infinity" promptText="dd/mm/aaaa" styleClass="input-campo" />
-                    </VBox>
+                    <Label text="Selecione o animal e informe a vacina aplicada."
+                           styleClass="cadastro-secao-subtitulo"
+                           wrapText="true"/>
                 </VBox>
 
-                <Separator style="-fx-opacity: 0.3;" />
+                <VBox spacing="17">
 
-                <HBox alignment="CENTER_RIGHT" spacing="12">
+                    <VBox spacing="7">
+                        <Label text="ANIMAL *"
+                               styleClass="cadastro-rotulo"/>
+
+                        <ComboBox fx:id="cbAnimal"
+                                  maxWidth="Infinity"
+                                  promptText="Selecione o animal"
+                                  styleClass="input-campo"/>
+                    </VBox>
+
+                    <VBox spacing="7">
+                        <Label text="NOME / TIPO DA VACINA *"
+                               styleClass="cadastro-rotulo"/>
+
+                        <ComboBox fx:id="cbTipoVacina"
+                                  maxWidth="Infinity"
+                                  promptText="Selecione o tipo de vacina"
+                                  styleClass="input-campo"/>
+                    </VBox>
+
+                    <VBox spacing="7">
+                        <Label text="DOSE *"
+                               styleClass="cadastro-rotulo"/>
+
+                        <ComboBox fx:id="cbDose"
+                                  maxWidth="Infinity"
+                                  promptText="Selecione a dose"
+                                  styleClass="input-campo"/>
+                    </VBox>
+
+                </VBox>
+
+                <Separator styleClass="cadastro-separador"/>
+
+                <VBox spacing="5">
+                    <Label text="02  ·  Datas da vacinação"
+                           styleClass="cadastro-secao-titulo"/>
+
+                    <Label text="Informe quando a vacina foi aplicada e, se necessário, a data prevista para a próxima dose."
+                           styleClass="cadastro-secao-subtitulo"
+                           wrapText="true"/>
+                </VBox>
+
+                <VBox spacing="17">
+
+                    <VBox spacing="7">
+                        <Label text="DATA DA APLICAÇÃO *"
+                               styleClass="cadastro-rotulo"/>
+
+                        <DatePicker fx:id="dpDataVacinacao"
+                                    maxWidth="Infinity"
+                                    promptText="Selecione a data"
+                                    styleClass="input-campo"/>
+                    </VBox>
+
+                    <VBox spacing="7">
+                        <Label text="PRÓXIMA VACINAÇÃO"
+                               styleClass="cadastro-rotulo"/>
+
+                        <DatePicker fx:id="dpDataProximaVacinacao"
+                                    maxWidth="Infinity"
+                                    promptText="Selecione a próxima data, se aplicável"
+                                    styleClass="input-campo"/>
+                    </VBox>
+
+                </VBox>
+
+                <Separator styleClass="cadastro-separador"/>
+
+                <HBox alignment="CENTER_RIGHT"
+                      spacing="10">
+
                     <padding>
-                        <Insets top="10" />
+                        <Insets top="5"/>
                     </padding>
 
-                    <Button onAction="#abrirHistorico" styleClass="btn-acao, btn-voltar" text="Cancelar" />
-                    <Button onAction="#abrirHistorico" styleClass="btn-acao, btn-historico" text="Ver Histórico" />
-                    <Button onAction="#salvar" styleClass="btn-acao, btn-salvar" text="Salvar Vacina" />
+                    <Button onAction="#abrirHistorico"
+                            styleClass="btn-acao, btn-voltar"
+                            text="Cancelar"/>
+
+                    <Button onAction="#abrirHistorico"
+                            styleClass="btn-acao, btn-historico"
+                            text="Ver histórico"/>
+
+                    <Button onAction="#salvar"
+                            styleClass="btn-acao, btn-salvar"
+                            text="Salvar vacina"/>
                 </HBox>
 
             </VBox>

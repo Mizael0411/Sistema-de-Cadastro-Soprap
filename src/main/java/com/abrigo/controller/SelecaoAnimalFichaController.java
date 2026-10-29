@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.abrigo.dao.AnimalDAO;
 import com.abrigo.model.Animal;
+import com.abrigo.model.NavigationManager;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;

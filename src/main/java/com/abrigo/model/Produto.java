@@ -1,12 +1,13 @@
 package com.abrigo.model;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(name = "produtos")
@@ -19,6 +20,7 @@ public class Produto {
     private String nome;
     private Double precoCompra;
     private LocalDate dataCompra;
+    private LocalDate dataValidade;
 
     public Produto() {}
 
@@ -26,6 +28,14 @@ public class Produto {
         this.nome = nome;
         this.precoCompra = precoCompra;
         this.dataCompra = dataCompra;
+    }
+
+    public Produto(String nome, Double precoCompra,
+                   LocalDate dataCompra, LocalDate dataValidade) {
+        this.nome = nome;
+        this.precoCompra = precoCompra;
+        this.dataCompra = dataCompra;
+        this.dataValidade = dataValidade;
     }
 
     public Long getId() {
@@ -60,10 +70,30 @@ public class Produto {
         this.dataCompra = dataCompra;
     }
 
+    public LocalDate getDataValidade() {
+        return dataValidade;
+    }
+
+    public void setDataValidade(LocalDate dataValidade) {
+        this.dataValidade = dataValidade;
+    }
+
+    public boolean isVencido() {
+        return dataValidade != null
+                && dataValidade.isBefore(LocalDate.now());
+    }
+
+    public boolean isProximoDoVencimento() {
+        return dataValidade != null
+                && !isVencido()
+                && !dataValidade.isAfter(LocalDate.now().plusDays(30));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Produto produto = (Produto) o;
         return Objects.equals(id, produto.id);
     }

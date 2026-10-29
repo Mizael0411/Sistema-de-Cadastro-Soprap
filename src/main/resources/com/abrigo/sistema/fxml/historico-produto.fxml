@@ -4,69 +4,275 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoCadastroProdutoController">
+<VBox spacing="12"
+      style="-fx-background-color: #FAF8F5;"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.abrigo.controller.HistoricoCadastroProdutoController">
 
     <stylesheets>
-        <URL value="@../../css/style.css" />
+        <URL value="@../../css/style.css"/>
     </stylesheets>
 
     <padding>
-        <Insets bottom="30" left="30" right="30" top="30" />
+        <Insets top="20" right="20" bottom="15" left="20"/>
     </padding>
 
-    <HBox alignment="CENTER_LEFT" spacing="15">
-        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+    <HBox alignment="CENTER_LEFT" spacing="12">
+
+        <StackPane prefWidth="44"
+                   prefHeight="44"
+                   minWidth="44"
+                   minHeight="44"
+                   style="-fx-background-color: #FCE4EC;
+                          -fx-background-radius: 12;">
+
+            <ImageView fitWidth="27"
+                       fitHeight="27"
+                       preserveRatio="true">
                 <image>
-                    <Image url="@../../images/historico.png" />
+                    <Image url="@../../images/histórico.png"/>
                 </image>
             </ImageView>
         </StackPane>
-        <VBox spacing="3">
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Produtos Cadastrados" />
-            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Gerencie o histórico de todos os produtos e insumos adquiridos." />
+
+        <VBox spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="Histórico de Produtos"
+                   style="-fx-font-size: 20px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2C3E50;"/>
+
+            <Label text="Consulte os produtos cadastrados e acompanhe suas validades."
+                   wrapText="true"
+                   style="-fx-font-size: 12px;
+                          -fx-text-fill: #7F8C8D;"/>
         </VBox>
     </HBox>
 
-    <HBox alignment="CENTER_LEFT" spacing="12">
-        <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 0 12;" HBox.hgrow="ALWAYS">
-            <Label style="-fx-font-size: 14px; -fx-text-fill: #A0A0A0;" text="🔍" />
-            <TextField fx:id="txtBusca" promptText="Buscar produto por nome ou ID..." style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 10 0; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+    <HBox alignment="CENTER_LEFT" spacing="8">
+
+        <HBox alignment="CENTER_LEFT"
+              spacing="8"
+              HBox.hgrow="ALWAYS"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-border-color: #E0E0E0;
+                     -fx-border-radius: 9;
+                     -fx-background-radius: 9;
+                     -fx-padding: 0 10;">
+
+            <Label text="⌕"
+                   style="-fx-font-size: 19px;
+                          -fx-text-fill: #8A8A8A;"/>
+
+            <TextField fx:id="txtBusca"
+                       promptText="Buscar por nome ou ID..."
+                       HBox.hgrow="ALWAYS"
+                       style="-fx-background-color: transparent;
+                              -fx-border-color: transparent;
+                              -fx-padding: 9 0;
+                              -fx-font-size: 12px;"/>
         </HBox>
 
-        <Button onAction="#btnNovoProdutoOnAction" styleClass="btn-acao, btn-novo" text="+ Novo Produto" />
-        <Button onAction="#btnEditarOnAction" styleClass="btn-acao, btn-editar" text="Editar" />
-        <Button onAction="#btnExcluirOnAction" styleClass="btn-acao, btn-excluir" text="Excluir" />
+        <Button text="+ Novo"
+                onAction="#btnNovoProdutoOnAction"
+                styleClass="btn-acao, btn-novo"/>
+
+        <Button text="Editar"
+                onAction="#btnEditarOnAction"
+                styleClass="btn-acao, btn-editar"/>
+
+        <Button text="Excluir"
+                onAction="#btnExcluirOnAction"
+                styleClass="btn-acao, btn-excluir"/>
     </HBox>
 
-    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
-        <padding>
-            <Insets bottom="15" left="15" right="15" top="15" />
-        </padding>
+    <HBox spacing="12" VBox.vgrow="ALWAYS">
 
-        <TableView fx:id="tabelaProdutos" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colId" prefWidth="80.0" text="ID" />
-                <TableColumn fx:id="colNome" prefWidth="250.0" text="Nome" />
-                <TableColumn fx:id="colPrecoCompra" prefWidth="150.0" text="Preço de Compra (R$)" />
-                <TableColumn fx:id="colDataCompra" prefWidth="150.0" text="Data de Compra" />
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
-        </TableView>
-    </VBox>
+        <VBox spacing="10"
+              minWidth="0"
+              HBox.hgrow="ALWAYS"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-background-radius: 14;
+                     -fx-border-color: #F1E5D1;
+                     -fx-border-radius: 14;
+                     -fx-border-width: 1;">
+
+            <padding>
+                <Insets top="14" right="12" bottom="12" left="12"/>
+            </padding>
+
+            <Label text="Produtos cadastrados"
+                   style="-fx-font-size: 14px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2C3E50;"/>
+
+            <TableView fx:id="tabelaProdutos"
+                       minWidth="0"
+                       VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: transparent;
+                              -fx-border-color: transparent;">
+
+                <columns>
+                    <TableColumn fx:id="colId"
+                                 text="ID"
+                                 prefWidth="48"/>
+
+                    <TableColumn fx:id="colNome"
+                                 text="Produto"
+                                 prefWidth="135"/>
+
+                    <TableColumn fx:id="colPrecoCompra"
+                                 text="Preço"
+                                 prefWidth="90"/>
+
+                    <TableColumn fx:id="colDataCompra"
+                                 text="Compra"
+                                 prefWidth="85"/>
+
+                    <TableColumn fx:id="colDataValidade"
+                                 text="Validade"
+                                 prefWidth="90"/>
+                </columns>
+
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+
+        <VBox spacing="14"
+              minWidth="265"
+              prefWidth="310"
+              maxWidth="360"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-background-radius: 14;
+                     -fx-border-color: #F1E5D1;
+                     -fx-border-radius: 14;
+                     -fx-border-width: 1;">
+
+            <padding>
+                <Insets top="16" right="16" bottom="16" left="16"/>
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" spacing="10">
+
+                <VBox spacing="3" HBox.hgrow="ALWAYS">
+                    <Label text="Detalhes do produto"
+                           wrapText="true"
+                           style="-fx-font-size: 15px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #2C3E50;"/>
+
+                    <Label fx:id="lblIdDetalhe"
+                           text="Nenhum produto selecionado"
+                           wrapText="true"
+                           style="-fx-font-size: 11px;
+                                  -fx-text-fill: #7F8C8D;"/>
+                </VBox>
+            </HBox>
+
+            <Separator/>
+
+            <VBox spacing="5">
+                <Label text="NOME DO PRODUTO"
+                       style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblNomeDetalhe"
+                       text="Selecione um produto na tabela"
+                       wrapText="true"
+                       maxWidth="10000"
+                       style="-fx-font-size: 14px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #2C3E50;"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="PREÇO DE COMPRA"
+                       style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblPrecoDetalhe"
+                       text="—"
+                       wrapText="true"
+                       style="-fx-font-size: 13px;
+                              -fx-text-fill: #2C3E50;"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="DATA DA COMPRA"
+                       style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblDataCompraDetalhe"
+                       text="—"
+                       style="-fx-font-size: 13px;
+                              -fx-text-fill: #2C3E50;"/>
+            </VBox>
+
+            <VBox spacing="5">
+                <Label text="DATA DE VALIDADE"
+                       style="-fx-font-size: 10px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #7F8C8D;"/>
+
+                <Label fx:id="lblDataValidadeDetalhe"
+                       text="—"
+                       style="-fx-font-size: 13px;
+                              -fx-text-fill: #2C3E50;"/>
+            </VBox>
+
+            <Separator/>
+
+            <VBox spacing="8"
+                  style="-fx-background-color: #FAF8F5;
+                         -fx-background-radius: 10;
+                         -fx-border-color: #F1E5D1;
+                         -fx-border-radius: 10;">
+
+                <padding>
+                    <Insets top="12" right="12" bottom="12" left="12"/>
+                </padding>
+
+                <Label text="Situação da validade"
+                       style="-fx-font-size: 12px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #2C3E50;"/>
+
+                <Label fx:id="lblSituacaoValidade"
+                       text="Selecione um produto para consultar a validade."
+                       wrapText="true"
+                       maxWidth="10000"
+                       style="-fx-font-size: 12px;
+                              -fx-text-fill: #6F5F67;"/>
+            </VBox>
+
+            <Label text="Selecione outro produto na tabela para atualizar estas informações."
+                   wrapText="true"
+                   style="-fx-font-size: 11px;
+                          -fx-text-fill: #8A8A8A;"/>
+        </VBox>
+    </HBox>
 
     <HBox alignment="CENTER_RIGHT">
-        <Button onAction="#btnVoltarOnAction" styleClass="btn-acao, btn-voltar" text="Voltar" />
+        <Button text="Voltar"
+                onAction="#btnVoltarOnAction"
+                styleClass="btn-acao, btn-voltar"/>
     </HBox>
+
 </VBox>

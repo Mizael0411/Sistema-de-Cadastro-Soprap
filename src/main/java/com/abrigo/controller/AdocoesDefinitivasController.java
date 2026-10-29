@@ -3,6 +3,7 @@ package com.abrigo.controller;
 import java.util.List;
 
 import com.abrigo.dto.AdocaoDefinitivaDTO;
+import com.abrigo.model.NavigationManager;
 import com.abrigo.repository.AdocaoRepository;
 import com.abrigo.util.DestaqueTabelaUtil;
 

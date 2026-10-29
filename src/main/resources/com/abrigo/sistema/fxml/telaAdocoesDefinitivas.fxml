@@ -7,6 +7,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -24,11 +26,14 @@
         <Insets bottom="30" left="30" right="30" top="30" />
     </padding>
 
-    <!-- Cabeçalho -->
     <HBox alignment="CENTER_LEFT" spacing="15">
         <StackPane prefHeight="50" prefWidth="50"
-                   style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <Label style="-fx-font-size: 24px;" text="🏠" />
+                   style="-fx-background-color: #FCE4EC; -fx-background-radius: 12;">
+            <ImageView fitWidth="30" fitHeight="30" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/abrigo.png"/>
+                </image>
+            </ImageView>
         </StackPane>
         <VBox spacing="3">
             <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"

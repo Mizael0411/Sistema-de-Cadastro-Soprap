@@ -6,72 +6,176 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.LoginController">
+<ScrollPane fitToHeight="true"
+            fitToWidth="true"
+            style="-fx-background-color: transparent; -fx-background: transparent;"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.abrigo.controller.LoginController">
+
     <content>
         <StackPane style="-fx-background-color: #FAF8F5;">
-            
-            <AnchorPane mouseTransparent="true" style="-fx-background-color: transparent;">
-                <Label style="-fx-font-size: 32px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -20;" text="🐾" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="40.0" />
-                <Label style="-fx-font-size: 22px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: 15;" text="🐾" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="110.0" />
-                <Label style="-fx-font-size: 28px; -fx-text-fill: #8D6E63; -fx-opacity: 0.22; -fx-rotate: -35;" text="🐾" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="220.0" />
 
-                <Label style="-fx-font-size: 36px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 30;" text="🐾" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="50.0" />
-                <Label style="-fx-font-size: 24px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: -15;" text="🐾" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="130.0" />
-                <Label style="-fx-font-size: 30px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 45;" text="🐾" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="210.0" />
+            <AnchorPane mouseTransparent="true"
+                        style="-fx-background-color: transparent;">
 
-                <Label style="-fx-font-size: 26px; -fx-text-fill: #8D6E63; -fx-opacity: 0.22; -fx-rotate: 25;" text="🐾" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="380.0" />
-                <Label style="-fx-font-size: 28px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -25;" text="🐾" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="380.0" />
+                <Label text="🐾"
+                       style="-fx-font-size: 32px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -20;"
+                       AnchorPane.leftAnchor="50.0"
+                       AnchorPane.topAnchor="40.0"/>
 
-                <Label style="-fx-font-size: 34px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -40;" text="🐾" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="70.0" />
-                <Label style="-fx-font-size: 24px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: 18;" text="🐾" AnchorPane.bottomAnchor="130.0" AnchorPane.leftAnchor="180.0" />
+                <Label text="🐾"
+                       style="-fx-font-size: 22px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: 15;"
+                       AnchorPane.leftAnchor="180.0"
+                       AnchorPane.topAnchor="110.0"/>
 
-                <Label style="-fx-font-size: 30px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 20;" text="🐾" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="80.0" />
-                <Label style="-fx-font-size: 26px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: -30;" text="🐾" AnchorPane.bottomAnchor="140.0" AnchorPane.rightAnchor="190.0" />
+                <Label text="🐾"
+                       style="-fx-font-size: 28px; -fx-text-fill: #8D6E63; -fx-opacity: 0.22; -fx-rotate: -35;"
+                       AnchorPane.leftAnchor="80.0"
+                       AnchorPane.topAnchor="220.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 36px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 30;"
+                       AnchorPane.rightAnchor="60.0"
+                       AnchorPane.topAnchor="50.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 24px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: -15;"
+                       AnchorPane.rightAnchor="180.0"
+                       AnchorPane.topAnchor="130.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 30px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 45;"
+                       AnchorPane.rightAnchor="70.0"
+                       AnchorPane.topAnchor="210.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 26px; -fx-text-fill: #8D6E63; -fx-opacity: 0.22; -fx-rotate: 25;"
+                       AnchorPane.leftAnchor="120.0"
+                       AnchorPane.topAnchor="380.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 28px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -25;"
+                       AnchorPane.rightAnchor="120.0"
+                       AnchorPane.topAnchor="380.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 34px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: -40;"
+                       AnchorPane.bottomAnchor="60.0"
+                       AnchorPane.leftAnchor="70.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 24px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: 18;"
+                       AnchorPane.bottomAnchor="130.0"
+                       AnchorPane.leftAnchor="180.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 30px; -fx-text-fill: #8D6E63; -fx-opacity: 0.25; -fx-rotate: 20;"
+                       AnchorPane.bottomAnchor="80.0"
+                       AnchorPane.rightAnchor="80.0"/>
+
+                <Label text="🐾"
+                       style="-fx-font-size: 26px; -fx-text-fill: #8D6E63; -fx-opacity: 0.20; -fx-rotate: -30;"
+                       AnchorPane.bottomAnchor="140.0"
+                       AnchorPane.rightAnchor="190.0"/>
             </AnchorPane>
 
-            <VBox alignment="CENTER" style="-fx-background-color: transparent;">
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: transparent;">
+
                 <padding>
-                    <Insets bottom="30" left="20" right="20" top="30" />
+                    <Insets top="30" right="20" bottom="30" left="20"/>
                 </padding>
 
-                <VBox alignment="CENTER" maxWidth="380" spacing="18" style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+                <VBox alignment="CENTER"
+                      maxWidth="380"
+                      spacing="18"
+                      style="-fx-background-color: #FFFFFF;
+                             -fx-background-radius: 16;
+                             -fx-border-color: #F1E5D1;
+                             -fx-border-radius: 16;
+                             -fx-border-width: 1.5;
+                             -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+
                     <padding>
-                        <Insets bottom="30" left="30" right="30" top="30" />
+                        <Insets top="30" right="30" bottom="30" left="30"/>
                     </padding>
 
-                    <ImageView fitHeight="100" fitWidth="100" preserveRatio="true">
+                    <ImageView fitHeight="100"
+                               fitWidth="100"
+                               preserveRatio="true">
                         <image>
-                            <Image url="@../../images/soprap-logo.png" />
+                            <Image url="@../../images/soprap-logo.png"/>
                         </image>
                     </ImageView>
 
                     <VBox alignment="CENTER" spacing="4">
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E293B;" text="Acesso ao Sistema" />
-                        <Label style="-fx-font-size: 12px; -fx-text-fill: #64748B;" text="Sistema de Cadastro - SOPRAP" />
+                        <Label text="Acesso ao Sistema"
+                               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1E293B;"/>
+
+                        <Label text="Sistema de Cadastro - SOPRAP"
+                               style="-fx-font-size: 12px; -fx-text-fill: #64748B;"/>
                     </VBox>
 
-                    <Separator maxWidth="220" style="-fx-opacity: 0.3;" />
+                    <Separator maxWidth="220"
+                               style="-fx-opacity: 0.3;"/>
 
                     <VBox fillWidth="true" spacing="12">
                         <VBox spacing="4">
-                            <Label style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;" text="USUÁRIO *" />
-                            <ComboBox fx:id="cbUsuario" maxWidth="1.7976931348623157E308" promptText="Selecione o usuário..." style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 4; -fx-font-size: 13px;" />
+                            <Label text="USUÁRIO *"
+                                   style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;"/>
+
+                            <ComboBox fx:id="cbUsuario"
+                                      maxWidth="1.7976931348623157E308"
+                                      promptText="Selecione o usuário..."
+                                      style="-fx-background-color: #FAFAFA;
+                                             -fx-border-color: #CBD5E1;
+                                             -fx-border-radius: 8;
+                                             -fx-background-radius: 8;
+                                             -fx-padding: 4;
+                                             -fx-font-size: 13px;"/>
                         </VBox>
 
                         <VBox spacing="4">
-                            <Label style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;" text="SENHA *" />
-                            
-                            <HBox alignment="CENTER_RIGHT" style="-fx-background-color: #FAFAFA; -fx-border-color: #CBD5E1; -fx-border-radius: 8; -fx-background-radius: 8;">
+                            <Label text="SENHA *"
+                                   style="-fx-font-weight: bold; -fx-text-fill: #475569; -fx-font-size: 11px;"/>
+
+                            <HBox alignment="CENTER_RIGHT"
+                                  style="-fx-background-color: #FAFAFA;
+                                         -fx-border-color: #CBD5E1;
+                                         -fx-border-radius: 8;
+                                         -fx-background-radius: 8;">
+
                                 <StackPane HBox.hgrow="ALWAYS">
-                                    <PasswordField fx:id="txtSenha" promptText="Digite sua senha..." style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 8; -fx-font-size: 13px;" />
-                                    <TextField fx:id="txtSenhaVisivel" promptText="Digite sua senha..." visible="false" style="-fx-background-color: transparent; -fx-border-width: 0; -fx-padding: 8; -fx-font-size: 13px;" />
+                                    <PasswordField fx:id="txtSenha"
+                                                   promptText="Digite sua senha..."
+                                                   style="-fx-background-color: transparent;
+                                                          -fx-border-width: 0;
+                                                          -fx-padding: 8;
+                                                          -fx-font-size: 13px;"/>
+
+                                    <TextField fx:id="txtSenhaVisivel"
+                                               promptText="Digite sua senha..."
+                                               visible="false"
+                                               managed="false"
+                                               style="-fx-background-color: transparent;
+                                                      -fx-border-width: 0;
+                                                      -fx-padding: 8;
+                                                      -fx-font-size: 13px;"/>
                                 </StackPane>
-                                
-                                <ToggleButton fx:id="btnToggleSenha" onAction="#onToggleSenhaClick" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-padding: 0 8 0 0;">
+
+                                <ToggleButton fx:id="btnToggleSenha"
+                                              onAction="#onToggleSenhaClick"
+                                              style="-fx-background-color: transparent;
+                                                     -fx-cursor: hand;
+                                                     -fx-padding: 0 8 0 0;">
                                     <graphic>
-                                        <ImageView fx:id="imgIconeSenha" fitHeight="24" fitWidth="24" preserveRatio="true">
+                                        <ImageView fx:id="imgIconeSenha"
+                                                   fitHeight="24"
+                                                   fitWidth="24"
+                                                   preserveRatio="true">
                                             <image>
-                                                <Image url="@../../images/cachorro-olho-fechado.png" />
+                                                <Image url="@../../images/cachorro-olho-fechado.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
@@ -80,14 +184,36 @@
                         </VBox>
                     </VBox>
 
-                    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#onEntrarClick" style="-fx-background-color: #E91E63; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-size: 13px; -fx-background-radius: 8; -fx-cursor: hand;" text="Entrar">
+                    <Button text="Entrar"
+                            maxWidth="1.7976931348623157E308"
+                            minHeight="40.0"
+                            onAction="#onEntrarClick"
+                            style="-fx-background-color: #E91E63;
+                                   -fx-text-fill: #FFFFFF;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 13px;
+                                   -fx-background-radius: 8;
+                                   -fx-cursor: hand;">
                         <VBox.margin>
-                            <Insets top="6" />
+                            <Insets top="6"/>
                         </VBox.margin>
                     </Button>
                 </VBox>
-            </VBox>
 
+                <Button text="Sair do aplicativo"
+                        onAction="#onSairAplicativoClick"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #8A8178;
+                               -fx-font-size: 13px;
+                               -fx-underline: true;
+                               -fx-cursor: hand;
+                               -fx-padding: 10 12 4 12;">
+                    <VBox.margin>
+                        <Insets top="8"/>
+                    </VBox.margin>
+                </Button>
+
+            </VBox>
         </StackPane>
-    </content> 
+    </content>
 </ScrollPane>

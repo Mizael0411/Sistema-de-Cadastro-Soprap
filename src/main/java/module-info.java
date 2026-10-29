@@ -1,4 +1,5 @@
 module com.abrigo {
+    
     // Módulos do JavaFX
     requires javafx.controls;
     requires javafx.fxml;
@@ -7,6 +8,9 @@ module com.abrigo {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires java.sql;
+
+    // Módulo do BCrypt
+    requires bcrypt;
 
     // Outras dependências do projeto
     requires org.kordamp.bootstrapfx.core;
@@ -29,5 +33,6 @@ module com.abrigo {
     exports com.abrigo.model;
     exports com.abrigo.database;
     exports com.abrigo.dto;
+    exports com.abrigo.service;
     
 }

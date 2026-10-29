@@ -33,7 +33,6 @@ public class Doacao {
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
 
-    // Construtor padrão exigido pelo JPA
     public Doacao() {
     }
 
@@ -45,7 +44,6 @@ public class Doacao {
         this.descricao = descricao;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }

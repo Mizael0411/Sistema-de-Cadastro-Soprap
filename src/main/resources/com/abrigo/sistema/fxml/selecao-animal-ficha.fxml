@@ -20,21 +20,18 @@
         <URL value="@../../css/style.css" />
     </stylesheets>
 
-    <!-- Cabeçalho com Ícone Bege, Título e Subtítulo -->
     <HBox alignment="CENTER_LEFT" spacing="15.0">
         <children>
-            <!-- Caixinha Amarela/Bege arredondada com a imagem dentro -->
-            <StackPane prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12; -fx-border-radius: 12;">
+            <StackPane prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #FCE4EC; -fx-background-radius: 12; -fx-border-radius: 12;">
                 <children>
                     <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                         <image>
-                            <Image url="@../../images/historico.png" />
+                            <Image url="@../../images/histórico.png" />
                         </image>
                     </ImageView>
                 </children>
             </StackPane>
             
-            <!-- Título e Subtítulo -->
             <VBox alignment="CENTER_LEFT" spacing="2.0">
                 <children>
                     <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #1A202C;" text="Ficha Técnica do Animal" />
@@ -44,13 +41,10 @@
         </children>
     </HBox>
 
-    <!-- Topo: Campo de Pesquisa e Botão de Ação -->
     <HBox alignment="CENTER_LEFT" spacing="12.0">
         <children>
-            <!-- Campo de Busca Arredondado -->
             <TextField fx:id="txtBusca" promptText="🔍 Buscar por nome ou ID..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 8 16; -fx-font-size: 13px; -fx-prompt-text-fill: #A0AEC0;" HBox.hgrow="ALWAYS" />
             
-            <!-- Botão Ver Ficha Técnica -->
             <Button onAction="#btnVerFichaOnAction" styleClass="btn-acao, btn-ficha-tecnica" text="Ver Ficha Técnica" />
         </children>
     </HBox>

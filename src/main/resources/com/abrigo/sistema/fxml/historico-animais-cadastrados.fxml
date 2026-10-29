@@ -17,12 +17,11 @@
         <Insets bottom="30" left="30" right="30" top="30" />
     </padding>
 
-    <!-- Cabeçalho -->
     <HBox alignment="CENTER_LEFT" spacing="15">
-        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
+        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FCE4EC; -fx-background-radius: 12;">
             <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                 <image>
-                    <Image url="@../../images/historico.png" />
+                    <Image url="@../../images/histórico.png" />
                 </image>
             </ImageView>
         </StackPane>
@@ -56,8 +55,10 @@
                 <TableColumn fx:id="colunaIdadeAnimal" prefWidth="70" text="Idade" />
                 <TableColumn fx:id="colunaSexo" prefWidth="90" text="Sexo" />
                 <TableColumn fx:id="colunaStsVacinacao" prefWidth="130" text="Vacinação" />
-                <TableColumn fx:id="colunaDataUltimaVacinacao" prefWidth="150" text="Última Vacina" />
+                <TableColumn fx:id="colunaDataUltimaVacinacao" prefWidth="150" text="Última Consulta" />
                 <TableColumn fx:id="colunaStsGravidez" prefWidth="140" text="Gestação" />
+                <TableColumn fx:id="colunaDeficiencia" prefWidth="130" text="Possui Deficiência" />
+                <TableColumn fx:id="colunaDescricaoDeficiencia" prefWidth="180" text="Descrição da Deficiência" />
             </columns>
         </TableView>
     </VBox>

@@ -13,61 +13,178 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.HistoricoVacinasController">
+<VBox spacing="16"
+      style="-fx-background-color: #FAF8F5;"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.abrigo.controller.HistoricoVacinasController">
 
     <stylesheets>
-        <URL value="@../../css/style.css" />
+        <URL value="@../../css/style.css"/>
     </stylesheets>
 
     <padding>
-        <Insets bottom="30" left="30" right="30" top="30" />
+        <Insets top="24" right="28" bottom="24" left="28"/>
     </padding>
 
     <HBox alignment="CENTER_LEFT" spacing="15">
-        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+
+        <StackPane prefHeight="50"
+                   prefWidth="50"
+                   style="-fx-background-color: #FCE4EC;
+                          -fx-background-radius: 12;">
+
+            <ImageView fitHeight="30"
+                       fitWidth="30"
+                       preserveRatio="true">
                 <image>
-                    <Image url="@../../images/historico.png" />
+                    <Image url="@../../images/histórico.png"/>
                 </image>
             </ImageView>
+
         </StackPane>
+
         <VBox spacing="3">
-            <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Vacinações Cadastradas" />
-            <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Consulte e gerencie o histórico de vacinas dos animais." />
+            <Label text="Histórico de vacinação"
+                   style="-fx-font-size: 20px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2C3E50;"/>
+
+            <Label text="Consulte e gerencie o histórico de vacinas dos animais."
+                   wrapText="true"
+                   style="-fx-font-size: 13px;
+                          -fx-text-fill: #7F8C8D;"/>
         </VBox>
+
     </HBox>
 
-    <HBox alignment="CENTER_LEFT" spacing="12">
-        <HBox alignment="CENTER_LEFT" spacing="8" style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 0 12;" HBox.hgrow="ALWAYS">
-            <Label style="-fx-font-size: 14px; -fx-text-fill: #A0A0A0;" text="🔍" />
-            <TextField fx:id="txtBusca" promptText="Buscar por nome do animal, vacina ou ID..." style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 10 0; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+    <HBox spacing="10" alignment="CENTER_LEFT">
+
+        <TextField fx:id="txtBusca"
+                   promptText="Buscar animal por nome, ID ou status..."
+                   style="-fx-background-color: white;
+                          -fx-background-radius: 9;
+                          -fx-border-color: #E0E0E0;
+                          -fx-border-radius: 9;
+                          -fx-padding: 10;"
+                   HBox.hgrow="ALWAYS"/>
+
+        <Button text="+ Nova vacinação"
+                onAction="#abrirNovoRegistro"
+                styleClass="btn-acao, btn-novo"/>
+
+        <Button text="Voltar"
+                onAction="#voltar"
+                styleClass="btn-acao, btn-voltar"/>
+
+    </HBox>
+
+    <VBox spacing="12"
+          style="-fx-background-color: #FFFFFF;
+                 -fx-background-radius: 14;
+                 -fx-border-color: #E8E2D9;
+                 -fx-border-radius: 14;
+                 -fx-padding: 14;"
+          VBox.vgrow="ALWAYS">
+
+        <VBox spacing="4">
+
+            <Label text="ANIMAIS CADASTRADOS"
+                   style="-fx-font-size: 12px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #E91E63;"/>
+
+            <Label text="Selecione um animal para consultar suas vacinações."
+                   style="-fx-font-size: 12px;
+                          -fx-text-fill: #7F8C8D;"/>
+
+        </VBox>
+
+        <TableView fx:id="tabelaAnimais"
+                   prefHeight="190"
+                   minHeight="120"
+                   style="-fx-background-color: transparent;
+                          -fx-border-color: #F0ECE6;">
+
+            <columns>
+                <TableColumn fx:id="colunaIdAnimal"
+                             text="ID"
+                             prefWidth="65"/>
+
+                <TableColumn fx:id="colunaNomeAnimal"
+                             text="Nome do animal"
+                             prefWidth="200"/>
+
+                <TableColumn fx:id="colunaStatusAnimal"
+                             text="Status de vacinação"
+                             prefWidth="200"/>
+            </columns>
+
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+
+        </TableView>
+
+        <VBox spacing="4">
+
+            <Label text="VACINAÇÕES DO ANIMAL SELECIONADO"
+                   style="-fx-font-size: 12px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #E91E63;"/>
+
+            <Label text="Cada linha corresponde a um registro de vacinação."
+                   style="-fx-font-size: 12px;
+                          -fx-text-fill: #7F8C8D;"/>
+
+        </VBox>
+
+        <TableView fx:id="tabelaHistorico"
+                   minHeight="150"
+                   VBox.vgrow="ALWAYS"
+                   style="-fx-background-color: transparent;
+                          -fx-border-color: #F0ECE6;">
+
+            <columns>
+                <TableColumn fx:id="colunaId"
+                             text="ID"
+                             prefWidth="55"/>
+
+                <TableColumn fx:id="colunaVacina"
+                             text="Vacina"
+                             prefWidth="130"/>
+
+                <TableColumn fx:id="colunaDose"
+                             text="Dose"
+                             prefWidth="120"/>
+
+                <TableColumn fx:id="colunaData"
+                             text="Data de aplicação"
+                             prefWidth="125"/>
+
+                <TableColumn fx:id="colunaProximaData"
+                             text="Próxima vacinação"
+                             prefWidth="135"/>
+            </columns>
+
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+
+        </TableView>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+
+            <Button text="Editar vacinação"
+                    onAction="#editarVacina"
+                    styleClass="btn-acao, btn-editar"/>
+
+            <Button text="Excluir vacinação"
+                    onAction="#excluirVacina"
+                    styleClass="btn-acao, btn-excluir"/>
+
         </HBox>
 
-        <Button fx:id="novaVacinaButton" onAction="#abrirNovoRegistro" styleClass="btn-acao, btn-novo" text="+ Nova Vacina" />
-        <Button fx:id="editarButton" onAction="#editarVacina" styleClass="btn-acao, btn-editar" text="Editar" />
-        <Button fx:id="excluirButton" onAction="#excluirVacina" styleClass="btn-acao, btn-excluir" text="Excluir" />
-    </HBox>
-
-    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
-        <padding>
-            <Insets bottom="15" left="15" right="15" top="15" />
-        </padding>
-
-        <TableView fx:id="tabelaHistorico" style="-fx-background-color: transparent; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colunaId" prefWidth="70" text="ID" />
-                <TableColumn fx:id="colunaNomeAnimal" prefWidth="180" text="Nome" />
-                <TableColumn fx:id="colunaVacina" prefWidth="200" text="Vacina / Tipo" />
-                <TableColumn fx:id="colunaDose" prefWidth="130" text="Dose" />
-                <TableColumn fx:id="colunaData" prefWidth="150" text="Data de Aplicação" />
-            </columns>
-            <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-            </columnResizePolicy>
-        </TableView>
     </VBox>
 
-    <HBox alignment="CENTER_RIGHT">
-        <Button fx:id="voltarButton" onAction="#voltar" styleClass="btn-acao, btn-voltar" text="Voltar" />
-    </HBox>
 </VBox>

@@ -1,123 +1,256 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToWidth="true" style="-fx-background-color: #FAF8F5; -fx-background: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.CadastroAnimalController">
-    
+<ScrollPane fitToWidth="true"
+            hbarPolicy="NEVER"
+            styleClass="cadastro-scroll"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.abrigo.controller.CadastroAnimalController">
+
     <stylesheets>
-        <URL value="@../../css/style.css" />
+        <URL value="@../../css/style.css"/>
     </stylesheets>
 
     <content>
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-background-color: #FAF8F5;">
+        <VBox alignment="TOP_CENTER"
+              spacing="20"
+              styleClass="cadastro-pagina">
+
             <padding>
-                <Insets bottom="40" left="20" right="20" top="30" />
+                <Insets top="26" right="22" bottom="34" left="22"/>
             </padding>
 
-            <VBox maxWidth="791.0" prefHeight="673.0" prefWidth="791.0" spacing="22" style="-fx-background-color: #FFFFFF; -fx-background-radius: 20; -fx-border-color: #F1E5D1; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-effect: dropshadow(three-pass-box, rgba(160, 110, 50, 0.08), 16, 0, 0, 6);">
+            <VBox maxWidth="820"
+                  spacing="22"
+                  styleClass="cadastro-card">
+
                 <padding>
-                    <Insets bottom="35" left="35" right="35" top="35" />
+                    <Insets top="28" right="30" bottom="28" left="30"/>
                 </padding>
 
-                <!-- Cabeçalho -->
                 <HBox alignment="CENTER_LEFT" spacing="15">
-                    <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-                        <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+
+                    <StackPane minWidth="58" minHeight="58"
+                               prefWidth="58" prefHeight="58"
+                               styleClass="cadastro-icone">
+                        <ImageView fitWidth="36" fitHeight="36"
+                                   preserveRatio="true">
                             <image>
-                                <Image url="@../../images/pets.png" />
+                                <Image url="@../../images/pets.png"/>
                             </image>
                         </ImageView>
                     </StackPane>
 
-                    <VBox spacing="3" HBox.hgrow="ALWAYS">
-                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Cadastro de Pet" />
-                        <Label style="-fx-font-size: 13px; -fx-text-fill: #7F8C8D;" text="Preencha as informações do novo resgatado para o sistema." />
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="CUIDADO E ACOLHIMENTO"
+                               styleClass="cadastro-sobretitulo"/>
+                        <Label text="Cadastro de pet"
+                               styleClass="cadastro-titulo"/>
+                        <Label text="Registre as informações do animal para acompanhar sua jornada no abrigo."
+                               wrapText="true"
+                               styleClass="cadastro-subtitulo"/>
                     </VBox>
                 </HBox>
 
-                <Separator style="-fx-opacity: 0.3;" />
+                <Separator styleClass="cadastro-separador"/>
 
-                <!-- Formulário com posições ordenadas -->
-                <GridPane hgap="20" vgap="18">
-                    <columnConstraints>
-                        <ColumnConstraints percentWidth="50" />
-                        <ColumnConstraints percentWidth="50" />
-                    </columnConstraints>
-
-                    <!-- Linha 0: Nome do Animal (ocupando 2 colunas) -->
-                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="NOME DO ANIMAL *" />
-                        <TextField fx:id="txtNome" promptText="Ex: Pipoca, Bidu, Thor..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
+                <VBox spacing="14">
+                    <VBox spacing="4">
+                        <Label text="01  ·  Identificação"
+                               styleClass="cadastro-secao-titulo"/>
+                        <Label text="Comece pelas informações básicas do animal."
+                               styleClass="cadastro-secao-subtitulo"/>
                     </VBox>
 
-                    <!-- Linha 1: Espécie e Porte -->
-                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="ESPÉCIE *" />
-                        <ComboBox fx:id="cbEspecie" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
+                    <GridPane hgap="16" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"
+                                               hgrow="ALWAYS"/>
+                            <ColumnConstraints percentWidth="50"
+                                               hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <VBox spacing="7"
+                              GridPane.columnIndex="0"
+                              GridPane.columnSpan="2"
+                              GridPane.rowIndex="0">
+                            <Label text="Nome do animal *"
+                                   styleClass="cadastro-rotulo"/>
+                            <TextField fx:id="txtNome"
+                                       promptText="Ex.: Pipoca, Bidu, Thor..."
+                                       styleClass="input-campo"
+                                       maxWidth="Infinity"/>
+                        </VBox>
+
+                        <VBox spacing="7"
+                              GridPane.columnIndex="0"
+                              GridPane.rowIndex="1">
+                            <Label text="Espécie *"
+                                   styleClass="cadastro-rotulo"/>
+                            <ComboBox fx:id="cbEspecie"
+                                      promptText="Selecione a espécie"
+                                      maxWidth="Infinity"
+                                      styleClass="input-campo"/>
+                        </VBox>
+
+                        <VBox spacing="7"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="1">
+                            <Label text="Porte do animal *"
+                                   styleClass="cadastro-rotulo"/>
+                            <ComboBox fx:id="cbPorte"
+                                      promptText="Selecione o porte"
+                                      maxWidth="Infinity"
+                                      styleClass="input-campo"/>
+                        </VBox>
+
+                        <VBox spacing="7"
+                              GridPane.columnIndex="0"
+                              GridPane.rowIndex="2">
+                            <Label text="Sexo *"
+                                   styleClass="cadastro-rotulo"/>
+                            <ComboBox fx:id="cbSexo"
+                                      promptText="Selecione o sexo"
+                                      maxWidth="Infinity"
+                                      styleClass="input-campo"/>
+                        </VBox>
+
+                        <VBox spacing="7"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="2">
+                            <Label text="Status gestacional *"
+                                   styleClass="cadastro-rotulo"/>
+                            <ComboBox fx:id="cbGravida"
+                                      promptText="Selecione o status"
+                                      maxWidth="Infinity"
+                                      styleClass="input-campo"/>
+                        </VBox>
+
+                        <VBox spacing="7"
+                              GridPane.columnIndex="0"
+                              GridPane.rowIndex="3">
+                            <Label text="Data de nascimento (opcional)"
+                                   styleClass="cadastro-rotulo"/>
+                            <DatePicker fx:id="dpDataNascimento"
+                                        promptText="Se houver registro"
+                                        maxWidth="Infinity"
+                                        styleClass="input-campo"/>
+                        </VBox>
+
+                        <VBox spacing="7"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="3">
+                            <Label text="Idade estimada (anos) *"
+                                   styleClass="cadastro-rotulo"/>
+                            <TextField fx:id="txtIdade"
+                                       promptText="Ex.: 2"
+                                       styleClass="input-campo"
+                                       maxWidth="Infinity"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
+
+                <Separator styleClass="cadastro-separador"/>
+
+                <VBox spacing="14">
+                    <VBox spacing="4">
+                        <Label text="02  ·  Saúde"
+                               styleClass="cadastro-secao-titulo"/>
+                        <Label text="Registre a situação de vacinação e as necessidades especiais."
+                               wrapText="true"
+                               styleClass="cadastro-secao-subtitulo"/>
                     </VBox>
 
-                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="PORTE DO ANIMAL *" />
-                        <ComboBox fx:id="cbPorte" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
+                    <GridPane hgap="16" vgap="15">
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="50"
+                                               hgrow="ALWAYS"/>
+                            <ColumnConstraints percentWidth="50"
+                                               hgrow="ALWAYS"/>
+                        </columnConstraints>
 
-                    <!-- Linha 2: Sexo e Status Gestacional -->
-                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="SEXO *" />
-                        <ComboBox fx:id="cbSexo" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
+                        <VBox spacing="7"
+                              GridPane.columnIndex="0"
+                              GridPane.rowIndex="0">
+                            <Label text="Status de vacinação *"
+                                   styleClass="cadastro-rotulo"/>
+                            <ComboBox fx:id="cbVacina"
+                                      promptText="Selecione o status"
+                                      maxWidth="Infinity"
+                                      styleClass="input-campo"/>
+                        </VBox>
 
-                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="STATUS GESTACIONAL *" />
-                        <ComboBox fx:id="cbGravida" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
+                        <VBox spacing="7"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="0">
+                            <Label text="Última consulta"
+                                   styleClass="cadastro-rotulo"/>
+                            <DatePicker fx:id="dpUltimaConsulta"
+                                        promptText="Se houver registro"
+                                        maxWidth="Infinity"
+                                        styleClass="input-campo"/>
+                        </VBox>
 
-                    <!-- Linha 3: Data de Nascimento e Idade Estimada -->
-                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="DATA DE NASCIMENTO (OPCIONAL)" />
-                        <DatePicker fx:id="dpDataNascimento" maxWidth="1.7976931348623157E308" promptText="Se houver registro..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
+                        <VBox spacing="7"
+                              GridPane.columnIndex="0"
+                              GridPane.rowIndex="1">
+                            <Label text="Possui deficiência?"
+                                   styleClass="cadastro-rotulo"/>
+                            <ComboBox fx:id="cbPossuiDeficiencia"
+                                      promptText="Selecione uma opção"
+                                      maxWidth="Infinity"
+                                      styleClass="input-campo"/>
+                        </VBox>
 
-                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="IDADE ESTIMADA (ANOS) *" />
-                        <TextField fx:id="txtIdade" promptText="Ex: 2" style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10; -fx-font-size: 13px;" />
-                    </VBox>
+                        <VBox spacing="7"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="1">
+                            <Label text="Descrição da deficiência"
+                                   styleClass="cadastro-rotulo"/>
+                            <TextField fx:id="txtDescricaoDeficiencia"
+                                       promptText="Descreva, se houver"
+                                       maxWidth="Infinity"
+                                       styleClass="input-campo"/>
+                        </VBox>
+                    </GridPane>
+                </VBox>
 
-                    <!-- Linha 4: Status Vacinação e Última Consulta -->
-                    <VBox spacing="6" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="STATUS DE VACINAÇÃO *" />
-                        <ComboBox fx:id="cbVacina" maxWidth="1.7976931348623157E308" promptText="Selecione..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
+                <Separator styleClass="cadastro-separador"/>
 
-                    <VBox spacing="6" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                        <Label style="-fx-font-weight: bold; -fx-text-fill: #34495E; -fx-font-size: 12px;" text="ÚLTIMA CONSULTA / VACINA" />
-                        <DatePicker fx:id="dpUltimaConsulta" maxWidth="1.7976931348623157E308" promptText="Se houver..." style="-fx-background-color: #FAFAFA; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 6; -fx-font-size: 13px;" />
-                    </VBox>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-                </GridPane>
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Button text="Limpar campos"
+                            onAction="#limpar"
+                            styleClass="btn-acao, btn-voltar"/>
 
-                <Separator style="-fx-opacity: 0.3;" />
+                    <Button text="Ver histórico"
+                            onAction="#verHistorico"
+                            styleClass="btn-acao, btn-historico"/>
 
-                <!-- Botões -->
-                <HBox alignment="CENTER_RIGHT" spacing="12">
-                    <padding>
-                        <Insets top="10" />
-                    </padding>
-                    <Button onAction="#limpar" styleClass="btn-acao, btn-voltar" text="Limpar Campos" />
-                    <Button onAction="#verHistorico" styleClass="btn-acao, btn-historico" text="Ver Histórico" />
-                    <Button onAction="#salvar" styleClass="btn-acao, btn-novo" text="Salvar Animal" />
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <Button text="Salvar animal"
+                            onAction="#salvar"
+                            styleClass="btn-acao, btn-novo"/>
                 </HBox>
+
             </VBox>
         </VBox>
     </content>

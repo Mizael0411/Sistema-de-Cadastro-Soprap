@@ -3,6 +3,7 @@
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="20" style="-fx-background-color: #FAF8F5;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abrigo.controller.AdocoesLarTemporarioController">
@@ -15,10 +16,13 @@
         <Insets bottom="30" left="30" right="30" top="30" />
     </padding>
 
-    <!-- Cabeçalho -->
     <HBox alignment="CENTER_LEFT" spacing="15">
-        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FFF3E0; -fx-background-radius: 12;">
-            <Label style="-fx-font-size: 24px;" text="🏡" />
+        <StackPane prefHeight="50" prefWidth="50" style="-fx-background-color: #FCE4EC; -fx-background-radius: 12;">
+            <ImageView fitWidth="30" fitHeight="30" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/abrigo.png"/>
+                </image>
+            </ImageView>
         </StackPane>
         <VBox spacing="3">
             <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" text="Adoções em Lar Temporário" />
@@ -27,12 +31,12 @@
     </HBox>
 
     <HBox alignment="CENTER_LEFT" spacing="12">
-        <TextField fx:id="txtBusca" promptText="  Buscar por nome, ID ou tutor..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0;                           -fx-border-radius: 10; -fx-background-radius: 10;                           -fx-padding: 10 14; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
+        <TextField fx:id="txtBusca" promptText="  Buscar por nome, ID ou tutor..." style="-fx-background-color: #FFFFFF; -fx-border-color: #E0E0E0; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10 14; -fx-font-size: 13px;" HBox.hgrow="ALWAYS" />
 
         <Button onAction="#cancelarAdocao" styleClass="btn-acao, btn-excluir" text="Encerrar Lar Temporário" />
     </HBox>
 
-    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16;                  -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
+    <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 16; -fx-border-color: #F1E5D1; -fx-border-radius: 16; -fx-border-width: 1.5;" VBox.vgrow="ALWAYS">
         <padding>
             <Insets bottom="15" left="15" right="15" top="15" />
         </padding>

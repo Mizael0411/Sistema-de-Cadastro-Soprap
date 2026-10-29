@@ -4,11 +4,12 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,34 +27,45 @@ public class Adocao {
     @Column(name = "nome_tutor", nullable = false)
     private String nomeTutor;
 
+    @Column(name = "telefone_tutor")
+    private String telefoneTutor;
+
     @Column(name = "adocao_especial", nullable = false)
     private Boolean adocaoEspecial;
 
     @Column(name = "status_adocao", nullable = false)
     private String statusAdocao;
 
-    @OneToOne
+    @Column(name = "status_registro", nullable = false, length = 20)
+    private String statusRegistro = "ATIVA";
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_animal", nullable = false)
     private Animal animal;
 
-
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_lar_temp", nullable = true)
     private LarTemp larTemp;
-
 
     public Adocao() {
     }
 
-    public Adocao(LocalDate dataAdocao, String nomeTutor, Boolean adocaoEspecial, Animal animal, String statusAdocao, LarTemp larTemp) {
+    public Adocao(
+            LocalDate dataAdocao,
+            String nomeTutor,
+            Boolean adocaoEspecial,
+            Animal animal,
+            String statusAdocao,
+            LarTemp larTemp) {
+
         this.dataAdocao = dataAdocao;
         this.nomeTutor = nomeTutor;
         this.adocaoEspecial = adocaoEspecial;
         this.animal = animal;
         this.statusAdocao = statusAdocao;
         this.larTemp = larTemp;
+        this.statusRegistro = "ATIVA";
     }
-
 
     public Long getId() {
         return id;
@@ -79,6 +91,14 @@ public class Adocao {
         this.nomeTutor = nomeTutor;
     }
 
+    public String getTelefoneTutor() {
+        return telefoneTutor;
+    }
+
+    public void setTelefoneTutor(String telefoneTutor) {
+        this.telefoneTutor = telefoneTutor;
+    }
+
     public Boolean getAdocaoEspecial() {
         return adocaoEspecial;
     }
@@ -87,20 +107,28 @@ public class Adocao {
         this.adocaoEspecial = adocaoEspecial;
     }
 
-    public Animal getAnimal() {
-        return animal;
-    }
-
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
-    }
-
     public String getStatusAdocao() {
         return statusAdocao;
     }
 
     public void setStatusAdocao(String statusAdocao) {
         this.statusAdocao = statusAdocao;
+    }
+
+    public String getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    public void setStatusRegistro(String statusRegistro) {
+        this.statusRegistro = statusRegistro;
+    }
+
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
     }
 
     public LarTemp getLarTemp() {
