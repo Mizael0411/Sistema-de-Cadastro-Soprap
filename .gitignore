@@ -14,3 +14,4 @@ build/
 
 # SEGURANÇA: Credenciais locais (NÃO enviar ao GitHub)
 config.properties
+src/main/resources/META-INF/persistence.xml
