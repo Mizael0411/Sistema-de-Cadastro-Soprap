@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="soprap-pu" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Entidades registradas no projeto -->
+        <class>com.abrigo.model.Adocao</class>
+        <class>com.abrigo.model.Animal</class>
+        <class>com.abrigo.model.Auditoria</class>
+        <class>com.abrigo.model.Doacao</class>
+        <class>com.abrigo.model.ItemDoacao</class>
+        <class>com.abrigo.model.LarTemp</class>
+        <class>com.abrigo.model.NavigationManager</class>
+        <class>com.abrigo.model.Produto</class>
+        <class>com.abrigo.model.Usuario</class>
+        <class>com.abrigo.model.Vacina</class>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <!-- Conexão com o Supabase -->
+            <property name="jakarta.persistence.jdbc.driver"
+                      value="org.postgresql.Driver"/>
+
+            <!-- Substitua pelos dados do seu banco -->
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:postgresql://SEU_HOST:5432/postgres"/>
+
+            <property name="jakarta.persistence.jdbc.user"
+                      value="SEU_USUARIO"/>
+
+            <property name="jakarta.persistence.jdbc.password"
+                      value="SUA_SENHA"/>
+
+            <!-- Atualização automática da estrutura -->
+            <property name="hibernate.hbm2ddl.auto"
+                      value="update"/>
+
+            <!-- Logs SQL -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
