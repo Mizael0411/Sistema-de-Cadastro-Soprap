@@ -1,32 +1,23 @@
 module com.abrigo {
-    
-    // Módulos do JavaFX
+
     requires javafx.controls;
     requires javafx.fxml;
 
-    // Módulos do Banco de Dados / JPA / Hibernate
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
+
     requires java.sql;
-
-    // Módulo do BCrypt
-    requires bcrypt;
-
-    // Outras dependências do projeto
-    requires org.kordamp.bootstrapfx.core;
     requires java.desktop;
 
-    // Permite que o JavaFX acesse os FXMLs e Controllers
-    opens com.abrigo to javafx.fxml;
-    opens com.abrigo.sistema to javafx.fxml;
-    opens com.abrigo.controller to javafx.fxml;
+    requires org.apache.poi.poi;
+    requires org.apache.poi.ooxml;
 
-    // LIBERA O ACESSO DO HIBERNATE ÀS SUAS ENTIDADES (Essencial!)
-    opens com.abrigo.model to jakarta.persistence, org.hibernate.orm.core;
-    opens com.abrigo.database to jakarta.persistence;
-    opens com.abrigo.dto to org.hibernate.orm.core;
+    requires org.kordamp.bootstrapfx.core;
 
-    // Exporta os pacotes para o projeto
+    requires bcrypt;
+
+    requires com.github.librepdf.openpdf;
+
     exports com.abrigo;
     exports com.abrigo.sistema;
     exports com.abrigo.controller;
@@ -34,5 +25,18 @@ module com.abrigo {
     exports com.abrigo.database;
     exports com.abrigo.dto;
     exports com.abrigo.service;
-    
+
+    opens com.abrigo to javafx.fxml;
+    opens com.abrigo.sistema to javafx.fxml;
+    opens com.abrigo.controller to javafx.fxml;
+
+    opens com.abrigo.model to
+            jakarta.persistence,
+            org.hibernate.orm.core;
+
+    opens com.abrigo.database to
+            jakarta.persistence;
+
+    opens com.abrigo.dto to
+            org.hibernate.orm.core;
 }

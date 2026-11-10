@@ -65,7 +65,7 @@ public class RegistrarVacinasController {
                 setDisable(dataFutura);
 
                 setStyle(dataFutura
-                        ? "-fx-background-color: #f8d7da; "
+                        ? "-fx-background-color: #ffc4c4; "
                           + "-fx-text-fill: #721c24;"
                         : "");
             }
@@ -89,7 +89,7 @@ public class RegistrarVacinasController {
                     setDisable(dataPassada);
 
                     setStyle(dataPassada
-                            ? "-fx-background-color: #f8d7da; "
+                            ? "-fx-background-color: #ffc4c4; "
                               + "-fx-text-fill: #721c24;"
                             : "");
                 }

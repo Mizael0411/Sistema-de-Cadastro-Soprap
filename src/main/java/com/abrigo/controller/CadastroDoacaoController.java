@@ -116,7 +116,7 @@ public class CadastroDoacaoController {
 
                 if (date != null && date.isAfter(LocalDate.now())) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #FFEBEE;");
+                    setStyle("-fx-background-color: #ffc4c4;;");
                 }
             }
         });

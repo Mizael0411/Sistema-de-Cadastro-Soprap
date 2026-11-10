@@ -61,7 +61,7 @@ public class CadastroProdutoController {
                     setDisable(empty || dataFutura);
 
                     setStyle(dataFutura
-                            ? "-fx-background-color: #ffc4c4;"
+                            ? "-fx-background-color: #ffc4c4;;"
                             : "");
                 }
             });

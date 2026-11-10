@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="12"
+      style="-fx-background-color: #FAF8F5;"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.abrigo.controller.RelatorioDoacaoController">
+
+    <stylesheets>
+        <URL value="@../../css/style.css"/>
+    </stylesheets>
+
+    <padding>
+        <Insets top="20" right="20" bottom="15" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="12">
+
+        <StackPane prefHeight="44"
+                   prefWidth="44"
+                   minHeight="44"
+                   minWidth="44"
+                   style="-fx-background-color: #FCE4EC;
+                          -fx-background-radius: 12;">
+
+            <ImageView fitHeight="27"
+                       fitWidth="27"
+                       preserveRatio="true">
+                <image>
+                    <Image url="@../../images/doação.png"/>
+                </image>
+            </ImageView>
+        </StackPane>
+
+        <VBox spacing="3">
+            <Label fx:id="lblTitulo"
+                   style="-fx-font-size: 19px;
+                          -fx-font-weight: bold;
+                          -fx-text-fill: #2C3E50;"/>
+
+            <Label fx:id="lblSubtitulo"
+                   wrapText="true"
+                   style="-fx-font-size: 12px;
+                          -fx-text-fill: #7F8C8D;"/>
+        </VBox>
+    </HBox>
+
+    <HBox alignment="CENTER_LEFT" spacing="8">
+
+        <HBox fx:id="boxPeriodo"
+              alignment="CENTER_LEFT"
+              spacing="8"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-border-color: #E0E0E0;
+                     -fx-border-radius: 9;
+                     -fx-background-radius: 9;
+                     -fx-padding: 6 12;">
+
+            <Label text="De"
+                   style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #49383F;"/>
+            <DatePicker fx:id="dataInicio" prefWidth="140" styleClass="input-campo"/>
+
+            <Label text="Até"
+                   style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #49383F;"/>
+            <DatePicker fx:id="dataFim" prefWidth="140" styleClass="input-campo"/>
+        </HBox>
+
+        <HBox fx:id="boxSituacao"
+              alignment="CENTER_LEFT"
+              spacing="8"
+              style="-fx-background-color: #FFFFFF;
+                     -fx-border-color: #E0E0E0;
+                     -fx-border-radius: 9;
+                     -fx-background-radius: 9;
+                     -fx-padding: 6 12;">
+
+            <Label text="Situação"
+                   style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #49383F;"/>
+            <ComboBox fx:id="cbSituacao" prefWidth="190" styleClass="input-campo"/>
+        </HBox>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button fx:id="btnGerar"
+                onAction="#gerar"
+                text="Atualizar"
+                styleClass="btn-acao, btn-novo"/>
+    </HBox>
+
+    <HBox fx:id="boxIndicadores" spacing="10"/>
+
+    <VBox spacing="8"
+          minWidth="0"
+          VBox.vgrow="ALWAYS"
+          style="-fx-background-color: #FFFFFF;
+                 -fx-background-radius: 12;
+                 -fx-border-color: #F1E5D1;
+                 -fx-border-radius: 12;
+                 -fx-border-width: 1;">
+
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <Label text="Resultado"
+               style="-fx-font-size: 13px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: #2C3E50;"/>
+
+        <VBox fx:id="areaTabelas" spacing="0" minHeight="150" VBox.vgrow="ALWAYS"/>
+
+        <Label fx:id="lblStatus"
+               wrapText="true"
+               style="-fx-font-size: 11px;
+                      -fx-text-fill: #7F8C8D;"/>
+    </VBox>
+
+    <HBox alignment="CENTER_LEFT" minHeight="35" spacing="8">
+
+        <Label text="Exportar:"
+               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #49383F;"/>
+
+        <Button fx:id="btnExcel"
+                onAction="#exportarExcel"
+                text="Excel"
+                styleClass="btn-acao, btn-excel"/>
+
+        <Button fx:id="btnPdf"
+                onAction="#exportarPdf"
+                text="PDF"
+                styleClass="btn-acao, btn-pdf"/>
+
+        <Button fx:id="btnGoogle"
+                onAction="#exportarGoogle"
+                text="Google Planilhas"
+                styleClass="btn-acao, btn-google"/>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Button onAction="#voltar"
+                text="Voltar"
+                styleClass="btn-acao, btn-voltar"/>
+    </HBox>
+
+</VBox>

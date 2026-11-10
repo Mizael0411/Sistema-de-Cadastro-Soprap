@@ -833,3 +833,105 @@
     -fx-background-color: #FFE6F0;
     -fx-text-fill: #B3125F;
 }
+
+.btn-excel {
+    -fx-background-color: #DCFCE7;
+    -fx-text-fill: #15803D;
+    -fx-border-color: #BBF7D0;
+    -fx-padding: 0 18px;
+}
+
+.btn-excel:hover {
+    -fx-background-color: #BBF7D0;
+    -fx-text-fill: #166534;
+    -fx-border-color: #86EFAC;
+}
+
+.btn-pdf {
+    -fx-background-color: #FFEBEE;
+    -fx-text-fill: #C62828;
+    -fx-border-color: #FFCDD2;
+    -fx-padding: 0 18px;
+}
+
+.btn-pdf:hover {
+    -fx-background-color: #FFCDD2;
+    -fx-text-fill: #B71C1C;
+    -fx-border-color: #EF9A9A;
+}
+
+.btn-google {
+    -fx-background-color: #E8F0FE;
+    -fx-text-fill: #1A56DB;
+    -fx-border-color: #C7DBFB;
+    -fx-padding: 0 18px;
+}
+
+.btn-google:hover {
+    -fx-background-color: #C7DBFB;
+    -fx-text-fill: #1344B0;
+    -fx-border-color: #9DBFF7;
+}
+
+.btn-acao:disabled {
+    -fx-opacity: 0.45;
+}
+
+.kpi-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-border-color: #F1E5D1;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 14px;
+}
+
+.kpi-rotulo {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7F8C8D;
+}
+
+.kpi-valor {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2C3E50;
+}
+
+.kpi-positivo {
+    -fx-text-fill: #15803D;
+}
+
+.kpi-negativo {
+    -fx-text-fill: #C62828;
+}
+
+.relatorio-abas > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.relatorio-abas .tab {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px 8px 0 0;
+    -fx-border-color: #F1DFE6;
+    -fx-border-radius: 8px 8px 0 0;
+    -fx-padding: 4px 12px;
+}
+
+.relatorio-abas .tab:selected {
+    -fx-background-color: #FFE6F0;
+    -fx-border-color: #D81B7A #D81B7A transparent #D81B7A;
+}
+
+.relatorio-abas .tab .tab-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6F5F67;
+}
+
+.relatorio-abas .tab:selected .tab-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #B3125F;
+}
+
+.relatorio-abas > .tab-content-area {
+    -fx-background-color: transparent;
+}

@@ -15,12 +15,12 @@
     </padding>
 
     <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelFinanceiro" styleClass="menu-btn" text="Relatório Financeiro" />
-    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelDoacao" styleClass="menu-btn" text="Relatório de Doação" />
-    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelAdocao" styleClass="menu-btn" text="Relatório de Adoção" />
-    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelAnimais" styleClass="menu-btn" text="Relatório Animais (Lar, Doado)" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelDoacao" styleClass="menu-btn" text="Relatório de Doações" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelAdocao" styleClass="menu-btn" text="Relatório de Adoções" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#abrirRelAnimais" styleClass="menu-btn" text="Relatório de Animais" />
 
     <VBox prefHeight="16" />
 
-    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#sair" styleClass="menu-btn" style="-fx-text-fill: #E74C3C;" text="Voltar" />
+    <Button maxWidth="1.7976931348623157E308" minHeight="40.0" onAction="#sair" styleClass="menu-btn" style="-fx-font-weight: bold; -fx-text-fill: #E74C3C;" text="Voltar" />
 
 </VBox>
