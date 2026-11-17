@@ -1,6 +1,14 @@
 # Maven (Builds gerados localmente)
 target/
 
+# JavaFX: SDK baixado localmente (cada dev instala o seu)
+openjfx-*/
+
+# Binários e arquivos gerados localmente
+Sistema-de-Cadastro-Soprap.jar
+Sistema-de-Cadastro-Soprap.exe
+soprap.xml
+
 # IDE: VS Code
 .vscode/
 
