@@ -14,6 +14,10 @@ jobs:
 
       - name: Consultar o banco
         env:
-          DATABASE_URL: ${{ secrets.SUPABASE_DB_URL }}
-        run: |
-          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -c "select count(*) as animais from public.animal;"
+          PGHOST: aws-0-sa-east-1.pooler.supabase.com
+          PGPORT: "6543"
+          PGDATABASE: postgres
+          PGUSER: ${{ secrets.SUPABASE_DB_USER }}
+          PGPASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          PGSSLMODE: require
+        run: psql -v ON_ERROR_STOP=1 -c "select count(*) as animais from public.animal;"
