@@ -16,13 +16,13 @@ public class GeradorSenha {
 
         char[] senha = console.readPassword("Digite a senha inicial da administradora: ");
 
-        if(senha == null || senha.length < 12) {
-            System.err.println("Use uma senha com pelo menos 12 caracteres.");
+        if(senha == null || senha.length < 6) {
+            System.err.println("Use uma senha com pelo menos 6 caracteres.");
             return;
         }
 
         try {
-            String hash = BCrypt.withDefaults().hashToString(12, senha);
+            String hash = BCrypt.withDefaults().hashToString(6, senha);
             System.out.println("Hash gerado:");
             System.out.println(hash);
         } finally {
